@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Waves.UI.Drawing.Charting</id>
+    <version>{$NUGETVERSION}</version>
+    <authors>Waves</authors>
+    <owners>Waves</owners>
+    <licenseUrl>https://ambertape.ru</licenseUrl>
+    <projectUrl>https://ambertape.ru</projectUrl>
+    <icon>files\logo.png</icon>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Waves UI drawing library.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2019-2020</copyright>
+    <tags>Waves ui drawing charting</tags>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="Waves.UI" version="[2020.1.1,2020.2)" />
+        <dependency id="Waves.UI.Drawing" version="[2020.1.1,2020.2)" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework=".NETCoreApp3.1">
+        <frameworkReference name="Microsoft.NETCore.App" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+  	<file src="..\..\files\logo.png" target="files\" />
+    <file src="..\..\bin\AnyCPU\release\netcoreapp3.1\Waves.UI.Drawing.Charting.dll" target="lib\netcoreapp3.1"/>
+    <file src="..\..\bin\AnyCPU\release\netcoreapp3.1\Waves.UI.Drawing.Charting.xml" target="lib\netcoreapp3.1"/>
+    <file src="..\..\bin\x86\release\netcoreapp3.1\Waves.UI.Drawing.Charting.dll" target="build\x86"/>
+    <file src="..\..\bin\x86\release\netcoreapp3.1\Waves.UI.Drawing.Charting.xml" target="build\x86"/>
+    <file src="..\..\bin\x64\release\netcoreapp3.1\Waves.UI.Drawing.Charting.dll" target="build\x64"/>
+    <file src="..\..\bin\x64\release\netcoreapp3.1\Waves.UI.Drawing.Charting.xml" target="build\x64"/>
+  </files>
+</package>
