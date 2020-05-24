@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Waves.UI", "..\sources\Waves.UI\Waves.UI.csproj", "{B8ECF9B4-ED14-467E-88B4-73D45A1C8964}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Waves.UI.Drawing", "..\sources\Waves.UI.Drawing\Waves.UI.Drawing.csproj", "{EB31D86A-829A-43B2-8651-EA587515A02F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Waves.UI.Drawing.Charting", "..\sources\Waves.UI.Drawing.Charting\Waves.UI.Drawing.Charting.csproj", "{4033E9AC-CF40-44AB-924B-D8311E770D54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8ECF9B4-ED14-467E-88B4-73D45A1C8964}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8ECF9B4-ED14-467E-88B4-73D45A1C8964}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8ECF9B4-ED14-467E-88B4-73D45A1C8964}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8ECF9B4-ED14-467E-88B4-73D45A1C8964}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB31D86A-829A-43B2-8651-EA587515A02F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB31D86A-829A-43B2-8651-EA587515A02F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB31D86A-829A-43B2-8651-EA587515A02F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB31D86A-829A-43B2-8651-EA587515A02F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4033E9AC-CF40-44AB-924B-D8311E770D54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4033E9AC-CF40-44AB-924B-D8311E770D54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4033E9AC-CF40-44AB-924B-D8311E770D54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4033E9AC-CF40-44AB-924B-D8311E770D54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

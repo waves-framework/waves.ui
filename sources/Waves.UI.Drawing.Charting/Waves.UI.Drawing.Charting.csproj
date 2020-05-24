@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Waves.UI.Drawing\Waves.UI.Drawing.csproj" />
+      <ProjectReference Include="..\Waves.UI\Waves.UI.csproj" />
+    </ItemGroup>
+
+</Project>
