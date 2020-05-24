@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="../../props/Waves.UI.props" />
+
+    <ItemGroup>
+      <PackageReference Include="Waves.Core.Base" Version="2020.1.156" />
+    </ItemGroup>
+
+</Project>

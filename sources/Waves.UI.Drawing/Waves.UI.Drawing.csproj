@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Waves.Core" Version="2020.1.156" />
+      <PackageReference Include="Waves.Presentation" Version="2020.1.29" />
+    </ItemGroup>
+
+</Project>
