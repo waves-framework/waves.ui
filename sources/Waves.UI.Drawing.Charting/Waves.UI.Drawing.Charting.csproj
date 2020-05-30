@@ -1,9 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-        <Platforms>AnyCPU;x86;x64</Platforms>
-    </PropertyGroup>
+    <Import Project="../../props/Waves.UI.props" />
 
     <ItemGroup>
       <ProjectReference Include="..\Waves.UI.Drawing\Waves.UI.Drawing.csproj" />
