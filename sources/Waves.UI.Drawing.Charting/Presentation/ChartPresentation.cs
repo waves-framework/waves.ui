@@ -100,15 +100,15 @@ namespace Waves.UI.Drawing.Charting.Presentation
         {
             if (!(DataContext is IChartViewModel context)) return;
 
-            context.Background = ThemeService.SelectedTheme.GetPrimaryColor(100);
-            context.BorderColor = ThemeService.SelectedTheme.GetPrimaryColor(900);
-            context.XAxisZeroLineColor = ThemeService.SelectedTheme.GetPrimaryColor(900);
-            context.XAxisPrimaryTicksColor = ThemeService.SelectedTheme.GetPrimaryColor(700);
-            context.XAxisAdditionalTicksColor = ThemeService.SelectedTheme.GetPrimaryColor(500);
-            context.YAxisZeroLineColor = ThemeService.SelectedTheme.GetPrimaryColor(900);
-            context.YAxisPrimaryTicksColor = ThemeService.SelectedTheme.GetPrimaryColor(700);
-            context.YAxisAdditionalTicksColor = ThemeService.SelectedTheme.GetPrimaryColor(500);
-            context.Foreground = ThemeService.SelectedTheme.GetPrimaryForegroundColor(100);
+            context.Background = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(100);
+            context.BorderColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(900);
+            context.XAxisZeroLineColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(900);
+            context.XAxisPrimaryTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(700);
+            context.XAxisAdditionalTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(500);
+            context.YAxisZeroLineColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(900);
+            context.YAxisPrimaryTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(700);
+            context.YAxisAdditionalTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(500);
+            context.Foreground = ThemeService.SelectedTheme.PrimaryColorSet.GetForegroundColor(100);
 
             context.TextStyle.FontFamily = "#Lato Regular";
             context.TextStyle.FontSize = 12;

@@ -2,6 +2,9 @@
 
 namespace Waves.UI.Drawing.Charting.View.Interface
 {
+    /// <summary>
+    /// Interface of chart view element.
+    /// </summary>
     public interface IChartView : IDrawingElementView
     {
         /// <summary>
