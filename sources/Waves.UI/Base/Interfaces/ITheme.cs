@@ -1,3 +1,4 @@
+using System;
 using Waves.Core.Base.Interfaces;
 
 namespace Waves.UI.Base.Interfaces
@@ -8,9 +9,14 @@ namespace Waves.UI.Base.Interfaces
     public interface ITheme : IObject
     {
         /// <summary>
-        /// Gets or sets whether service sets dark scheme.
+        /// Primary color set changed event.
         /// </summary>
-        bool UseDarkScheme { get; set; }
+        event EventHandler PrimaryColorSetChanged;
+        
+        /// <summary>
+        /// Gets or sets whether theme is using dark primary color set.
+        /// </summary>
+        bool UseDarkSet { get; set; }
         
         /// <summary>
         /// Gets light color set.
