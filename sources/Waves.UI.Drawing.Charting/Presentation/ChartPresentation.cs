@@ -66,7 +66,7 @@ namespace Waves.UI.Drawing.Charting.Presentation
             base.Dispose();
 
             if (ThemeService != null)
-                ThemeService.PropertyChanged -= OnThemeServicePropertyChanged;
+                ThemeService.ThemeChanged -= OnThemeChanged;
 
             if (DrawingService != null)
                 DrawingService.EngineChanged -= OnDrawingServiceEngineChanged;
@@ -120,25 +120,22 @@ namespace Waves.UI.Drawing.Charting.Presentation
         private void SubscribeEvents()
         {
             if (ThemeService != null)
-                ThemeService.PropertyChanged += OnThemeServicePropertyChanged;
+                ThemeService.ThemeChanged += OnThemeChanged;
 
             if (DrawingService != null)
                 DrawingService.EngineChanged += OnDrawingServiceEngineChanged;
         }
 
         /// <summary>
-        ///     Actions when theme service property changed.
+        /// Actions when theme service theme changed.
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Arguments.</param>
-        private void OnThemeServicePropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnThemeChanged(object? sender, EventArgs e)
         {
-            if (e.PropertyName == "SelectedTheme")
-            {
-                InitializeColors();
+            InitializeColors();
 
-                DataContextBackingField.Update();
-            }
+            DataContextBackingField.Update();
         }
     }
 }
