@@ -3,6 +3,9 @@ using Waves.Core.Base;
 
 namespace Waves.UI.Drawing.Charting.Utils
 {
+    /// <summary>
+    /// Data resampling utils.
+    /// </summary>
     public class Resampling
     {
         /// <summary>
