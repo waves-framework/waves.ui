@@ -1,72 +1,30 @@
-﻿using System;
-using Waves.Core.Base;
 using Waves.Core.Base.Interfaces;
 
 namespace Waves.UI.Base.Interfaces
 {
     /// <summary>
-    ///     Interface of theme.
+    /// Interface of theme group.
     /// </summary>
-    public interface ITheme : IObservableObject
+    public interface ITheme : IObject
     {
         /// <summary>
-        ///     Gets whether theme is dark.
+        /// Gets light color set.
         /// </summary>
-        bool IsDark { get; }
-
+        IPrimaryColorSet LightColorSet { get; }
+        
         /// <summary>
-        ///     Gets theme ID.
+        /// Gets dark color set.
         /// </summary>
-        Guid Id { get; }
-
+        IPrimaryColorSet DarkColorSet { get; }
+        
         /// <summary>
-        ///     Gets theme name.
+        /// Gets accent color set.
         /// </summary>
-        string Name { get; }
-
+        IAccentColorSet AccentColorSet { get; }
+        
         /// <summary>
-        ///     Gets example of primary color.
+        /// Gets miscellaneous color set.
         /// </summary>
-        Color PrimaryExampleColor { get; }
-
-        /// <summary>
-        ///     Gets example of accent color.
-        /// </summary>
-        Color AccentExampleColor { get; }
-
-        /// <summary>
-        ///     Gets primary color by weight.
-        /// </summary>
-        /// <param name="weight">Weight.</param>
-        /// <returns>Color.</returns>
-        Color GetPrimaryColor(int weight);
-
-        /// <summary>
-        ///     Gets primary foreground color by weight.
-        /// </summary>
-        /// <param name="weight">Weight.</param>
-        /// <returns>Color.</returns>
-        Color GetPrimaryForegroundColor(int weight);
-
-        /// <summary>
-        ///     Gets accent color by weight.
-        /// </summary>
-        /// <param name="weight">Weight.</param>
-        /// <returns>Color.</returns>
-        Color GetAccentColor(int weight);
-
-        /// <summary>
-        ///     Gets accent foreground color by weight.
-        /// </summary>
-        /// <param name="weight">Weight.</param>
-        /// <returns>Color.</returns>
-        Color GetAccentForegroundColor(int weight);
-
-        /// <summary>
-        ///     Gets miscellaneous color by key.
-        /// </summary>
-        /// <param name="key">Color key.</param>
-        /// <returns>Color.</returns>
-        Color GetMiscellaneousColor(string key);
+        IMiscellaneousColorSet MiscellaneousColorSet { get; }
     }
 }

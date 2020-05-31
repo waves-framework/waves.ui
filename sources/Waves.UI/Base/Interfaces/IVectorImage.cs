@@ -3,9 +3,9 @@
 namespace Waves.UI.Base.Interfaces
 {
     /// <summary>
-    ///     Interface for vector icon.
+    ///     Interface for vector image.
     /// </summary>
-    public interface IVectorIcon
+    public interface IVectorImage
     {
         /// <summary>
         ///     Gets name.
@@ -13,17 +13,17 @@ namespace Waves.UI.Base.Interfaces
         string Name { get; }
 
         /// <summary>
-        ///     Gets width of icon.
+        ///     Gets width of image.
         /// </summary>
         double Width { get; }
 
         /// <summary>
-        ///     Gets height of icon.
+        ///     Gets height of image.
         /// </summary>
         double Height { get; }
 
         /// <summary>
-        ///     Gets icon padding.
+        ///     Gets image padding.
         /// </summary>
         /// <remarks>
         ///     Not all vector images are centered.

@@ -10,6 +10,11 @@ namespace Waves.UI.Services.Interfaces
     public interface IThemeService : IService
     {
         /// <summary>
+        /// Gets or sets whether service sets dark scheme.
+        /// </summary>
+        bool UseDarkScheme { get; set; }
+        
+        /// <summary>
         ///     Gets or sets whether service sets automatic color scheme.
         /// </summary>
         bool UseAutomaticScheme { get; set; }
@@ -22,6 +27,6 @@ namespace Waves.UI.Services.Interfaces
         /// <summary>
         ///     Gets themes collection.
         /// </summary>
-        ObservableCollection<ITheme> Themes { get; }
+        ObservableCollection<ITheme> Theme { get; }
     }
 }
