@@ -8,15 +8,15 @@ namespace Waves.UI.Base.Interfaces
     public interface ITheme : IObject
     {
         /// <summary>
-        /// Gets light color set.
+        /// Gets or sets whether service sets dark scheme.
         /// </summary>
-        IPrimaryColorSet LightColorSet { get; }
+        bool UseDarkScheme { get; set; }
         
         /// <summary>
-        /// Gets dark color set.
+        /// Gets light color set.
         /// </summary>
-        IPrimaryColorSet DarkColorSet { get; }
-        
+        IPrimaryColorSet PrimaryColorSet { get; }
+
         /// <summary>
         /// Gets accent color set.
         /// </summary>
