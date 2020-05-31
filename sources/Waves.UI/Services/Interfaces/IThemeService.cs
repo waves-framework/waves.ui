@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using Waves.Core.Base.Interfaces;
 using Waves.UI.Base.Interfaces;
 
@@ -9,6 +10,11 @@ namespace Waves.UI.Services.Interfaces
     /// </summary>
     public interface IThemeService : IService
     {
+        /// <summary>
+        /// Theme changed event.
+        /// </summary>
+        event EventHandler ThemeChanged;
+        
         /// <summary>
         /// Gets or sets whether service sets dark scheme.
         /// </summary>
