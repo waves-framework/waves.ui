@@ -2,7 +2,7 @@
 using Waves.Presentation.Interfaces;
 using Waves.UI.Modality.Base.Interfaces;
 
-namespace Waves.UI.Modality.Presentation.ViewModel.Interfaces
+namespace Waves.UI.Modality.ViewModel.Interfaces
 {
     /// <summary>
     ///     Interface for modality window presentation view model.

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Waves.Presentation.Base;
 using Waves.UI.Modality.Base.Interfaces;
-using Waves.UI.Modality.Presentation.ViewModel.Interfaces;
+using Waves.UI.Modality.ViewModel.Interfaces;
 
-namespace Waves.UI.Modality.Presentation.ViewModel
+namespace Waves.UI.Modality.ViewModel
 {
     /// <summary>
     /// Base abstract modality window presentation view model.

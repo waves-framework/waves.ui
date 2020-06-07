@@ -1,6 +1,6 @@
 ﻿using Waves.UI.Base.Interfaces;
 
-namespace Waves.UI.Modality.Presentation.ViewModel
+namespace Waves.UI.Modality.ViewModel
 {
     /// <summary>
     /// Message modal window presentation view model.
