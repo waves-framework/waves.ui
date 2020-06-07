@@ -1,5 +1,6 @@
 using System;
 using Waves.Core.Base.Interfaces;
+using Waves.UI.Services.Interfaces;
 
 namespace Waves.UI.Base.Interfaces
 {
@@ -21,16 +22,16 @@ namespace Waves.UI.Base.Interfaces
         /// <summary>
         /// Gets light color set.
         /// </summary>
-        IPrimaryColorSet PrimaryColorSet { get; }
+        IWeightColorSet PrimaryColorSet { get; }
 
         /// <summary>
         /// Gets accent color set.
         /// </summary>
-        IAccentColorSet AccentColorSet { get; }
+        IWeightColorSet AccentColorSet { get; }
         
         /// <summary>
         /// Gets miscellaneous color set.
         /// </summary>
-        IMiscellaneousColorSet MiscellaneousColorSet { get; }
+        IKeyColorSet MiscellaneousColorSet { get; }
     }
 }

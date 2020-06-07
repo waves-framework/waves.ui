@@ -1,12 +1,12 @@
 using Waves.Core.Base;
 using Waves.Core.Base.Interfaces;
 
-namespace Waves.UI.Base.Interfaces
+namespace Waves.UI.Services.Interfaces
 {
     /// <summary>
-    /// Interface of miscellaneous color set.
+    /// Interface of key color set.
     /// </summary>
-    public interface IMiscellaneousColorSet: IObject
+    public interface IKeyColorSet: IObject
     {
         /// <summary>
         ///     Gets color by key.
