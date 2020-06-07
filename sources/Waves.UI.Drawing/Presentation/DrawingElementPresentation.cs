@@ -4,11 +4,11 @@ using Waves.Core.Services.Interfaces;
 using Waves.Presentation.Interfaces;
 using Waves.UI.Drawing.Presentation.Interfaces;
 using Waves.UI.Drawing.Services.Interfaces;
+using Waves.UI.Drawing.View.Interfaces;
 using Waves.UI.Drawing.ViewModel;
 using Waves.UI.Drawing.ViewModel.Interfaces;
-using Waves.UI.Windows.Controls.Drawing.View.Interfaces;
 
-namespace Waves.UI.Windows.Controls.Drawing.Presentation
+namespace Waves.UI.Drawing.Presentation
 {
     /// <summary>
     ///     Drawing element presentation.

@@ -1,5 +1,5 @@
 ﻿using Waves.Core.Services.Interfaces;
-using Waves.UI.Windows.Controls.Drawing.View.Interfaces;
+using Waves.UI.Drawing.View.Interfaces;
 
 namespace Waves.UI.Drawing.Base.Interfaces
 {

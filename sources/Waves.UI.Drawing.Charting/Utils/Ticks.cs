@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Waves.Core.Base;
+using Waves.UI.Drawing.Base;
 using Waves.UI.Drawing.Charting.Base;
 using Waves.UI.Drawing.Charting.Base.Enums;
-using Waves.UI.Windows.Controls.Drawing.Base;
 
 namespace Waves.UI.Drawing.Charting.Utils
 {
