@@ -1,22 +1,22 @@
 using System;
 using System.Collections.Generic;
 using Waves.Core.Base;
-using Waves.UI.Base.Interfaces;
+using Waves.UI.Services.Interfaces;
 using Object = Waves.Core.Base.Object;
 
-namespace Waves.UI.Base
+namespace Waves.UI.Services
 {
     /// <summary>
-    /// Primary color set's abstraction.
+    /// Miscellaneous color set abstraction.
     /// </summary>
-    public abstract class PrimaryColorSet: Object, IPrimaryColorSet
+    public class MiscellaneousColorSet : Object, IKeyColorSet
     {
         /// <summary>
-        /// Creates new instance of <see cref="PrimaryColorSet"/>.
+        /// Creates new instance of <see cref="MiscellaneousColorSet"/>.
         /// </summary>
         /// <param name="id">Color set's ID.</param>
         /// <param name="name">Color set's name.</param>
-        protected PrimaryColorSet(Guid id, string name)
+        protected MiscellaneousColorSet(Guid id, string name)
         {
             Id = id;
             Name = name;
@@ -28,32 +28,29 @@ namespace Waves.UI.Base
         /// <inheritdoc />
         public sealed override string Name { get; set; }
 
-        /// <inheritdoc />
-        public Color ColorExample => GetColor(100);
-        
         /// <summary>
         /// Gets color dictionary.
         /// </summary>
-        protected Dictionary<int, Color> ColorDictionary { get; } = new Dictionary<int, Color>();
+        protected Dictionary<string, Color> ColorDictionary { get; } = new Dictionary<string, Color>();
         
         /// <summary>
         /// Gets foreground color dictionary.
         /// </summary>
-        protected Dictionary<int, Color> ForegroundColorDictionary { get; } = new Dictionary<int, Color>();
+        protected Dictionary<string, Color> ForegroundColorDictionary { get; } = new Dictionary<string, Color>();
         
         /// <inheritdoc />
-        public Color GetColor(int weight)
+        public Color GetColor(string key)
         {
-            if (ColorDictionary.ContainsKey(500))
-                return ColorDictionary[weight];
+            if (ColorDictionary.ContainsKey(key))
+                return ColorDictionary[key];
 
             return Color.Transparent;
         }
 
         /// <inheritdoc />
-        public Color GetForegroundColor(int weight)
+        public Color GetForegroundColor(string key)
         {
-            return ForegroundColorDictionary[weight];
+            return ForegroundColorDictionary[key];
         }
         
         /// <inheritdoc />

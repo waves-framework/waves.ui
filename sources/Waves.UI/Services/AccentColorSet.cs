@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Waves.Core.Base;
-using Waves.UI.Base.Interfaces;
+using Waves.UI.Services.Interfaces;
 using Object = Waves.Core.Base.Object;
 
-namespace Waves.UI.Base
+namespace Waves.UI.Services
 {
     /// <summary>
     /// Accent color set abstraction.
     /// </summary>
-    public abstract class AccentColorSet : Object, IAccentColorSet
+    public abstract class AccentColorSet : Object, IWeightColorSet
     {
         /// <summary>
         /// Creates new instance of <see cref="AccentColorSet"/>.

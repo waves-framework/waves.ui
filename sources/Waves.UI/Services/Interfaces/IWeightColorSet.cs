@@ -1,27 +1,27 @@
 using Waves.Core.Base;
 using Waves.Core.Base.Interfaces;
 
-namespace Waves.UI.Base.Interfaces
+namespace Waves.UI.Services.Interfaces
 {
     /// <summary>
-    /// Interface of accent color set.
+    /// Interface of weight color set.
     /// </summary>
-    public interface IAccentColorSet: IObject
+    public interface IWeightColorSet: IObject
     {
         /// <summary>
-        ///     Gets example of accent color.
+        ///     Gets example color.
         /// </summary>
         Color ColorExample { get; }
         
         /// <summary>
-        ///     Gets accent color by weight.
+        ///     Gets color by weight.
         /// </summary>
         /// <param name="weight">Weight.</param>
         /// <returns>Color.</returns>
         Color GetColor(int weight);
 
         /// <summary>
-        ///     Gets accent foreground color by weight.
+        ///     Gets foreground color by weight.
         /// </summary>
         /// <param name="weight">Weight.</param>
         /// <returns>Color.</returns>
