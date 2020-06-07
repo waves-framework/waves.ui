@@ -2,9 +2,9 @@
 using Waves.Presentation.Interfaces;
 using Waves.UI.Base.Interfaces;
 using Waves.UI.Modality.Base.Interfaces;
+using Waves.UI.Modality.Extensions;
 using Waves.UI.Modality.Presentation.Enums;
-using Waves.UI.Modality.Presentation.Extensions;
-using Waves.UI.Modality.Presentation.ViewModel;
+using Waves.UI.Modality.ViewModel;
 
 namespace Waves.UI.Modality.Presentation
 {

@@ -1,7 +1,7 @@
 ﻿using Waves.UI.Modality.Base.Interfaces;
 using Waves.UI.Modality.Presentation.Interfaces;
 
-namespace Waves.UI.Modality.Presentation.Extensions
+namespace Waves.UI.Modality.Extensions
 {
     /// <summary>
     ///     Modality windows actions extensions.
