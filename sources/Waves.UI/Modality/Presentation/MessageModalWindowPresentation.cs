@@ -15,6 +15,17 @@ namespace Waves.UI.Modality.Presentation
     {
         private IPresentationViewModel _dataContext;
 
+        /// <summary>
+        /// Creates new instance of <see cref="MessageModalWindowPresentation"/>.
+        /// </summary>
+        /// <param name="title">Title.</param>
+        /// <param name="message">Message.</param>
+        protected MessageModalWindowPresentation(string title, string message)
+        {
+            Title = title;
+            Message = message;
+        }
+
         /// <inheritdoc />
         public abstract override IVectorImage Icon { get; }
 
@@ -51,5 +62,11 @@ namespace Waves.UI.Modality.Presentation
                 this.AddAction(action);
             }
         }
+
+        /// <summary>
+        /// Initializes icon.
+        /// </summary>
+        /// <param name="icon">Icon type.</param>
+        protected abstract void InitializeIcon(MessageIcon icon);
     }
 }
