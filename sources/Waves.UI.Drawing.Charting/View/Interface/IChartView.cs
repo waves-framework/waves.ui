@@ -1,4 +1,4 @@
-﻿using Waves.UI.Windows.Controls.Drawing.View.Interfaces;
+﻿using Waves.UI.Drawing.View.Interfaces;
 
 namespace Waves.UI.Drawing.Charting.View.Interface
 {
