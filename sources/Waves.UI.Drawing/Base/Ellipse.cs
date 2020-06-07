@@ -1,5 +1,4 @@
 ﻿using Waves.UI.Drawing.Base.Interfaces;
-using Waves.UI.Windows.Controls.Drawing.Base;
 
 namespace Waves.UI.Drawing.Base
 {

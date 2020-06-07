@@ -8,7 +8,6 @@ using Waves.UI.Drawing.Charting.Base.Enums;
 using Waves.UI.Drawing.Charting.Base.Interfaces;
 using Waves.UI.Drawing.Charting.Utils;
 using Waves.UI.Drawing.Charting.ViewModel.Interfaces;
-using Waves.UI.Windows.Controls.Drawing.Base;
 
 namespace Waves.UI.Drawing.Charting.ViewModel
 {

@@ -1,7 +1,7 @@
 ﻿using Waves.Core.Base;
 using Waves.UI.Drawing.Base.Interfaces;
 
-namespace Waves.UI.Windows.Controls.Drawing.Base
+namespace Waves.UI.Drawing.Base
 {
     /// <summary>
     ///     Base paint.
