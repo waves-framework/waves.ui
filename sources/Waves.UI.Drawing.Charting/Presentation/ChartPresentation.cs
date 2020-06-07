@@ -1,12 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
+using Waves.Core.Base;
+using Waves.Core.Base.Enums;
 using Waves.Core.Services.Interfaces;
 using Waves.Presentation.Interfaces;
 using Waves.UI.Drawing.Charting.Presentation.Interfaces;
 using Waves.UI.Drawing.Charting.View.Interface;
 using Waves.UI.Drawing.Charting.ViewModel.Interfaces;
 using Waves.UI.Drawing.Services.Interfaces;
-using Waves.UI.Services;
 using Waves.UI.Services.Interfaces;
 
 namespace Waves.UI.Drawing.Charting.Presentation
@@ -112,6 +112,8 @@ namespace Waves.UI.Drawing.Charting.Presentation
 
             context.TextStyle.FontFamily = "#Lato Regular";
             context.TextStyle.FontSize = 12;
+
+            OnMessageReceived(new Message("Chart colors", "Chart colors were changed", "Chart", MessageType.Success));
         }
 
         /// <summary>
@@ -127,11 +129,11 @@ namespace Waves.UI.Drawing.Charting.Presentation
         }
 
         /// <summary>
-        /// Actions when theme service theme changed.
+        ///     Actions when theme service theme changed.
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Arguments.</param>
-        private void OnThemeChanged(object? sender, EventArgs e)
+        private void OnThemeChanged(object sender, EventArgs e)
         {
             InitializeColors();
 
