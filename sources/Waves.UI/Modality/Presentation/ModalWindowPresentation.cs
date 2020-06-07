@@ -39,12 +39,12 @@ namespace Waves.UI.Modality.Presentation
         public abstract override IPresentationView View { get; }
 
         /// <inheritdoc />
-        public ICollection<IModalWindowAction> Actions { get; private set; } = new ObservableCollection<IModalWindowAction>();
+        public ICollection<IModalWindowAction> Actions { get; protected set; } = new ObservableCollection<IModalWindowAction>();
 
         /// <summary>
         /// Command to "Close Window".
         /// </summary>
-        public ICommand CloseWindowCommand { get; private set; }
+        public ICommand CloseWindowCommand { get; protected set; }
 
         /// <inheritdoc />
         public override void Initialize()
