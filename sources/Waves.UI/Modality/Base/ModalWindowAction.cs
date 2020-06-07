@@ -29,26 +29,26 @@ namespace Waves.UI.Modality.Base
         }
 
         /// <inheritdoc />
-        public bool IsAccent { get; private set; }
+        public bool IsAccent { get; protected set; }
 
         /// <inheritdoc />
         public bool IsEnabled { get; set; } = true;
 
         /// <inheritdoc />
-        public IVectorImage Icon { get; private set; }
+        public IVectorImage Icon { get; protected set; }
 
         /// <inheritdoc />
-        public string Caption { get; private set; }
+        public string Caption { get; protected set; }
 
         /// <inheritdoc />
-        public string ToolTip { get; private set; }
+        public string ToolTip { get; protected set; }
 
         /// <inheritdoc />
-        public Action Action { get; private set; }
+        public Action Action { get; protected set; }
 
         /// <summary>
         /// Gets command for action.
         /// </summary>
-        public ICommand Command { get; private set; }
+        public ICommand Command { get; protected set; }
     }
 }
