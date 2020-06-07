@@ -6,7 +6,7 @@ namespace Waves.UI.Modality.Extensions
     /// <summary>
     ///     Modality windows actions extensions.
     /// </summary>
-    public static class ModalityWindow
+    public static class ModalWindow
     {
         /// <summary>
         ///     Adds action to presentation.
