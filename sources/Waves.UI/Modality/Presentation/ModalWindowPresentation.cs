@@ -6,7 +6,7 @@ using Waves.Presentation.Interfaces;
 using Waves.UI.Base.Interfaces;
 using Waves.UI.Modality.Base.Interfaces;
 using Waves.UI.Modality.Presentation.Interfaces;
-using Waves.UI.Modality.Presentation.ViewModel.Interfaces;
+using Waves.UI.Modality.ViewModel.Interfaces;
 
 namespace Waves.UI.Modality.Presentation
 {
