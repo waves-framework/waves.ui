@@ -1,5 +1,6 @@
 using System;
 using Waves.UI.Base.Interfaces;
+using Waves.UI.Services.Interfaces;
 using Object = Waves.Core.Base.Object;
 
 namespace Waves.UI.Base
@@ -22,10 +23,10 @@ namespace Waves.UI.Base
         /// <param name="miscellaneousColorSet">Miscellaneous color set.</param>
         protected Theme(Guid id,
             string name,
-            IPrimaryColorSet lightColorSet,
-            IPrimaryColorSet darkColorSet,
-            IAccentColorSet accentColorSet,
-            IMiscellaneousColorSet miscellaneousColorSet)
+            IWeightColorSet lightColorSet,
+            IWeightColorSet darkColorSet,
+            IWeightColorSet accentColorSet,
+            IKeyColorSet miscellaneousColorSet)
         {
             Id = id;
             Name = name;
@@ -63,23 +64,23 @@ namespace Waves.UI.Base
         }
 
         /// <inheritdoc />
-        public IPrimaryColorSet PrimaryColorSet { get; private set; }
+        public IWeightColorSet PrimaryColorSet { get; private set; }
         
         /// <inheritdoc />
-        public IAccentColorSet AccentColorSet { get; private set;}
+        public IWeightColorSet AccentColorSet { get; private set;}
         
         /// <inheritdoc />
-        public IMiscellaneousColorSet MiscellaneousColorSet { get; }
+        public IKeyColorSet MiscellaneousColorSet { get; }
         
         /// <summary>
         /// Gets primary light color set.
         /// </summary>
-        protected IPrimaryColorSet PrimaryLightColorSet { get; set; }
+        protected IWeightColorSet PrimaryLightColorSet { get; set; }
         
         /// <summary>
         /// Gets primary dark color set.
         /// </summary>
-        protected IPrimaryColorSet PrimaryDarkColorSet { get; set; }
+        protected IWeightColorSet PrimaryDarkColorSet { get; set; }
 
         /// <summary>
         /// Notifies when primary color set changed.

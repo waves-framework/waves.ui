@@ -15,13 +15,13 @@ namespace Waves.UI.Base
         public abstract string Name { get; set; }
 
         /// <inheritdoc />
-        public double Width { get; } = 14.0d;
+        public double Width { get; protected set; } = 14.0d;
 
         /// <inheritdoc />
-        public double Height { get; } = 14.0d;
+        public double Height { get; protected set;} = 14.0d;
         
         /// <inheritdoc />
-        public double[] Padding { get; }  = new double[4] {0,0,0,0};
+        public double[] Padding { get; protected set;}  = new double[4] {0,0,0,0};
         
         /// <inheritdoc />
         public List<IVectorPath> Paths { get; private set; } = new List<IVectorPath>(); 

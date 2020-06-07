@@ -33,6 +33,6 @@ namespace Waves.UI.Services.Interfaces
         /// <summary>
         ///     Gets themes collection.
         /// </summary>
-        ObservableCollection<ITheme> Theme { get; }
+        ObservableCollection<ITheme> Themes { get; }
     }
 }
