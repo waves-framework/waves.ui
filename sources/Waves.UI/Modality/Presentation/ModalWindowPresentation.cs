@@ -17,6 +17,15 @@ namespace Waves.UI.Modality.Presentation
     {
         private readonly object _locker = new object();
 
+        /// <summary>
+        /// Creates new instance of <see cref="ModalWindowPresentation"/>.
+        /// </summary>
+        /// <param name="core">Core instance.</param>
+        protected ModalWindowPresentation(Core core)
+        {
+            Core = core;
+        }
+
         /// <inheritdoc />
         public event EventHandler<IModalWindowPresentation> WindowRequestClosing;
 
@@ -45,6 +54,11 @@ namespace Waves.UI.Modality.Presentation
         /// Command to "Close Window".
         /// </summary>
         public ICommand CloseWindowCommand { get; protected set; }
+
+        /// <summary>
+        /// Gets instance of UI <see cref="Core"/>.
+        /// </summary>
+        protected Core Core { get; }
 
         /// <inheritdoc />
         public override void Initialize()

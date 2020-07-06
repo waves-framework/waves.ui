@@ -11,23 +11,33 @@ namespace Waves.UI.Modality.Presentation
     /// <summary>
     /// Message modal window presentation.
     /// </summary>
-    public abstract class MessageModalWindowPresentation : ModalWindowPresentation
+    public class MessageModalWindowPresentation : ModalWindowPresentation
     {
         private IPresentationViewModel _dataContext;
 
         /// <summary>
         /// Creates new instance of <see cref="MessageModalWindowPresentation"/>.
         /// </summary>
+        /// <param name="core">Instance of <see cref="Core"/></param>
         /// <param name="title">Title.</param>
         /// <param name="message">Message.</param>
-        protected MessageModalWindowPresentation(string title, string message)
+        /// <param name="messageIcon">Message icon.</param>
+        /// <param name="windowIcon">Window icon.</param>
+        public MessageModalWindowPresentation(Core core, string title, string message, MessageIcon messageIcon, IVectorImage windowIcon = null) : base(core)
         {
             Title = title;
             Message = message;
+            MessageIcon = messageIcon;
+            Icon = windowIcon;
         }
 
         /// <inheritdoc />
-        public abstract override IVectorImage Icon { get; }
+        public override IVectorImage Icon { get; }
+
+        /// <summary>
+        /// Gets message icon.
+        /// </summary>
+        public MessageIcon MessageIcon { get; }
 
         /// <inheritdoc />
         public override string Title { get; }
@@ -38,10 +48,10 @@ namespace Waves.UI.Modality.Presentation
         public string Message { get; set; }
 
         /// <inheritdoc />
-        public override IPresentationViewModel DataContext => _dataContext;
+        public override IPresentationViewModel DataContext { get; protected set; }
 
         /// <inheritdoc />
-        public abstract override IPresentationView View { get; }
+        public override IPresentationView View { get; protected set; }
 
         /// <inheritdoc />
         public override void Initialize()
@@ -62,11 +72,5 @@ namespace Waves.UI.Modality.Presentation
                 this.AddAction(action);
             }
         }
-
-        /// <summary>
-        /// Initializes icon.
-        /// </summary>
-        /// <param name="icon">Icon type.</param>
-        protected abstract void InitializeIcon(MessageIcon icon);
     }
 }

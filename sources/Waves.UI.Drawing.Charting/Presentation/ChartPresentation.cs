@@ -55,10 +55,18 @@ namespace Waves.UI.Drawing.Charting.Presentation
         protected IInputService InputService { get; set; }
 
         /// <inheritdoc />
-        public override IPresentationViewModel DataContext => DataContextBackingField;
+        public override IPresentationViewModel DataContext
+        {
+            get => DataContextBackingField;
+            protected set => DataContextBackingField = (IChartViewModel) value;
+        } 
 
         /// <inheritdoc />
-        public override IPresentationView View => ViewBackingField;
+        public override IPresentationView View
+        {
+            get => ViewBackingField;
+            protected set => ViewBackingField = (IChartView) value;
+        }
 
         /// <inheritdoc />
         public override void Dispose()
