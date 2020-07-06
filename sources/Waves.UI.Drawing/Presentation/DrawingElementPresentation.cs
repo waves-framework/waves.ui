@@ -47,10 +47,18 @@ namespace Waves.UI.Drawing.Presentation
         protected IInputService InputService { get; set; }
 
         /// <inheritdoc />
-        public override IPresentationViewModel DataContext => DataContextBackingField;
+        public override IPresentationViewModel DataContext
+        {
+            get => DataContextBackingField;
+            protected set => DataContextBackingField = (IDrawingElementViewModel) value;
+        }
 
         /// <inheritdoc />
-        public override IPresentationView View => ViewBackingField;
+        public override IPresentationView View
+        {
+            get => ViewBackingField;
+            protected set => ViewBackingField = (IDrawingElementView) value;
+        }
 
         /// <inheritdoc />
         public override void Initialize()
