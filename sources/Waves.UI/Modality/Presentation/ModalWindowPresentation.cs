@@ -42,10 +42,10 @@ namespace Waves.UI.Modality.Presentation
         public virtual double MaxWidth { get; set; } = 320;
 
         /// <inheritdoc />
-        public abstract override IPresentationViewModel DataContext { get; protected set; }
+        public abstract override IPresentationViewModel DataContext { get; }
 
         /// <inheritdoc />
-        public abstract override IPresentationView View { get; protected set; }
+        public abstract override IPresentationView View { get; }
 
         /// <inheritdoc />
         public ICollection<IModalWindowAction> Actions { get; protected set; } = new ObservableCollection<IModalWindowAction>();
