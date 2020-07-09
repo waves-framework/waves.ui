@@ -4,7 +4,7 @@
 
     <ItemGroup>
       <PackageReference Include="Waves.Core" Version="2020.1.160" />
-      <PackageReference Include="Waves.Presentation" Version="2020.1.31" />
+      <PackageReference Include="Waves.Presentation" Version="2020.1.32" />
     </ItemGroup>
 
 </Project>
