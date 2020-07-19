@@ -15,8 +15,8 @@
     <tags>Waves ui drawing charting</tags>
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
-        <dependency id="Waves.UI" version="[2020.1.1,2020.2)" />
-        <dependency id="Waves.UI.Drawing" version="[2020.1.1,2020.2)" />
+        <dependency id="Waves.UI" version="[{$NUGETVERSION},2020.2.2.0)" />
+        <dependency id="Waves.UI.Drawing" version="[{$NUGETVERSION},2020.2.2.0)" />
       </group>
     </dependencies>
     <frameworkReferences>
