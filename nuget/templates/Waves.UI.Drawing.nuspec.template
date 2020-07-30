@@ -29,7 +29,8 @@
     </frameworkReferences>
   </metadata>
   <files>
-  	<file src="..\..\files\logo.png" target="files\" />
+  	<file src="..\..\license.md" target="" />
+    <file src="..\..\files\logo_small.png" target="files\" />
     <file src="..\..\bin\AnyCPU\release\netcoreapp3.1\Waves.UI.Drawing.dll" target="lib\netcoreapp3.1"/>
     <file src="..\..\bin\AnyCPU\release\netcoreapp3.1\Waves.UI.Drawing.xml" target="lib\netcoreapp3.1"/>
   </files>
