@@ -5,19 +5,22 @@
     <version>{$NUGETVERSION}</version>
     <authors>Waves</authors>
     <owners>Waves</owners>
-    <licenseUrl>https://ambertape.ru</licenseUrl>
-    <projectUrl>https://ambertape.ru</projectUrl>
-    <icon>files\logo.png</icon>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/ambertape/waves.ui</projectUrl>
+    <icon>files\logo_small.png</icon>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Waves UI drawing library.</description>
     <description>Waves UI library.</description>
-    <releaseNotes></releaseNotes>
-    <copyright>Copyright 2019-2020</copyright>
+    <releaseNotes>
+      The first release of package.
+      - Base UI classes.
+    </releaseNotes>
+    <copyright>Copyright (c) 2020 Egor Khindikaynen</copyright>
     <tags>Waves ui</tags>
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
-        <dependency id="Waves.Core" version="[2020.2.1.171,2020.2.2.0)" />
-        <dependency id="Waves.Core.Base" version="[2020.2.1.171,2020.2.2.0)" />
-        <dependency id="Waves.Presentation" version="[2020.2.1.37,2020.2.2.0)" />
+        <dependency id="Waves.Core" version="[2020.2.1.189,2020.2.2.0)" />
+        <dependency id="Waves.Core.Base" version="[2020.2.1.189,2020.2.2.0)" />
+        <dependency id="Waves.Presentation" version="[2020.2.1.39,2020.2.2.0)" />
       </group>
     </dependencies>
     <frameworkReferences>
@@ -30,9 +33,5 @@
   	<file src="..\..\files\logo.png" target="files\" />
     <file src="..\..\bin\AnyCPU\release\netcoreapp3.1\Waves.UI.dll" target="lib\netcoreapp3.1"/>
     <file src="..\..\bin\AnyCPU\release\netcoreapp3.1\Waves.UI.xml" target="lib\netcoreapp3.1"/>
-    <file src="..\..\bin\x86\release\netcoreapp3.1\Waves.UI.dll" target="build\x86"/>
-    <file src="..\..\bin\x86\release\netcoreapp3.1\Waves.UI.xml" target="build\x86"/>
-    <file src="..\..\bin\x64\release\netcoreapp3.1\Waves.UI.dll" target="build\x64"/>
-    <file src="..\..\bin\x64\release\netcoreapp3.1\Waves.UI.xml" target="build\x64"/>
   </files>
 </package>
