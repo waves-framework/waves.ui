@@ -5,10 +5,10 @@
     <version>{$NUGETVERSION}</version>
     <authors>Waves</authors>
     <owners>Waves</owners>
+    <license type="file">license.md</license>
     <projectUrl>https://github.com/ambertape/waves.ui</projectUrl>
     <icon>files\logo_small.png</icon>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Waves UI drawing library.</description>
     <description>Waves UI library.</description>
     <releaseNotes>
       The first release of package.
@@ -30,7 +30,8 @@
     </frameworkReferences>
   </metadata>
   <files>
-  	<file src="..\..\files\logo.png" target="files\" />
+  	<file src="..\..\license.md" target="" />
+    <file src="..\..\files\logo_small.png" target="files\" />
     <file src="..\..\bin\AnyCPU\release\netcoreapp3.1\Waves.UI.dll" target="lib\netcoreapp3.1"/>
     <file src="..\..\bin\AnyCPU\release\netcoreapp3.1\Waves.UI.xml" target="lib\netcoreapp3.1"/>
   </files>
