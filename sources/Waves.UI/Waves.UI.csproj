@@ -3,9 +3,8 @@
     <Import Project="../../props/Waves.UI.props" />
 
     <ItemGroup>
-      <PackageReference Include="Waves.Core" Version="2020.2.1.171" />
-      <PackageReference Include="Waves.Core.Base" Version="2020.2.1.171" />
-      <PackageReference Include="Waves.Presentation" Version="2020.2.1.37" />
+      <PackageReference Include="Waves.Core.Base" Version="2020.2.1.189" />
+      <PackageReference Include="Waves.Presentation" Version="2020.2.1.39" />
     </ItemGroup>
 
 </Project>
