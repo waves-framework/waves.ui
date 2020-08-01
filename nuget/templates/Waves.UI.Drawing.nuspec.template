@@ -18,7 +18,7 @@
     <tags>Waves ui drawing</tags>
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
-        <dependency id="Waves.Core" version="[2020.1.189,2020.2.2.0)" />
+        <dependency id="Waves.Core" version="[2020.2.1.189,2020.2.2.0)" />
         <dependency id="Waves.Presentation" version="[2020.2.1.39,2020.2.2.0)" />
       </group>
     </dependencies>
