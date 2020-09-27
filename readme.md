@@ -1,4 +1,4 @@
-## ![logo](files/logo_very_small.png)  Waves Core
+## ![logo](files/logo_very_small.png)  Waves UI
 
 
 
