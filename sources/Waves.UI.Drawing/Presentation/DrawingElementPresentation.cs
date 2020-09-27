@@ -1,6 +1,6 @@
 ﻿using System;
-using PropertyChanged;
-using Waves.Core.Services.Interfaces;
+using ReactiveUI;
+using Waves.Core.Base.Interfaces.Services;
 using Waves.Presentation.Interfaces;
 using Waves.UI.Drawing.Presentation.Interfaces;
 using Waves.UI.Drawing.Services.Interfaces;
@@ -70,8 +70,8 @@ namespace Waves.UI.Drawing.Presentation
             DataContextBackingField = new DrawingElementViewModel(DrawingService.CurrentEngine.GetDrawingElement());
             ViewBackingField = DrawingService.CurrentEngine.GetView(InputService);
 
-            OnPropertyChanged(nameof(DataContext));
-            OnPropertyChanged(nameof(View));
+            this.RaisePropertyChanged(nameof(DataContext));
+            this.RaisePropertyChanged(nameof(View));
 
             base.Initialize();
         }
@@ -89,7 +89,6 @@ namespace Waves.UI.Drawing.Presentation
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Arguments.</param>
-        [SuppressPropertyChangedWarnings]
         protected virtual void OnDrawingServiceEngineChanged(object sender, EventArgs e)
         {
             var dataContext = new DrawingElementViewModel(DrawingService.CurrentEngine.GetDrawingElement());
@@ -106,8 +105,8 @@ namespace Waves.UI.Drawing.Presentation
 
             dataContext.Update();
 
-            OnPropertyChanged(nameof(DataContext));
-            OnPropertyChanged(nameof(View));
+            this.RaisePropertyChanged(nameof(DataContext));
+            this.RaisePropertyChanged(nameof(View));
         }
 
         /// <summary>

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Waves.Core.Services.Interfaces;
+using ReactiveUI;
+using Waves.Core.Base.Interfaces.Services;
 using Waves.UI.Drawing.Charting.Base.Interfaces;
 using Waves.UI.Drawing.Charting.Presentation.Interfaces;
 using Waves.UI.Drawing.Charting.ViewModel;
 using Waves.UI.Drawing.Charting.ViewModel.Interfaces;
 using Waves.UI.Drawing.Services.Interfaces;
-using Waves.UI.Services;
 using Waves.UI.Services.Interfaces;
 
 namespace Waves.UI.Drawing.Charting.Presentation
@@ -61,9 +61,9 @@ namespace Waves.UI.Drawing.Charting.Presentation
             ViewBackingField = view;
 
             InitializeColors();
-
-            OnPropertyChanged(nameof(DataContext));
-            OnPropertyChanged(nameof(View));
+            
+            this.RaisePropertyChanged(nameof(DataContext));
+            this.RaisePropertyChanged(nameof(View));
 
             base.Initialize();
 

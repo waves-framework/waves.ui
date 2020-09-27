@@ -1,4 +1,5 @@
 using System;
+using ReactiveUI;
 using Waves.UI.Base.Interfaces;
 using Waves.UI.Services.Interfaces;
 using Object = Waves.Core.Base.Object;
@@ -57,8 +58,9 @@ namespace Waves.UI.Base
                 _useDarkSet = value;
 
                 PrimaryColorSet = _useDarkSet ? PrimaryDarkColorSet : PrimaryLightColorSet;
+
+                this.RaiseAndSetIfChanged(ref _useDarkSet, value);
                 
-                OnPropertyChanged();
                 OnPrimaryColorSetChanged();
             }
         }

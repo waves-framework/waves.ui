@@ -75,7 +75,7 @@ namespace Waves.UI.Modality.Presentation
 
             try
             {
-                CollectionSynchronizationService = Core.GetService<ICollectionSynchronizationService>();
+                CollectionSynchronizationService = Core.GetInstance<ICollectionSynchronizationService>();
 
                 CollectionSynchronizationService?.EnableCollectionSynchronization(Actions, _locker);
 

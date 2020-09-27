@@ -32,21 +32,19 @@ namespace Waves.UI
             {
                 base.Start();
 
-                WriteLogMessage(
+                WriteLog(
                     new Message("UI Core launch", "UI Core is launching...", "UI Core", MessageType.Information));
 
                 Initialize();
 
                 IsInitialized = true;
 
-                WriteLogMessage(
+                WriteLog(
                     new Message("UI Core launch", "UI Core launched successfully.", "UI Core", MessageType.Success));
-
-                AddMessageSeparator();
             }
             catch (Exception ex)
             {
-                WriteLogException(ex, "UI Core launch", true);
+                WriteLog(ex, "UI Core launch", true);
             }
         }
 
@@ -69,25 +67,25 @@ namespace Waves.UI
         }
 
         /// <inheritdoc />
-        public override void WriteLogMessage(IMessage message)
+        public override void WriteLog(IMessage message)
         {
             if (message.Type == MessageType.Fatal)
             {
                 // TODO: fatal error handling.
             }
 
-            base.WriteLogMessage(message);
+            base.WriteLog(message);
         }
 
         /// <inheritdoc />
-        public override void WriteLogException(Exception ex, string sender, bool isFatal)
+        public override void WriteLog(Exception ex, string sender, bool isFatal)
         {
             if (isFatal)
             {
                 // TODO: fatal error handling.
             }
 
-            base.WriteLogException(ex, sender, isFatal);
+            base.WriteLog(ex, sender, isFatal);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using Waves.Core.Base.Interfaces;
+using Waves.Core.Base.Interfaces.Services;
 using Waves.UI.Drawing.Charting.Base.Interfaces;
 
 namespace Waves.UI.Drawing.Charting.Services.Interfaces

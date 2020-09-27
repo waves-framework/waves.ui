@@ -1,7 +1,7 @@
 ﻿using System;
 using Waves.Core.Base;
 using Waves.Core.Base.Enums;
-using Waves.Core.Services.Interfaces;
+using Waves.Core.Base.Interfaces.Services;
 using Waves.Presentation.Interfaces;
 using Waves.UI.Drawing.Charting.Presentation.Interfaces;
 using Waves.UI.Drawing.Charting.View.Interface;

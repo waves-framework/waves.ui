@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Waves.Core.Base.Interfaces;
+using Waves.Core.Base.Interfaces.Services;
 
 namespace Waves.UI.Services.Interfaces
 {

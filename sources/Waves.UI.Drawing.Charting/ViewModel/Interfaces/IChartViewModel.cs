@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Waves.Core.Base;
-using Waves.Core.Services.Interfaces;
+using Waves.Core.Base.Interfaces.Services;
 using Waves.UI.Drawing.Base;
 using Waves.UI.Drawing.Charting.Base;
 using Waves.UI.Drawing.ViewModel.Interfaces;

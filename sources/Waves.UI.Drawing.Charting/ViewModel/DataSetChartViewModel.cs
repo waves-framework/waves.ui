@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using ReactiveUI;
 using Waves.Core.Base;
 using Waves.UI.Drawing.Base;
 using Waves.UI.Drawing.Base.Interfaces;
@@ -37,8 +38,8 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             }
 
             Update();
-
-            OnPropertyChanged(nameof(DataSets));
+            
+            this.RaisePropertyChanged(nameof(DataSets));
         }
 
         /// <inheritdoc />
@@ -48,7 +49,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             DataSets[index].UpdateDataSet(points);
             Update();
 
-            OnPropertyChanged(nameof(DataSets));
+            this.RaisePropertyChanged(nameof(DataSets));
         }
 
         /// <inheritdoc />
@@ -63,7 +64,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
             Update();
 
-            OnPropertyChanged(nameof(DataSets));
+            this.RaisePropertyChanged(nameof(DataSets));
         }
 
         /// <inheritdoc />

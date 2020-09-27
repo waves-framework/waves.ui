@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ReactiveUI;
 using Waves.Presentation.Base;
 using Waves.Presentation.Interfaces;
 using Waves.UI.Modality.Presentation.Controllers.Interfaces;
@@ -37,7 +38,7 @@ namespace Waves.UI.Modality.Presentation.Controllers
                     Presentations.Remove(_presentation);
                 }
 
-                OnPropertyChanged();
+                this.RaiseAndSetIfChanged(ref _presentation, value);
             }
         }
 

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using PropertyChanged;
 using Waves.Core.Base;
 using Waves.UI.Base.Interfaces;
 
@@ -11,7 +10,6 @@ namespace Waves.UI.Base
     public abstract class VectorImage: ObservableObject, IVectorImage
     {
         /// <inheritdoc />
-        [SuppressPropertyChangedWarnings]
         public abstract string Name { get; set; }
 
         /// <inheritdoc />
