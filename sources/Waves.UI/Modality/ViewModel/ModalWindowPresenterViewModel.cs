@@ -6,9 +6,11 @@ using Waves.UI.Modality.ViewModel.Interfaces;
 namespace Waves.UI.Modality.ViewModel
 {
     /// <summary>
-    /// Base abstract modality window presentation view model.
+    ///     Base abstract modality window presenter view model.
     /// </summary>
-    public abstract class ModalWindowPresentationViewModel : PresentationViewModel, IModalWindowPresentationViewModel
+    public abstract class ModalWindowPresenterViewModel : 
+        PresenterViewModel, 
+        IModalWindowPresenterViewModel
     {
         /// <inheritdoc />
         public ICollection<IModalWindowAction> Actions { get; private set; }

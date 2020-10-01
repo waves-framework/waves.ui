@@ -14,7 +14,7 @@ namespace Waves.UI.Modality.Extensions
         /// <param name="presentation">Presentation.</param>
         /// <param name="action">Action.</param>
         /// <returns>Presentation.</returns>
-        public static IModalWindowPresentation AddAction(this IModalWindowPresentation presentation,
+        public static IModalWindowPresenter AddAction(this IModalWindowPresenter presentation,
             IModalWindowAction action)
         {
             presentation.Actions.Add(action);

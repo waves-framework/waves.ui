@@ -16,7 +16,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
     /// <summary>
     ///     Chart view model base.
     /// </summary>
-    public class ChartViewModel : DrawingElementViewModel, IChartViewModel
+    public class ChartPresenterViewModel : DrawingElementPresenterViewModel, IChartPresenterViewModel
     {
         private readonly object _axisLocker = new object();
         private readonly List<IDrawingObject> _axisSignaturesDrawingObjects = new List<IDrawingObject>();
@@ -84,7 +84,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         private float _yMin = -1;
 
         /// <inheritdoc />
-        public ChartViewModel(IDrawingElement drawingElement) : base(drawingElement)
+        public ChartPresenterViewModel(IDrawingElement drawingElement) : base(drawingElement)
         {
             SetDefaultTicks();
         }

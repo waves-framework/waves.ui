@@ -23,7 +23,7 @@ namespace Waves.UI
         /// <summary>
         /// Gets or sets modal window controller.
         /// </summary>
-        protected IModalWindowsPresentationController ModalWindowController { get; set; }
+        protected IModalWindowsPresenterController ModalWindowController { get; set; }
 
         /// <inheritdoc />
         public sealed override void Start()
@@ -51,19 +51,19 @@ namespace Waves.UI
         /// <summary>
         ///     Shows modality window.
         /// </summary>
-        /// <param name="presentation">Presentation.</param>
-        public void ShowModalityWindow(IModalWindowPresentation presentation)
+        /// <param name="presenter">Presenter.</param>
+        public void ShowModalityWindow(IModalWindowPresenter presenter)
         {
-            ModalWindowController?.ShowWindow(presentation);
+            ModalWindowController?.ShowWindow(presenter);
         }
 
         /// <summary>
         ///     Hides modality window.
         /// </summary>
-        /// <param name="presentation">Presentation.</param>
-        public void HideModalityWindow(IModalWindowPresentation presentation)
+        /// <param name="presenter">Presenter.</param>
+        public void HideModalityWindow(IModalWindowPresenter presenter)
         {
-            ModalWindowController?.HideWindow(presentation);
+            ModalWindowController?.HideWindow(presenter);
         }
 
         /// <inheritdoc />

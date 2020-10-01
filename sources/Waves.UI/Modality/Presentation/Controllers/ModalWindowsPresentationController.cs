@@ -9,36 +9,38 @@ using Waves.UI.Modality.Presentation.Interfaces;
 namespace Waves.UI.Modality.Presentation.Controllers
 {
     /// <summary>
-    /// Modality windows presentation controller.
+    /// Modality windows presenter controller.
     /// </summary>
-    public abstract class ModalWindowsPresentationController : PresentationController, IModalWindowsPresentationController
+    public abstract class ModalWindowsPresenterController : 
+        PresenterController, 
+        IModalWindowsPresenterController
     {
-        private IPresentation _presentation;
+        private IPresenter _presenter;
 
         /// <inheritdoc />
         public bool IsVisible { get; private set; }
 
         /// <inheritdoc />
-        public override IPresentation SelectedPresentation
+        public override IPresenter SelectedPresenter
         {
-            get => _presentation;
+            get => _presenter;
             set
             {
-                if (Equals(value, _presentation)) return;
-
-                if (_presentation != null)
+                if (Equals(value, _presenter)) return;
+                
+                if (_presenter != null)
                 {
-                    Presentations.Add(_presentation);
+                    Presenters.Add(_presenter);
                 }
 
-                _presentation = value;
+                _presenter = value;
 
-                if (_presentation != null)
+                if (_presenter != null)
                 {
-                    Presentations.Remove(_presentation);
+                    Presenters.Remove(_presenter);
                 }
 
-                this.RaiseAndSetIfChanged(ref _presentation, value);
+                this.RaiseAndSetIfChanged(ref _presenter, value);
             }
         }
 
@@ -49,31 +51,31 @@ namespace Waves.UI.Modality.Presentation.Controllers
         }
 
         /// <inheritdoc />
-        public void ShowWindow(IModalWindowPresentation presentation)
+        public void ShowWindow(IModalWindowPresenter presenter)
         {
-            RegisterPresentation(presentation);
+            RegisterPresenter(presenter);
 
-            presentation.WindowRequestClosing += OnPresentationWindowRequestClosing;
+            presenter.WindowRequestClosing += OnPresenterWindowRequestClosing;
 
-            SelectedPresentation = presentation;
+            SelectedPresenter = presenter;
 
-            FadeInWindow(presentation);
+            FadeInWindow(presenter);
 
             UpdateVisibility();
         }
 
         /// <inheritdoc />
-        public void HideWindow(IModalWindowPresentation presentation)
+        public void HideWindow(IModalWindowPresenter presenter)
         {
-            if (SelectedPresentation.Equals(presentation))
-                SelectedPresentation = null;
+            if (SelectedPresenter.Equals(presenter))
+                SelectedPresenter = null;
 
-            FadeOutWindow(presentation);
+            FadeOutWindow(presenter);
 
-            UnregisterPresentation(presentation);
+            UnregisterPresenter(presenter);
 
-            if (Presentations.Count > 0)
-                SelectedPresentation = Presentations.Last();
+            if (Presenters.Count > 0)
+                SelectedPresenter = Presenters.Last();
 
             UpdateVisibility();
         }
@@ -83,7 +85,7 @@ namespace Waves.UI.Modality.Presentation.Controllers
         /// </summary>
         private void UpdateVisibility()
         {
-            IsVisible = SelectedPresentation != null;
+            IsVisible = SelectedPresenter != null;
         }
 
         /// <summary>
@@ -91,7 +93,7 @@ namespace Waves.UI.Modality.Presentation.Controllers
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Window presentation.</param>
-        private void OnPresentationWindowRequestClosing(object sender, IModalWindowPresentation e)
+        private void OnPresenterWindowRequestClosing(object sender, IModalWindowPresenter e)
         {
             HideWindow(e);
         }
@@ -99,13 +101,13 @@ namespace Waves.UI.Modality.Presentation.Controllers
         /// <summary>
         /// Animates fade in.
         /// </summary>
-        /// <param name="presentation">Presentation.</param>
-        protected abstract void FadeInWindow(IPresentation presentation);
+        /// <param name="presenter">Presenter.</param>
+        protected abstract void FadeInWindow(IPresenter presenter);
 
         /// <summary>
         /// Animates fade out.
         /// </summary>
-        /// <param name="presentation">Presentation.</param>
-        protected abstract void FadeOutWindow(IPresentation presentation);
+        /// <param name="presenter">Presenter.</param>
+        protected abstract void FadeOutWindow(IPresenter presenter);
     }
 }

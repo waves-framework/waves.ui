@@ -14,7 +14,7 @@ namespace Waves.UI.Drawing.Charting.Presentation
     /// <summary>
     ///     Data set chart presentation.
     /// </summary>
-    public class DataSetChartPresentation : ChartPresentation, IChartPresentation
+    public class DataSetChartPresentation : ChartPresenter, IChartPresenter
     {
         private readonly IChartViewFactory _chartViewFactory;
 
@@ -44,7 +44,7 @@ namespace Waves.UI.Drawing.Charting.Presentation
             if (ThemeService == null) return;
 
             var drawingElement = DrawingService.CurrentEngine.GetDrawingElement();
-            var dataContext = new DataSetChartViewModel(drawingElement);
+            var dataContext = new DataSetChartPresenterViewModel(drawingElement);
 
             var view = _chartViewFactory.GetChartView();
             view.DrawingElementView = DrawingService.CurrentEngine.GetView(InputService);
@@ -77,13 +77,13 @@ namespace Waves.UI.Drawing.Charting.Presentation
         {
             base.InitializeColors();
 
-            if (!(DataContextBackingField is DataSetChartViewModel context)) return;
+            if (!(DataContextBackingField is DataSetChartPresenterViewModel context)) return;
         }
 
         /// <inheritdoc />
         protected override void OnDrawingServiceEngineChanged(object sender, EventArgs e)
         {
-            if (!(DataContextBackingField is IDataSetChartViewModel context)) return;
+            if (!(DataContextBackingField is IDataSetChartPresenterViewModel context)) return;
 
             _oldDataSets = context.DataSets;
 

@@ -13,16 +13,16 @@ namespace Waves.UI.Drawing.ViewModel
     /// <summary>
     ///     Drawing element view model base.
     /// </summary>
-    public class DrawingElementViewModel : PresentationViewModel, IDrawingElementViewModel
+    public class DrawingElementPresenterViewModel : PresenterViewModel, IDrawingElementPresenterViewModel
     {
         private readonly object _collectionLocker = new object();
 
         private IInputService _inputService;
 
         /// <summary>
-        ///     Creates new instance of <see cref="DrawingElementViewModel" />.
+        ///     Creates new instance of <see cref="DrawingElementPresenterViewModel" />.
         /// </summary>
-        public DrawingElementViewModel(IDrawingElement drawingElement)
+        public DrawingElementPresenterViewModel(IDrawingElement drawingElement)
         {
             DrawingElement = drawingElement;
         }

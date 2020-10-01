@@ -10,7 +10,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel.Interfaces
     /// <summary>
     ///     Interface for chart view model.
     /// </summary>
-    public interface IChartViewModel : IDrawingElementViewModel
+    public interface IChartPresenterViewModel : IDrawingElementPresenterViewModel
     {
         /// <summary>
         ///     Gets or sets whether zoom is enabled.

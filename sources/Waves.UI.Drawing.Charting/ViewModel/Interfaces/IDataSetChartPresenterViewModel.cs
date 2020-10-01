@@ -7,7 +7,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel.Interfaces
     /// <summary>
     ///     Interface for data chart view model.
     /// </summary>
-    public interface IDataSetChartViewModel : IChartViewModel
+    public interface IDataSetChartPresenterViewModel : IChartPresenterViewModel
     {
         /// <summary>
         ///     Gets collection of added data sets.

@@ -3,10 +3,9 @@
 namespace Waves.UI.Modality.View.Interfaces
 {
     /// <summary>
-    /// Interface for modality windows presentation views.
+    ///     Interface for modality windows presentation views.
     /// </summary>
-    public interface IModalWindowsPresentationView : IPresentationView
+    public interface IModalWindowsPresentationView : IPresenterView
     {
-        
     }
 }

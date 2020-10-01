@@ -14,23 +14,23 @@ using Waves.UI.Services.Interfaces;
 namespace Waves.UI.Modality.Presentation
 {
     /// <summary>
-    /// Base abstract modality window presentation.
+    /// Base abstract modality window presenter.
     /// </summary>
-    public abstract class ModalWindowPresentation : Waves.Presentation.Base.Presentation, IModalWindowPresentation
+    public abstract class ModalWindowPresenter : Waves.Presentation.Base.Presenter, IModalWindowPresenter
     {
         private readonly object _locker = new object();
 
         /// <summary>
-        /// Creates new instance of <see cref="ModalWindowPresentation"/>.
+        /// Creates new instance of <see cref="ModalWindowPresenter"/>.
         /// </summary>
         /// <param name="core">Core instance.</param>
-        protected ModalWindowPresentation(Core core)
+        protected ModalWindowPresenter(Core core)
         {
             Core = core;
         }
 
         /// <inheritdoc />
-        public event EventHandler<IModalWindowPresentation> WindowRequestClosing;
+        public event EventHandler<IModalWindowPresenter> WindowRequestClosing;
 
         /// <inheritdoc />
         public abstract IVectorImage Icon { get; }
@@ -45,10 +45,10 @@ namespace Waves.UI.Modality.Presentation
         public virtual double MaxWidth { get; set; } = 320;
 
         /// <inheritdoc />
-        public abstract override IPresentationViewModel DataContext { get; }
+        public abstract override IPresenterViewModel DataContext { get; }
 
         /// <inheritdoc />
-        public abstract override IPresentationView View { get; }
+        public abstract override IPresenterView View { get; }
 
         /// <summary>
         /// Gets collection synchronization service.
@@ -79,13 +79,19 @@ namespace Waves.UI.Modality.Presentation
 
                 CollectionSynchronizationService?.EnableCollectionSynchronization(Actions, _locker);
 
-                if (!(DataContext is IModalWindowPresentationViewModel context)) return;
+                if (!(DataContext is IModalWindowPresenterViewModel context)) return;
 
                 context.AttachActions(Actions);
             }
             catch (Exception e)
             {
-                OnMessageReceived(new Message("Initialization", "Error initializing modal window presentation", "Modal window presentation", e, false));
+                OnMessageReceived(
+                    new Message(
+                    "Initialization", 
+                    "Error initializing modal window presenter", 
+                    "Modal window presentation", 
+                    e, 
+                    false));
             }
         }
 
@@ -101,7 +107,7 @@ namespace Waves.UI.Modality.Presentation
         /// Actions when window requesting closing.
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnWindowRequestClosing(IModalWindowPresentation e)
+        protected virtual void OnWindowRequestClosing(IModalWindowPresenter e)
         {
             WindowRequestClosing?.Invoke(this, e);
         }
@@ -112,10 +118,8 @@ namespace Waves.UI.Modality.Presentation
         /// <param name="obj"></param>
         protected void OnCloseWindow(object obj)
         {
-            var presentation = obj as IModalWindowPresentation;
-            if (presentation == null) return;
-
-            OnWindowRequestClosing(presentation);
+            if (!(obj is IModalWindowPresenter presenter)) return;
+            OnWindowRequestClosing(presenter);
         }
     }
 }

@@ -15,14 +15,14 @@ namespace Waves.UI.Drawing.Charting.ViewModel
     /// <summary>
     ///     Data set chart view model.
     /// </summary>
-    public class DataSetChartViewModel : ChartViewModel, IDataSetChartViewModel
+    public class DataSetChartPresenterViewModel : ChartPresenterViewModel, IDataSetChartPresenterViewModel
     {
         private readonly object _dataSetLocker = new object();
 
         private readonly List<IDrawingObject> _tempDrawingObjects = new List<IDrawingObject>();
 
         /// <inheritdoc />
-        public DataSetChartViewModel(IDrawingElement drawingElement) : base(drawingElement)
+        public DataSetChartPresenterViewModel(IDrawingElement drawingElement) : base(drawingElement)
         {
         }
 
