@@ -9,7 +9,7 @@
 
 ### 📒 About Waves.UI
 
-**Waves.Presentation** is a set of abstract classes used for developing of desktop application.
+**Waves.UI** is a set of abstract classes used for developing of desktop application.
 
 
 
