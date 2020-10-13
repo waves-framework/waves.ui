@@ -3,9 +3,9 @@
 namespace Waves.UI.Drawing.Charting.Presentation.Interfaces
 {
     /// <summary>
-    ///     Interface for chart presentation.
+    ///     Interface for chart presenter.
     /// </summary>
-    public interface IChartPresentation : IDrawingElementPresentation
+    public interface IChartPresenter : IDrawingElementPresenter
     {
     }
 }

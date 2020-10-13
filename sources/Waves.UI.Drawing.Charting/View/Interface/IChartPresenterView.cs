@@ -5,11 +5,11 @@ namespace Waves.UI.Drawing.Charting.View.Interface
     /// <summary>
     /// Interface of chart view element.
     /// </summary>
-    public interface IChartView : IDrawingElementView
+    public interface IChartPresenterView : IDrawingElementPresenterView
     {
         /// <summary>
         ///     Gets drawing element view.
         /// </summary>
-        IDrawingElementView DrawingElementView { get; set; }
+        IDrawingElementPresenterView DrawingElementView { get; set; }
     }
 }

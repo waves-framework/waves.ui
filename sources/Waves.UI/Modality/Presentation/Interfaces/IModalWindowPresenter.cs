@@ -7,9 +7,9 @@ using Waves.UI.Modality.Base.Interfaces;
 namespace Waves.UI.Modality.Presentation.Interfaces
 {
     /// <summary>
-    /// Interface for modality window presentation.
+    /// Interface for modality window presenter.
     /// </summary>
-    public interface IModalWindowPresentation : IPresentation
+    public interface IModalWindowPresenter : IPresenter
     {
         /// <summary>
         /// Gets icon.
@@ -39,6 +39,6 @@ namespace Waves.UI.Modality.Presentation.Interfaces
         /// <summary>
         /// Event for closing request handling.
         /// </summary>
-        event EventHandler<IModalWindowPresentation> WindowRequestClosing;
+        event EventHandler<IModalWindowPresenter> WindowRequestClosing;
     }
 }

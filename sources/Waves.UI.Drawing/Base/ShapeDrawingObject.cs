@@ -1,5 +1,4 @@
-﻿using PropertyChanged;
-using Waves.Core.Base;
+﻿using Waves.Core.Base;
 using Waves.UI.Drawing.Base.Interfaces;
 
 namespace Waves.UI.Drawing.Base
@@ -19,7 +18,6 @@ namespace Waves.UI.Drawing.Base
         public Point Location { get; set; } = new Point(0, 0);
 
         /// <inheritdoc />
-        [SuppressPropertyChangedWarnings]
         public abstract override string Name { get; set; }
 
         /// <inheritdoc />

@@ -1,6 +1,7 @@
 ﻿using System;
-using PropertyChanged;
-using Waves.Core.Services.Interfaces;
+using ReactiveUI;
+using Waves.Core.Base.Interfaces.Services;
+using Waves.Presentation.Base;
 using Waves.Presentation.Interfaces;
 using Waves.UI.Drawing.Presentation.Interfaces;
 using Waves.UI.Drawing.Services.Interfaces;
@@ -11,30 +12,34 @@ using Waves.UI.Drawing.ViewModel.Interfaces;
 namespace Waves.UI.Drawing.Presentation
 {
     /// <summary>
-    ///     Drawing element presentation.
+    ///     Drawing element presenter.
     /// </summary>
-    public class DrawingElementPresentation : Waves.Presentation.Base.Presentation, IDrawingElementPresentation
+    public class DrawingElementPresenter :
+        Presenter,
+        IDrawingElementPresenter
     {
         /// <summary>
-        ///     Gets or sets Data context's backing field.
-        /// </summary>
-        protected IDrawingElementViewModel DataContextBackingField;
-
-        /// <summary>
-        ///     Gets or sets View's backing field.
-        /// </summary>
-        protected IDrawingElementView ViewBackingField;
-
-        /// <summary>
-        ///     Creates new instance of <see cref="DrawingElementPresentation" />
+        ///     Creates new instance of <see cref="DrawingElementPresenter" />
         /// </summary>
         /// <param name="drawingService">Drawing service.</param>
         /// <param name="inputService">Input service.</param>
-        public DrawingElementPresentation(IDrawingService drawingService, IInputService inputService)
+        public DrawingElementPresenter(
+            IDrawingService drawingService,
+            IInputService inputService)
         {
             DrawingService = drawingService;
             InputService = inputService;
         }
+        
+        /// <summary>
+        ///     Gets or sets Data context's backing field.
+        /// </summary>
+        protected IDrawingElementPresenterViewModel DataContextBackingField;
+
+        /// <summary>
+        ///     Gets or sets View's backing field.
+        /// </summary>
+        protected IDrawingElementPresenterView ViewBackingField;
 
         /// <summary>
         ///     Gets or sets drawing service.
@@ -47,17 +52,17 @@ namespace Waves.UI.Drawing.Presentation
         protected IInputService InputService { get; set; }
 
         /// <inheritdoc />
-        public override IPresentationViewModel DataContext
+        public override IPresenterViewModel DataContext
         {
             get => DataContextBackingField;
-            protected set => DataContextBackingField = (IDrawingElementViewModel) value;
+            protected set => DataContextBackingField = (IDrawingElementPresenterViewModel) value;
         }
 
         /// <inheritdoc />
-        public override IPresentationView View
+        public override IPresenterView View
         {
             get => ViewBackingField;
-            protected set => ViewBackingField = (IDrawingElementView) value;
+            protected set => ViewBackingField = (IDrawingElementPresenterView) value;
         }
 
         /// <inheritdoc />
@@ -67,11 +72,12 @@ namespace Waves.UI.Drawing.Presentation
 
             SubscribeEvents();
 
-            DataContextBackingField = new DrawingElementViewModel(DrawingService.CurrentEngine.GetDrawingElement());
+            DataContextBackingField =
+                new DrawingElementPresenterViewModel(DrawingService.CurrentEngine.GetDrawingElement());
             ViewBackingField = DrawingService.CurrentEngine.GetView(InputService);
 
-            OnPropertyChanged(nameof(DataContext));
-            OnPropertyChanged(nameof(View));
+            this.RaisePropertyChanged(nameof(DataContext));
+            this.RaisePropertyChanged(nameof(View));
 
             base.Initialize();
         }
@@ -89,10 +95,9 @@ namespace Waves.UI.Drawing.Presentation
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Arguments.</param>
-        [SuppressPropertyChangedWarnings]
         protected virtual void OnDrawingServiceEngineChanged(object sender, EventArgs e)
         {
-            var dataContext = new DrawingElementViewModel(DrawingService.CurrentEngine.GetDrawingElement());
+            var dataContext = new DrawingElementPresenterViewModel(DrawingService.CurrentEngine.GetDrawingElement());
 
             var currentContext = DataContextBackingField;
             if (currentContext == null) return;
@@ -106,8 +111,8 @@ namespace Waves.UI.Drawing.Presentation
 
             dataContext.Update();
 
-            OnPropertyChanged(nameof(DataContext));
-            OnPropertyChanged(nameof(View));
+            this.RaisePropertyChanged(nameof(DataContext));
+            this.RaisePropertyChanged(nameof(View));
         }
 
         /// <summary>

@@ -3,28 +3,28 @@
 namespace Waves.UI.Modality.ViewModel
 {
     /// <summary>
-    /// Message modal window presentation view model.
+    ///     Message modal window presenter view model.
     /// </summary>
-    public class MessageModalWindowViewModel : ModalWindowPresentationViewModel
+    public class MessageModalWindowPresenterViewModel : ModalWindowPresenterViewModel
     {
         /// <summary>
-        /// Creates new instance of message modal window view model.
+        ///     Creates new instance of message modal window view model.
         /// </summary>
         /// <param name="message">Message.</param>
         /// <param name="icon">Icon.</param>
-        public MessageModalWindowViewModel(string message, IVectorImage icon)
+        public MessageModalWindowPresenterViewModel(string message, IVectorImage icon)
         {
             Message = message;
             Icon = icon;
         }
 
         /// <summary>
-        /// Gets or sets modal window message.
+        ///     Gets or sets modal window message.
         /// </summary>
         public string Message { get; set; }
 
         /// <summary>
-        /// Gets or sets modal window icon.
+        ///     Gets or sets modal window icon.
         /// </summary>
         public IVectorImage Icon { get; set; }
 

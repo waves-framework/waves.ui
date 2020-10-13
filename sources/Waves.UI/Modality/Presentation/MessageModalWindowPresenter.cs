@@ -9,21 +9,27 @@ using Waves.UI.Modality.ViewModel;
 namespace Waves.UI.Modality.Presentation
 {
     /// <summary>
-    /// Message modal window presentation.
+    /// Message modal window presenter.
     /// </summary>
-    public class MessageModalWindowPresentation : ModalWindowPresentation
+    public class MessageModalWindowPresenter : ModalWindowPresenter
     {
-        private IPresentationViewModel _dataContext;
+        private IPresenterViewModel _dataContext;
 
         /// <summary>
-        /// Creates new instance of <see cref="MessageModalWindowPresentation"/>.
+        /// Creates new instance of <see cref="MessageModalWindowPresenter"/>.
         /// </summary>
         /// <param name="core">Instance of <see cref="Core"/></param>
         /// <param name="title">Title.</param>
         /// <param name="message">Message.</param>
         /// <param name="messageIcon">Message icon.</param>
         /// <param name="windowIcon">Window icon.</param>
-        public MessageModalWindowPresentation(Core core, string title, string message, MessageIcon messageIcon, IVectorImage windowIcon = null) : base(core)
+        public MessageModalWindowPresenter(
+            Core core, 
+            string title, 
+            string message, 
+            MessageIcon messageIcon, 
+            IVectorImage windowIcon = null) 
+            : base(core)
         {
             Title = title;
             Message = message;
@@ -48,15 +54,15 @@ namespace Waves.UI.Modality.Presentation
         public string Message { get; set; }
 
         /// <inheritdoc />
-        public override IPresentationViewModel DataContext { get; protected set; }
+        public override IPresenterViewModel DataContext { get; protected set; }
 
         /// <inheritdoc />
-        public override IPresentationView View { get; protected set; }
+        public override IPresenterView View { get; protected set; }
 
         /// <inheritdoc />
         public override void Initialize()
         {
-            _dataContext = new MessageModalWindowViewModel(Message, Icon);
+            _dataContext = new MessageModalWindowPresenterViewModel(Message, Icon);
 
             base.Initialize();
         }
@@ -64,7 +70,7 @@ namespace Waves.UI.Modality.Presentation
         /// <summary>
         /// Initializes actions.
         /// </summary>
-        /// <param name="actions"></param>
+        /// <param name="actions">Collection of actions.</param>
         public void InitializeActions(ICollection<IModalWindowAction> actions)
         {
             foreach (var action in actions)

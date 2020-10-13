@@ -1,5 +1,4 @@
 ﻿using System;
-using PropertyChanged;
 using Waves.Core.Base;
 using Waves.UI.Drawing.Base.Interfaces;
 using Object = Waves.Core.Base.Object;
@@ -15,7 +14,6 @@ namespace Waves.UI.Drawing.Base
         public override Guid Id { get; } = Guid.NewGuid();
 
         /// <inheritdoc />
-        [SuppressPropertyChangedWarnings]
         public abstract override string Name { get; set; }
 
         /// <inheritdoc />

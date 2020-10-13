@@ -5,9 +5,9 @@ using Waves.UI.Modality.Base.Interfaces;
 namespace Waves.UI.Modality.ViewModel.Interfaces
 {
     /// <summary>
-    ///     Interface for modality window presentation view model.
+    ///     Interface for modality window presenter view model.
     /// </summary>
-    public interface IModalWindowPresentationViewModel : IPresentationViewModel
+    public interface IModalWindowPresenterViewModel : IPresenterViewModel
     {
         /// <summary>
         /// Gets collections of actions.

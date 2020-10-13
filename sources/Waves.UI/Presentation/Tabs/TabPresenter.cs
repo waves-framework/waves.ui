@@ -4,15 +4,15 @@ using Waves.UI.Presentation.Tabs.Interfaces;
 namespace Waves.UI.Presentation.Tabs
 {
     /// <summary>
-    /// Base tab presentation.
+    /// Base tab presenter.
     /// </summary>
-    public abstract class TabPresentation : Waves.Presentation.Base.Presentation, ITabPresentation
+    public abstract class TabPresenter : Waves.Presentation.Base.Presenter, ITabPresenter
     {
         /// <inheritdoc />
-        public abstract override IPresentationViewModel DataContext { get; }
+        public abstract override IPresenterViewModel DataContext { get; }
 
         /// <inheritdoc />
-        public abstract override IPresentationView View { get; }
+        public abstract override IPresenterView View { get; }
 
         /// <inheritdoc />
         public abstract string Name { get; }

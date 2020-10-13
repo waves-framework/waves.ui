@@ -3,9 +3,9 @@
 namespace Waves.UI.Drawing.Presentation.Interfaces
 {
     /// <summary>
-    ///     Interface for drawing element presentation.
+    ///     Interface for drawing element presenter.
     /// </summary>
-    public interface IDrawingElementPresentation : IPresentation
+    public interface IDrawingElementPresenter : IPresenter
     {
     }
 }

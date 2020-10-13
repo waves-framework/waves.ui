@@ -1,7 +1,7 @@
 ﻿using System;
 using Waves.Core.Base;
 using Waves.Core.Base.Enums;
-using Waves.Core.Services.Interfaces;
+using Waves.Core.Base.Interfaces.Services;
 using Waves.Presentation.Interfaces;
 using Waves.UI.Drawing.Charting.Presentation.Interfaces;
 using Waves.UI.Drawing.Charting.View.Interface;
@@ -12,22 +12,22 @@ using Waves.UI.Services.Interfaces;
 namespace Waves.UI.Drawing.Charting.Presentation
 {
     /// <summary>
-    ///     Chart presentation.
+    ///     Chart presenter.
     /// </summary>
-    public abstract class ChartPresentation : Waves.Presentation.Base.Presentation, IChartPresentation
+    public abstract class ChartPresenter : Waves.Presentation.Base.Presenter, IChartPresenter
     {
         /// <summary>
         ///     Gets or sets Data context's backing field.
         /// </summary>
-        protected IChartViewModel DataContextBackingField;
+        protected IChartPresenterViewModel DataContextBackingField;
 
         /// <summary>
         ///     Gets or sets View's backing field.
         /// </summary>
-        protected IChartView ViewBackingField;
+        protected IChartPresenterView ViewBackingField;
 
         /// <inheritdoc />
-        protected ChartPresentation(
+        protected ChartPresenter(
             IDrawingService drawingService,
             IThemeService themeService,
             IInputService inputService)
@@ -55,17 +55,17 @@ namespace Waves.UI.Drawing.Charting.Presentation
         protected IInputService InputService { get; set; }
 
         /// <inheritdoc />
-        public override IPresentationViewModel DataContext
+        public override IPresenterViewModel DataContext
         {
             get => DataContextBackingField;
-            protected set => DataContextBackingField = (IChartViewModel) value;
+            protected set => DataContextBackingField = (IChartPresenterViewModel) value;
         } 
 
         /// <inheritdoc />
-        public override IPresentationView View
+        public override IPresenterView View
         {
             get => ViewBackingField;
-            protected set => ViewBackingField = (IChartView) value;
+            protected set => ViewBackingField = (IChartPresenterView) value;
         }
 
         /// <inheritdoc />
@@ -106,7 +106,7 @@ namespace Waves.UI.Drawing.Charting.Presentation
         /// </summary>
         protected virtual void InitializeColors()
         {
-            if (!(DataContext is IChartViewModel context)) return;
+            if (!(DataContext is IChartPresenterViewModel context)) return;
 
             context.Background = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(100);
             context.BorderColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(900);

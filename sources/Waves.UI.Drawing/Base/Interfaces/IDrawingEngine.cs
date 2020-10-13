@@ -1,4 +1,4 @@
-﻿using Waves.Core.Services.Interfaces;
+﻿using Waves.Core.Base.Interfaces.Services;
 using Waves.UI.Drawing.View.Interfaces;
 
 namespace Waves.UI.Drawing.Base.Interfaces
@@ -18,7 +18,7 @@ namespace Waves.UI.Drawing.Base.Interfaces
         /// </summary>
         /// <param name="inputService">Input service.</param>
         /// <returns>Instance of drawing element.</returns>
-        IDrawingElementView GetView(IInputService inputService);
+        IDrawingElementPresenterView GetView(IInputService inputService);
 
         /// <summary>
         ///     Gets drawing element.
