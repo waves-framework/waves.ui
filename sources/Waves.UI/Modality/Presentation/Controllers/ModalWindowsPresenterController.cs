@@ -11,9 +11,9 @@ namespace Waves.UI.Modality.Presentation.Controllers
     /// <summary>
     /// Modality windows presenter controller.
     /// </summary>
-    public abstract class ModalWindowsPresenterController : 
+    public abstract class ModalWindowPresenterController : 
         PresenterController, 
-        IModalWindowsPresenterController
+        IModalWindowPresenterController
     {
         private IPresenter _presenter;
 

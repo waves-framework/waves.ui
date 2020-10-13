@@ -6,7 +6,7 @@ namespace Waves.UI.Modality.Presentation.Controllers.Interfaces
     /// <summary>
     /// Interface for modality windows presenter controller.
     /// </summary>
-    public interface IModalWindowsPresenterController : IPresenterController
+    public interface IModalWindowPresenterController : IPresenterController
     {
         /// <summary>
         /// Gets whether modality controller visible.

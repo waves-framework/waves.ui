@@ -23,7 +23,7 @@ namespace Waves.UI
         /// <summary>
         /// Gets or sets modal window controller.
         /// </summary>
-        protected IModalWindowsPresenterController ModalWindowController { get; set; }
+        protected IModalWindowPresenterController ModalWindowController { get; set; }
 
         /// <inheritdoc />
         public sealed override void Start()
@@ -32,19 +32,28 @@ namespace Waves.UI
             {
                 base.Start();
 
-                WriteLog(
-                    new Message("UI Core launch", "UI Core is launching...", "UI Core", MessageType.Information));
+                WriteLog(new Message(
+                    "UI Core launch", 
+                    "UI Core is launching...", 
+                    "UI Core", 
+                    MessageType.Information));
 
                 Initialize();
 
                 IsInitialized = true;
 
-                WriteLog(
-                    new Message("UI Core launch", "UI Core launched successfully.", "UI Core", MessageType.Success));
+                WriteLog( new Message(
+                        "UI Core launch", 
+                        "UI Core launched successfully.", 
+                        "UI Core", 
+                        MessageType.Success));
             }
             catch (Exception ex)
             {
-                WriteLog(ex, "UI Core launch", true);
+                WriteLog(
+                    ex, 
+                    "UI Core launch", 
+                    true);
             }
         }
 
