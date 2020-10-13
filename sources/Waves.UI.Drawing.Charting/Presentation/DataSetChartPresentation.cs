@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Waves.Core.Services.Interfaces;
+using ReactiveUI;
+using Waves.Core.Base.Interfaces.Services;
 using Waves.UI.Drawing.Charting.Base.Interfaces;
 using Waves.UI.Drawing.Charting.Presentation.Interfaces;
 using Waves.UI.Drawing.Charting.ViewModel;
 using Waves.UI.Drawing.Charting.ViewModel.Interfaces;
 using Waves.UI.Drawing.Services.Interfaces;
-using Waves.UI.Services;
 using Waves.UI.Services.Interfaces;
 
 namespace Waves.UI.Drawing.Charting.Presentation
@@ -14,7 +14,7 @@ namespace Waves.UI.Drawing.Charting.Presentation
     /// <summary>
     ///     Data set chart presentation.
     /// </summary>
-    public class DataSetChartPresentation : ChartPresentation, IChartPresentation
+    public class DataSetChartPresentation : ChartPresenter, IChartPresenter
     {
         private readonly IChartViewFactory _chartViewFactory;
 
@@ -44,7 +44,7 @@ namespace Waves.UI.Drawing.Charting.Presentation
             if (ThemeService == null) return;
 
             var drawingElement = DrawingService.CurrentEngine.GetDrawingElement();
-            var dataContext = new DataSetChartViewModel(drawingElement);
+            var dataContext = new DataSetChartPresenterViewModel(drawingElement);
 
             var view = _chartViewFactory.GetChartView();
             view.DrawingElementView = DrawingService.CurrentEngine.GetView(InputService);
@@ -61,9 +61,9 @@ namespace Waves.UI.Drawing.Charting.Presentation
             ViewBackingField = view;
 
             InitializeColors();
-
-            OnPropertyChanged(nameof(DataContext));
-            OnPropertyChanged(nameof(View));
+            
+            this.RaisePropertyChanged(nameof(DataContext));
+            this.RaisePropertyChanged(nameof(View));
 
             base.Initialize();
 
@@ -77,13 +77,13 @@ namespace Waves.UI.Drawing.Charting.Presentation
         {
             base.InitializeColors();
 
-            if (!(DataContextBackingField is DataSetChartViewModel context)) return;
+            if (!(DataContextBackingField is DataSetChartPresenterViewModel context)) return;
         }
 
         /// <inheritdoc />
         protected override void OnDrawingServiceEngineChanged(object sender, EventArgs e)
         {
-            if (!(DataContextBackingField is IDataSetChartViewModel context)) return;
+            if (!(DataContextBackingField is IDataSetChartPresenterViewModel context)) return;
 
             _oldDataSets = context.DataSets;
 

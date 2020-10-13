@@ -6,10 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
-using PropertyChanged;
+using ReactiveUI;
 using Waves.Core.Base;
 using Waves.Core.Base.Enums;
 using Waves.Core.Base.Interfaces;
+using Waves.Core.Base.Interfaces.Services;
 using Waves.UI.Drawing.Base.Interfaces;
 using Waves.UI.Drawing.Services.Interfaces;
 
@@ -45,9 +46,7 @@ namespace Waves.UI.Drawing.Services
             set
             {
                 _currentEngine = value;
-
-                OnPropertyChanged();
-
+                this.RaisePropertyChanged(nameof(CurrentEngine));
                 OnEngineChanged();
             }
         }
@@ -106,9 +105,11 @@ namespace Waves.UI.Drawing.Services
         }
 
         /// <inheritdoc />
-        public override void Initialize()
+        public override void Initialize(ICore core)
         {
             if (IsInitialized) return;
+
+            Core = core;
 
             try
             {
@@ -130,14 +131,14 @@ namespace Waves.UI.Drawing.Services
         }
 
         /// <inheritdoc />
-        public override void LoadConfiguration(IConfiguration configuration)
+        public override void LoadConfiguration()
         {
             try
             {
-                EnginePaths.AddRange(LoadConfigurationValue(configuration, "DrawingService-EnginePaths",
+                EnginePaths.AddRange(LoadConfigurationValue(Core.Configuration, "DrawingService-EnginePaths",
                     new List<string>()));
 
-                var name = LoadConfigurationValue(configuration, "DrawingService-DefaultEngineName", string.Empty);
+                var name = LoadConfigurationValue(Core.Configuration, "DrawingService-DefaultEngineName", string.Empty);
 
                 if (!string.IsNullOrEmpty(name))
                 {
@@ -165,13 +166,13 @@ namespace Waves.UI.Drawing.Services
         }
 
         /// <inheritdoc />
-        public override void SaveConfiguration(IConfiguration configuration)
+        public override void SaveConfiguration()
         {
             try
             {
                 if (EnginePaths.Count > 1)
                 {
-                    configuration.SetPropertyValue("ApplicationService-Paths",
+                    Core.Configuration.SetPropertyValue("ApplicationService-Paths",
                         EnginePaths.GetRange(1, EnginePaths.Count - 1));
 
                     OnMessageReceived(this, new Message("Configuration saving", "Configuration saves successfully.",
@@ -180,7 +181,7 @@ namespace Waves.UI.Drawing.Services
                 }
 
                 if (CurrentEngine != null)
-                    configuration.SetPropertyValue("DrawingService-DefaultEngineName", CurrentEngine.Name);
+                    Core.Configuration.SetPropertyValue("DrawingService-DefaultEngineName", CurrentEngine.Name);
             }
             catch (Exception e)
             {
@@ -196,7 +197,6 @@ namespace Waves.UI.Drawing.Services
         /// <summary>
         ///     Notifies when engine changed.
         /// </summary>
-        [SuppressPropertyChangedWarnings]
         protected virtual void OnEngineChanged()
         {
             EngineChanged?.Invoke(this, EventArgs.Empty);

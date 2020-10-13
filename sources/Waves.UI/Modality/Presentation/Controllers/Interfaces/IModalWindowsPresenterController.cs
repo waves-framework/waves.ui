@@ -4,9 +4,9 @@ using Waves.UI.Modality.Presentation.Interfaces;
 namespace Waves.UI.Modality.Presentation.Controllers.Interfaces
 {
     /// <summary>
-    /// Interface for modality windows presentation controller.
+    /// Interface for modality windows presenter controller.
     /// </summary>
-    public interface IModalWindowsPresentationController : IPresentationController
+    public interface IModalWindowPresenterController : IPresenterController
     {
         /// <summary>
         /// Gets whether modality controller visible.
@@ -16,13 +16,13 @@ namespace Waves.UI.Modality.Presentation.Controllers.Interfaces
         /// <summary>
         /// Shows window.
         /// </summary>
-        /// <param name="presentation">Presentation.</param>
-        void ShowWindow(IModalWindowPresentation presentation);
+        /// <param name="presenter">Presenter.</param>
+        void ShowWindow(IModalWindowPresenter presenter);
 
         /// <summary>
         /// Hides window.
         /// </summary>
-        /// <param name="presentation">Presentation.</param>
-        void HideWindow(IModalWindowPresentation presentation);
+        /// <param name="presenter">Presenter.</param>
+        void HideWindow(IModalWindowPresenter presenter);
     }
 }

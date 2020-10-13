@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using Waves.Core.Base.Interfaces;
+using Waves.Core.Base.Interfaces.Services;
 using Waves.UI.Base.Interfaces;
 
 namespace Waves.UI.Services.Interfaces

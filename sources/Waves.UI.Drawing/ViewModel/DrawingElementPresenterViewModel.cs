@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using PropertyChanged;
 using Waves.Core.Base;
 using Waves.Core.Base.Enums;
 using Waves.Core.Base.EventArgs;
-using Waves.Core.Services.Interfaces;
+using Waves.Core.Base.Interfaces.Services;
 using Waves.Presentation.Base;
 using Waves.UI.Drawing.Base.Interfaces;
 using Waves.UI.Drawing.ViewModel.Interfaces;
@@ -14,16 +13,16 @@ namespace Waves.UI.Drawing.ViewModel
     /// <summary>
     ///     Drawing element view model base.
     /// </summary>
-    public class DrawingElementViewModel : PresentationViewModel, IDrawingElementViewModel
+    public class DrawingElementPresenterViewModel : PresenterViewModel, IDrawingElementPresenterViewModel
     {
         private readonly object _collectionLocker = new object();
 
         private IInputService _inputService;
 
         /// <summary>
-        ///     Creates new instance of <see cref="DrawingElementViewModel" />.
+        ///     Creates new instance of <see cref="DrawingElementPresenterViewModel" />.
         /// </summary>
-        public DrawingElementViewModel(IDrawingElement drawingElement)
+        public DrawingElementPresenterViewModel(IDrawingElement drawingElement)
         {
             DrawingElement = drawingElement;
         }
@@ -184,7 +183,6 @@ namespace Waves.UI.Drawing.ViewModel
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Arguments.</param>
-        [SuppressPropertyChangedWarnings]
         protected virtual void OnInputServicePointerStateChanged(object sender, PointerEventArgs e)
         {
         }

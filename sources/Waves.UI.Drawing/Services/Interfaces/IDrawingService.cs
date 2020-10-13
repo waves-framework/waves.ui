@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Waves.Core.Base.Interfaces;
+using Waves.Core.Base.Interfaces.Services;
 using Waves.UI.Drawing.Base.Interfaces;
 
 namespace Waves.UI.Drawing.Services.Interfaces

@@ -23,7 +23,7 @@ namespace Waves.UI
         /// <summary>
         /// Gets or sets modal window controller.
         /// </summary>
-        protected IModalWindowsPresentationController ModalWindowController { get; set; }
+        protected IModalWindowPresenterController ModalWindowController { get; set; }
 
         /// <inheritdoc />
         public sealed override void Start()
@@ -32,62 +32,69 @@ namespace Waves.UI
             {
                 base.Start();
 
-                WriteLogMessage(
-                    new Message("UI Core launch", "UI Core is launching...", "UI Core", MessageType.Information));
+                WriteLog(new Message(
+                    "UI Core launch", 
+                    "UI Core is launching...", 
+                    "UI Core", 
+                    MessageType.Information));
 
                 Initialize();
 
                 IsInitialized = true;
 
-                WriteLogMessage(
-                    new Message("UI Core launch", "UI Core launched successfully.", "UI Core", MessageType.Success));
-
-                AddMessageSeparator();
+                WriteLog( new Message(
+                        "UI Core launch", 
+                        "UI Core launched successfully.", 
+                        "UI Core", 
+                        MessageType.Success));
             }
             catch (Exception ex)
             {
-                WriteLogException(ex, "UI Core launch", true);
+                WriteLog(
+                    ex, 
+                    "UI Core launch", 
+                    true);
             }
         }
 
         /// <summary>
         ///     Shows modality window.
         /// </summary>
-        /// <param name="presentation">Presentation.</param>
-        public void ShowModalityWindow(IModalWindowPresentation presentation)
+        /// <param name="presenter">Presenter.</param>
+        public void ShowModalityWindow(IModalWindowPresenter presenter)
         {
-            ModalWindowController?.ShowWindow(presentation);
+            ModalWindowController?.ShowWindow(presenter);
         }
 
         /// <summary>
         ///     Hides modality window.
         /// </summary>
-        /// <param name="presentation">Presentation.</param>
-        public void HideModalityWindow(IModalWindowPresentation presentation)
+        /// <param name="presenter">Presenter.</param>
+        public void HideModalityWindow(IModalWindowPresenter presenter)
         {
-            ModalWindowController?.HideWindow(presentation);
+            ModalWindowController?.HideWindow(presenter);
         }
 
         /// <inheritdoc />
-        public override void WriteLogMessage(IMessage message)
+        public override void WriteLog(IMessage message)
         {
             if (message.Type == MessageType.Fatal)
             {
                 // TODO: fatal error handling.
             }
 
-            base.WriteLogMessage(message);
+            base.WriteLog(message);
         }
 
         /// <inheritdoc />
-        public override void WriteLogException(Exception ex, string sender, bool isFatal)
+        public override void WriteLog(Exception ex, string sender, bool isFatal)
         {
             if (isFatal)
             {
                 // TODO: fatal error handling.
             }
 
-            base.WriteLogException(ex, sender, isFatal);
+            base.WriteLog(ex, sender, isFatal);
         }
 
         /// <summary>

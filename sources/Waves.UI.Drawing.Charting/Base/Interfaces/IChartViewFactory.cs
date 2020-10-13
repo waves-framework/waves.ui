@@ -11,6 +11,6 @@ namespace Waves.UI.Drawing.Charting.Base.Interfaces
         ///     Gets chart view.
         /// </summary>
         /// <returns>Chart view.</returns>
-        IChartView GetChartView();
+        IChartPresenterView GetChartView();
     }
 }

@@ -3,9 +3,9 @@
 namespace Waves.UI.Presentation.Tabs.Interfaces
 {
     /// <summary>
-    /// Interface for tab presentation.
+    /// Interface for tab presenter.
     /// </summary>
-    public interface ITabPresentation : IPresentation
+    public interface ITabPresenter : IPresenter
     {
         /// <summary>
         /// Gets tab name.

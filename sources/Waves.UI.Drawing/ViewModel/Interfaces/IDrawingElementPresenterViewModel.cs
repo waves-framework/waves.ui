@@ -7,9 +7,9 @@ using Waves.UI.Drawing.Base.Interfaces;
 namespace Waves.UI.Drawing.ViewModel.Interfaces
 {
     /// <summary>
-    ///     Interface for drawing element presentation view model.
+    ///     Interface for drawing element presenter view model.
     /// </summary>
-    public interface IDrawingElementViewModel : IPresentationViewModel, IDisposable
+    public interface IDrawingElementPresenterViewModel : IPresenterViewModel, IDisposable
     {
         /// <summary>
         ///     Gets or sets foreground.
