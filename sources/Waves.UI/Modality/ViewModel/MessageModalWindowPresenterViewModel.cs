@@ -1,4 +1,5 @@
-﻿using Waves.UI.Base.Interfaces;
+﻿using System;
+using Waves.UI.Base.Interfaces;
 
 namespace Waves.UI.Modality.ViewModel
 {
@@ -17,6 +18,12 @@ namespace Waves.UI.Modality.ViewModel
             Message = message;
             Icon = icon;
         }
+        
+        /// <inheritdoc />
+        public override Guid Id { get; } = Guid.NewGuid();
+
+        /// <inheritdoc />
+        public override string Name { get; set; } = "Message Modal Window Presenter View Model";
 
         /// <summary>
         ///     Gets or sets modal window message.
@@ -30,6 +37,11 @@ namespace Waves.UI.Modality.ViewModel
 
         /// <inheritdoc />
         public override void Initialize()
+        {
+        }
+
+        /// <inheritdoc />
+        public override void Dispose()
         {
         }
     }

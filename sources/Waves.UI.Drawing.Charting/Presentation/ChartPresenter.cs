@@ -121,7 +121,13 @@ namespace Waves.UI.Drawing.Charting.Presentation
             context.TextStyle.FontFamily = "#Lato Regular";
             context.TextStyle.FontSize = 12;
 
-            OnMessageReceived(new Message("Chart colors", "Chart colors were changed", "Chart", MessageType.Success));
+            OnMessageReceived(
+                this, 
+                new Message(
+                    "Chart colors", 
+                    "Chart colors were changed", 
+                    "Chart", 
+                    MessageType.Success));
         }
 
         /// <summary>

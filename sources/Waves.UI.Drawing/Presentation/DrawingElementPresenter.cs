@@ -30,6 +30,12 @@ namespace Waves.UI.Drawing.Presentation
             DrawingService = drawingService;
             InputService = inputService;
         }
+
+        /// <inheritdoc />
+        public override Guid Id { get; } = Guid.NewGuid();
+
+        /// <inheritdoc />
+        public override string Name { get; set; } = "Drawing Element Presenter";
         
         /// <summary>
         ///     Gets or sets Data context's backing field.

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Waves.Presentation.Interfaces;
 using Waves.UI.Base.Interfaces;
 using Waves.UI.Modality.Base.Interfaces;
@@ -36,6 +37,12 @@ namespace Waves.UI.Modality.Presentation
             MessageIcon = messageIcon;
             Icon = windowIcon;
         }
+        
+        /// <inheritdoc />
+        public override Guid Id { get; } = Guid.NewGuid();
+
+        /// <inheritdoc />
+        public override string Name { get; set; } = "Message Modal Window Presenter";
 
         /// <inheritdoc />
         public override IVectorImage Icon { get; }

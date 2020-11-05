@@ -14,14 +14,14 @@ namespace Waves.UI.Drawing.Charting.Presentation
     /// <summary>
     ///     Data set chart presentation.
     /// </summary>
-    public class DataSetChartPresentation : ChartPresenter, IChartPresenter
+    public class DatasetChartPresentation : ChartPresenter, IChartPresenter
     {
         private readonly IChartViewFactory _chartViewFactory;
 
         private List<IDataSet> _oldDataSets = new List<IDataSet>();
 
         /// <inheritdoc />
-        public DataSetChartPresentation(
+        public DatasetChartPresentation(
             IDrawingService drawingService,
             IThemeService themeService,
             IInputService inputService,
@@ -30,6 +30,12 @@ namespace Waves.UI.Drawing.Charting.Presentation
         {
             _chartViewFactory = factory;
         }
+        
+        /// <inheritdoc />
+        public override Guid Id { get; } = Guid.NewGuid();
+
+        /// <inheritdoc />
+        public override string Name { get; set; } = "Dataset Chart Presentation";
 
         /// <inheritdoc />
         public override void Initialize()

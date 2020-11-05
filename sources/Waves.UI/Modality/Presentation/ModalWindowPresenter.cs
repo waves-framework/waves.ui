@@ -44,12 +44,6 @@ namespace Waves.UI.Modality.Presentation
         /// <inheritdoc />
         public virtual double MaxWidth { get; set; } = 320;
 
-        /// <inheritdoc />
-        public abstract override IPresenterViewModel DataContext { get; }
-
-        /// <inheritdoc />
-        public abstract override IPresenterView View { get; }
-
         /// <summary>
         /// Gets collection synchronization service.
         /// </summary>
@@ -85,7 +79,7 @@ namespace Waves.UI.Modality.Presentation
             }
             catch (Exception e)
             {
-                OnMessageReceived(
+                OnMessageReceived(this,
                     new Message(
                     "Initialization", 
                     "Error initializing modal window presenter", 

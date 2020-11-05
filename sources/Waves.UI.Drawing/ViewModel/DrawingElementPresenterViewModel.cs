@@ -26,6 +26,12 @@ namespace Waves.UI.Drawing.ViewModel
         {
             DrawingElement = drawingElement;
         }
+        
+        /// <inheritdoc />
+        public override Guid Id { get; } = Guid.Empty;
+
+        /// <inheritdoc />
+        public override string Name { get; set; } = "Drawing Element Presenter View Model";
 
         /// <summary>
         ///     Gets or sets whether is drawing initialized.
@@ -149,7 +155,7 @@ namespace Waves.UI.Drawing.ViewModel
         }
 
         /// <inheritdoc />
-        public void Dispose()
+        public override void Dispose()
         {
             DrawingElement?.Dispose();
         }
