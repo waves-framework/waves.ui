@@ -7,7 +7,7 @@ namespace Waves.UI.Drawing.Charting.Services.Interfaces
     /// <summary>
     /// Interface for charting service.
     /// </summary>
-    public interface IChartingService : IService
+    public interface IChartingService : IWavesService
     {
         /// <summary>
         /// Gets chart view factory.

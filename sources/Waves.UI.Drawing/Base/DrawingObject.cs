@@ -1,14 +1,13 @@
 ﻿using System;
 using Waves.Core.Base;
 using Waves.UI.Drawing.Base.Interfaces;
-using Object = Waves.Core.Base.Object;
 
 namespace Waves.UI.Drawing.Base
 {
     /// <summary>
     ///     Base abstract class for drawing objects.
     /// </summary>
-    public abstract class DrawingObject : Object, IDrawingObject
+    public abstract class DrawingObject : WavesObject, IDrawingObject
     {
         /// <inheritdoc />
         public override Guid Id { get; } = Guid.NewGuid();
@@ -29,10 +28,10 @@ namespace Waves.UI.Drawing.Base
         public float StrokeThickness { get; set; } = 1;
 
         /// <inheritdoc />
-        public Color Fill { get; set; } = Color.Black;
+        public WavesColor Fill { get; set; } = WavesColor.Black;
 
         /// <inheritdoc />
-        public Color Stroke { get; set; } = Color.Gray;
+        public WavesColor Stroke { get; set; } = WavesColor.Gray;
 
         /// <inheritdoc />
         public abstract void Draw(IDrawingElement e);

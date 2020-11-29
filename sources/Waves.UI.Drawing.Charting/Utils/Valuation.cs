@@ -70,10 +70,10 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <param name="xMax">Chart's minimum bound value along the Y axis.</param>
         /// <param name="yMax">Chart's maximum bound value along the Y axis.</param>
         /// <returns>Normalized point.</returns>
-        public static Point NormalizePoint(Point input, float width, float height, float xMin, float yMin, float xMax,
+        public static WavesPoint NormalizePoint(WavesPoint input, float width, float height, float xMin, float yMin, float xMax,
             float yMax)
         {
-            return new Point(NormalizePointX2D(input.X, width, xMin, xMax),
+            return new WavesPoint(NormalizePointX2D(input.X, width, xMin, xMax),
                 NormalizePointY2D(input.Y, height, yMin, yMax));
         }
 
@@ -89,10 +89,10 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <param name="xMax">Chart's minimum bound value along the Y axis.</param>
         /// <param name="yMax">Chart's maximum bound value along the Y axis.</param>
         /// <returns>Normalized point.</returns>
-        public static Point NormalizePoint(float x, float y, float width, float height, float xMin, float yMin,
+        public static WavesPoint NormalizePoint(float x, float y, float width, float height, float xMin, float yMin,
             float xMax, float yMax)
         {
-            return new Point(NormalizePointX2D(x, width, xMin, xMax),
+            return new WavesPoint(NormalizePointX2D(x, width, xMin, xMax),
                 NormalizePointY2D(y, height, yMin, yMax));
         }
 
@@ -107,10 +107,10 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <param name="xMax">Chart's minimum bound value along the Y axis.</param>
         /// <param name="yMax">Chart's maximum bound value along the Y axis.</param>
         /// <returns>Denormalized point.</returns>
-        public static Point DenormalizePoint(Point input, float width, float height, float xMin, float yMin, float xMax,
+        public static WavesPoint DenormalizePoint(WavesPoint input, float width, float height, float xMin, float yMin, float xMax,
             float yMax)
         {
-            return new Point(DenormalizePointX2D(input.X, width, xMin, xMax),
+            return new WavesPoint(DenormalizePointX2D(input.X, width, xMin, xMax),
                 DenormalizePointY2D(input.Y, height, yMin, yMax));
         }
 
@@ -126,10 +126,10 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <param name="xMax">Chart's minimum bound value along the Y axis.</param>
         /// <param name="yMax">Chart's maximum bound value along the Y axis.</param>
         /// <returns>Denormalized point.</returns>
-        public static Point DenormalizePoint(float x, float y, float width, float height, float xMin, float yMin,
+        public static WavesPoint DenormalizePoint(float x, float y, float width, float height, float xMin, float yMin,
             float xMax, float yMax)
         {
-            return new Point(DenormalizePointX2D(x, width, xMin, xMax),
+            return new WavesPoint(DenormalizePointX2D(x, width, xMin, xMax),
                 DenormalizePointY2D(y, height, yMin, yMax));
         }
     }

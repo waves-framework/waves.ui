@@ -2,14 +2,13 @@
 using Waves.Core.Base;
 using Waves.UI.Drawing.Charting.Base.Enums;
 using Waves.UI.Drawing.Charting.Base.Interfaces;
-using Object = Waves.Core.Base.Object;
 
 namespace Waves.UI.Drawing.Charting.Base
 {
     /// <summary>
     ///     Data set.
     /// </summary>
-    public sealed class DataSet : Object, IDataSet
+    public sealed class DataSet : WavesObject, IDataSet
     {
         /// <summary>
         ///     Creates new instance of <see cref="DataSet" />.
@@ -22,7 +21,7 @@ namespace Waves.UI.Drawing.Charting.Base
         ///     Creates new instance of <see cref="DataSet" />.
         /// </summary>
         /// <param name="data">Data.</param>
-        public DataSet(Point[] data)
+        public DataSet(WavesPoint[] data)
         {
             Data = data ?? throw new ArgumentNullException(nameof(data), "Description was null.");
         }
@@ -32,7 +31,7 @@ namespace Waves.UI.Drawing.Charting.Base
         /// </summary>
         /// <param name="data">Data.</param>
         /// <param name="description">Descriptions.</param>
-        public DataSet(Point[] data, string[] description)
+        public DataSet(WavesPoint[] data, string[] description)
         {
             if (data == null) throw new ArgumentNullException(nameof(data), "Description was null.");
 
@@ -51,10 +50,10 @@ namespace Waves.UI.Drawing.Charting.Base
         public override string Name { get; set; } = "Data set";
 
         /// <inheritdoc />
-        public Color Color { get; set; } = Color.Black;
+        public WavesColor Color { get; set; } = WavesColor.Black;
 
         /// <inheritdoc />
-        public Point[] Data { get; private set; }
+        public WavesPoint[] Data { get; private set; }
 
         /// <inheritdoc />
         public string[] Description { get; private set; }
@@ -66,26 +65,26 @@ namespace Waves.UI.Drawing.Charting.Base
         public float Opacity { get; set; } = 1.0f;
 
         /// <inheritdoc />
-        public void UpdateDataSet(Point[] data)
+        public void UpdateDataSet(WavesPoint[] data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data), "Description was null.");
 
             if (data.Length != Data.Length)
-                Data = new Point[data.Length];
+                Data = new WavesPoint[data.Length];
 
             for (var i = 0; i < Data.Length; i++)
                 Data[i] = data[i];
         }
 
         /// <inheritdoc />
-        public void UpdateDataSet(Point[] data, string[] description)
+        public void UpdateDataSet(WavesPoint[] data, string[] description)
         {
             if (data == null) throw new ArgumentNullException(nameof(data), "Description was null.");
 
             if (description == null) throw new ArgumentNullException(nameof(description), "Description was null.");
 
             if (data.Length != Data.Length)
-                Data = new Point[data.Length];
+                Data = new WavesPoint[data.Length];
 
             for (var i = 0; i < Data.Length; i++)
                 Data[i] = data[i];

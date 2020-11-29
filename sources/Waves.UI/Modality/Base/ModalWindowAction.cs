@@ -11,7 +11,7 @@ namespace Waves.UI.Modality.Base
     /// <summary>
     /// Base class of modality window action.
     /// </summary>
-    public class ModalWindowAction : ObservableObject, IModalWindowAction
+    public class ModalWindowAction : WavesObservableObject, IModalWindowAction
     {
         /// <summary>
         /// Creates new instance of <see cref="ModalWindowAction"/>. 

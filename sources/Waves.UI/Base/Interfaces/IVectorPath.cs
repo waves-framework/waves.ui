@@ -15,6 +15,6 @@ namespace Waves.UI.Base.Interfaces
         /// <summary>
         ///     Gets or sets color of path.
         /// </summary>
-        Color Color { get; }
+        WavesColor Color { get; }
     }
 }

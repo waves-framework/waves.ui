@@ -14,11 +14,11 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <param name="input">Input data.</param>
         /// <param name="threshold">Number of points.</param>
         /// <returns>Downsampled data.</returns>
-        public static Point[] LargestTriangleThreeBucketsDownsampling(Point[] input, int threshold)
+        public static WavesPoint[] LargestTriangleThreeBucketsDownsampling(WavesPoint[] input, int threshold)
         {
-            if (threshold == 0) return new Point[0];
+            if (threshold == 0) return new WavesPoint[0];
 
-            var output = new Point[threshold];
+            var output = new WavesPoint[threshold];
 
             var dataLength = input.Length;
 
@@ -28,7 +28,7 @@ namespace Waves.UI.Drawing.Charting.Utils
             var every = (double) (dataLength - 2) / (threshold - 2);
 
             var a = 0;
-            var maxAreaPoint = new Point(0, 0);
+            var maxAreaPoint = new WavesPoint(0, 0);
             var nextA = 0;
 
             output[0] = input[a];
@@ -90,8 +90,26 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <param name="input">Input data.</param>
         /// <param name="threshold">Number of points.</param>
         /// <returns>Upsampled data.</returns>
-        public static Point[] SplineUpsampling(Point[] input, int threshold)
+        public static WavesPoint[] SplineUpsampling(WavesPoint[] input, int threshold)
         {
+            // var output = new WavesPoint[threshold];
+            // var originalLength = input.Length;
+            //
+            // var inputX = new float[originalLength];
+            // var inputY = new float[originalLength];
+            // for (var i = 0; i < originalLength; i++)
+            // {
+            //     inputX[i] = input[i].X;
+            //     inputY[i] = input[i].Y;
+            // }
+            //
+            // CubicSpline.FitParametric(inputX, inputY, threshold, out var outputX, out var outputY);
+            //
+            // for (var i = 0; i < threshold; i++)
+            // {
+            //     output[i] = new WavesPoint(outputX[i], outputY[i]);
+            // }
+            //
             return input;
         }
     }

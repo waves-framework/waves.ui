@@ -7,7 +7,7 @@ namespace Waves.UI.Drawing.Base.Interfaces
     /// <summary>
     ///     Interface for drawing engine.
     /// </summary>
-    public interface IDrawingEngine : IObject
+    public interface IDrawingEngine : IWavesObject
     {
         /// <summary>
         ///     Gets name of engine.

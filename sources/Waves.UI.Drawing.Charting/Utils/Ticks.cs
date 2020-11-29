@@ -102,7 +102,7 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <param name="width">Chart width.</param>
         /// <param name="height">Chart height.</param>
         /// <returns>Returns line.</returns>
-        public static Line GetXAxisTickLine(float value, float strokeThickness, Color stroke, float[] dashArray,
+        public static Line GetXAxisTickLine(float value, float strokeThickness, WavesColor stroke, float[] dashArray,
             float opacity,
             float xMin, float xMax, float width, float height)
         {
@@ -115,8 +115,8 @@ namespace Waves.UI.Drawing.Charting.Utils
                 IsVisible = true,
                 Opacity = opacity,
                 StrokeThickness = strokeThickness,
-                Point1 = new Point(Valuation.NormalizePointX2D(value, width, xMin, xMax), 0),
-                Point2 = new Point(Valuation.NormalizePointX2D(value, width, xMin, xMax), height)
+                Point1 = new WavesPoint(Valuation.NormalizePointX2D(value, width, xMin, xMax), 0),
+                Point2 = new WavesPoint(Valuation.NormalizePointX2D(value, width, xMin, xMax), height)
             };
         }
 
@@ -133,7 +133,7 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <param name="width">Chart width.</param>
         /// <param name="height">Chart height.</param>
         /// <returns>Returns line.</returns>
-        public static Line GetYAxisTickLine(float value, float strokeThickness, Color stroke, float[] dashArray,
+        public static Line GetYAxisTickLine(float value, float strokeThickness, WavesColor stroke, float[] dashArray,
             float opacity,
             float yMin, float yMax, float width, float height)
         {
@@ -146,8 +146,8 @@ namespace Waves.UI.Drawing.Charting.Utils
                 IsVisible = true,
                 Opacity = opacity,
                 StrokeThickness = strokeThickness,
-                Point1 = new Point(0, Valuation.NormalizePointY2D(value, height, yMin, yMax)),
-                Point2 = new Point(width, Valuation.NormalizePointY2D(value, height, yMin, yMax))
+                Point1 = new WavesPoint(0, Valuation.NormalizePointY2D(value, height, yMin, yMax)),
+                Point2 = new WavesPoint(width, Valuation.NormalizePointY2D(value, height, yMin, yMax))
             };
         }
     }

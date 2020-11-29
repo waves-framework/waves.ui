@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using ReactiveUI;
 using Waves.Core.Base;
+using Waves.Core.Base.Interfaces;
 using Waves.UI.Drawing.Base;
 using Waves.UI.Drawing.Base.Interfaces;
 using Waves.UI.Drawing.Charting.Base.Enums;
@@ -22,7 +23,10 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         private readonly List<IDrawingObject> _tempDrawingObjects = new List<IDrawingObject>();
 
         /// <inheritdoc />
-        public DataSetChartPresenterViewModel(IDrawingElement drawingElement) : base(drawingElement)
+        public DataSetChartPresenterViewModel(
+            IWavesCore core,
+            IDrawingElement drawingElement)
+            : base(core,drawingElement)
         {
         }
 
@@ -43,7 +47,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         }
 
         /// <inheritdoc />
-        public void UpdateDataSet(int index, Point[] points)
+        public void UpdateDataSet(int index, WavesPoint[] points)
         {
             if (index >= DataSets.Count) return;
             DataSets[index].UpdateDataSet(points);
@@ -100,7 +104,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             if (dataSet.Data == null) return;
             if (dataSet.Data.Length == 0) return;
 
-            var visiblePoints = new List<Point> {new Point()};
+            var visiblePoints = new List<WavesPoint> {new WavesPoint()};
             foreach (var point in dataSet.Data)
             {
                 if (point.X < CurrentXMin)
@@ -153,14 +157,14 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 var x = Valuation.DenormalizePointX2D(LastMousePosition.X, Width, CurrentXMin, CurrentXMax);
                 var y = Valuation.DenormalizePointY2D(LastMousePosition.Y, Height, CurrentYMin, CurrentYMax);
 
-                var ep = new Point();
-                var ed = new Point();
+                var ep = new WavesPoint();
+                var ed = new WavesPoint();
 
                 for (var i = 0; i < dataSet.Data.Length - 1; i++)
                     if (x > dataSet.Data[i].X && x < dataSet.Data[i + 1].X)
                     {
-                        ep = new Point(dataSet.Data[i].X, dataSet.Data[i].Y);
-                        ed = new Point(dataSet.Data[i].X, dataSet.Data[i].Y);
+                        ep = new WavesPoint(dataSet.Data[i].X, dataSet.Data[i].Y);
+                        ed = new WavesPoint(dataSet.Data[i].X, dataSet.Data[i].Y);
                     }
 
                 ep = Valuation.NormalizePoint(ep, Width, Height, CurrentXMin, CurrentYMin,
@@ -191,7 +195,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
                 var text = new Text
                 {
-                    Location = new Point(ep.X, ep.Y),
+                    Location = new WavesPoint(ep.X, ep.Y),
                     Style = paint.TextStyle,
                     Value = value,
                     IsVisible = true,
@@ -202,7 +206,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
                 var size = DrawingElement.MeasureText(value, paint);
 
-                text.Location = new Point(text.Location.X + 12, text.Location.Y + size.Height / 2);
+                text.Location = new WavesPoint(text.Location.X + 12, text.Location.Y + size.Height / 2);
 
                 AddTempObject(text);
             }
@@ -217,13 +221,13 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             if (dataSet.Data == null) return;
             if (dataSet.Data.Length == 0) return;
 
-            var visiblePoints = new List<Point>();
+            var visiblePoints = new List<WavesPoint>();
             foreach (var point in dataSet.Data)
             {
                 if (point.X < CurrentXMin)
                 {
                     if (visiblePoints.Count == 0)
-                        visiblePoints.Add(new Point());
+                        visiblePoints.Add(new WavesPoint());
 
                     visiblePoints[0] = point;
                     continue;
@@ -276,7 +280,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 if (visiblePoints.Count <= length / 32)
                 {
                     // Добавляем подписи на столбцы
-                    var ep = new Point(points[i].X + (points[i + 1].X - points[i].X) / 2, points[i].Y);
+                    var ep = new WavesPoint(points[i].X + (points[i + 1].X - points[i].X) / 2, points[i].Y);
                     var value = Valuation.DenormalizePointY2D(points[i].Y, Height, CurrentYMin, CurrentYMax);
 
                     var paint = new TextPaint
@@ -292,7 +296,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                     {
                         Stroke = Foreground,
                         Fill = Foreground,
-                        Location = new Point(ep.X, ep.Y),
+                        Location = new WavesPoint(ep.X, ep.Y),
                         Style = TextStyle,
                         Value = v,
                         IsVisible = true,
@@ -301,7 +305,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
                     var size = DrawingElement.MeasureText(v, paint);
 
-                    text.Location = new Point(text.Location.X - size.Width / 2, text.Location.Y - 6);
+                    text.Location = new WavesPoint(text.Location.X - size.Width / 2, text.Location.Y - 6);
 
                     AddTempObject(text);
                 }
@@ -337,7 +341,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
             if (visiblePoints.Count <= length / 32)
             {
-                var ep = new Point(points[lastIndex].X + (points[lastIndex].X - points[lastIndex].X) / 2,
+                var ep = new WavesPoint(points[lastIndex].X + (points[lastIndex].X - points[lastIndex].X) / 2,
                     points[lastIndex].Y);
                 var value = Valuation.DenormalizePointY2D(points[lastIndex].Y, Height, CurrentYMin,
                     CurrentYMax);
@@ -355,7 +359,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 {
                     Stroke = Foreground,
                     Fill = Foreground,
-                    Location = new Point(ep.X, ep.Y),
+                    Location = new WavesPoint(ep.X, ep.Y),
                     Style = TextStyle,
                     Value = v,
                     IsVisible = true,
@@ -364,7 +368,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
                 var size = DrawingElement.MeasureText(v, paint);
 
-                text.Location = new Point(text.Location.X - size.Width / 2 + lastWidth / 2, text.Location.Y - 6);
+                text.Location = new WavesPoint(text.Location.X - size.Width / 2 + lastWidth / 2, text.Location.Y - 6);
 
                 AddTempObject(text);
             }
@@ -381,13 +385,13 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             if (dataSet.Data == null) return;
             if (dataSet.Data.Length == 0) return;
 
-            var visiblePoints = new List<Point>();
+            var visiblePoints = new List<WavesPoint>();
             foreach (var point in dataSet.Data)
             {
                 if (point.X < CurrentXMin)
                 {
                     if (visiblePoints.Count == 0)
-                        visiblePoints.Add(new Point());
+                        visiblePoints.Add(new WavesPoint());
 
                     visiblePoints[0] = point;
                     continue;
@@ -439,7 +443,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 IsVisible = true,
                 StrokeThickness = 2,
                 Point1 = points[firstIndex],
-                Point2 = new Point(points[firstIndex].X + firstWidth, points[firstIndex].Y),
+                Point2 = new WavesPoint(points[firstIndex].X + firstWidth, points[firstIndex].Y),
                 Opacity = 1
             };
 
@@ -450,8 +454,8 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 IsAntialiased = true,
                 IsVisible = true,
                 StrokeThickness = 2,
-                Point1 = new Point(points[firstIndex].X + firstWidth, points[firstIndex].Y),
-                Point2 = new Point(points[firstIndex].X + firstWidth, points[firstIndex + 1].Y),
+                Point1 = new WavesPoint(points[firstIndex].X + firstWidth, points[firstIndex].Y),
+                Point2 = new WavesPoint(points[firstIndex].X + firstWidth, points[firstIndex + 1].Y),
                 Opacity = 1
             };
 
@@ -466,7 +470,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
             if (visiblePoints.Count <= length / 32)
             {
-                var ep = new Point(points[firstIndex].X + (points[firstIndex].X - points[firstIndex].X) / 2,
+                var ep = new WavesPoint(points[firstIndex].X + (points[firstIndex].X - points[firstIndex].X) / 2,
                     points[firstIndex].Y);
                 var value = Valuation.DenormalizePointY2D(points[firstIndex].Y, Height, CurrentYMin,
                     CurrentYMax);
@@ -484,7 +488,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 {
                     Stroke = Foreground,
                     Fill = Foreground,
-                    Location = new Point(ep.X, ep.Y),
+                    Location = new WavesPoint(ep.X, ep.Y),
                     Style = TextStyle,
                     Value = v,
                     IsVisible = true,
@@ -493,7 +497,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
                 var size = DrawingElement.MeasureText(v, paint);
 
-                text.Location = new Point(text.Location.X - size.Width / 2 + firstWidth / 2, text.Location.Y - 6);
+                text.Location = new WavesPoint(text.Location.X - size.Width / 2 + firstWidth / 2, text.Location.Y - 6);
 
                 AddTempObject(text);
             }
@@ -515,7 +519,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                     IsAntialiased = true,
                     IsVisible = true,
                     StrokeThickness = 2,
-                    Point1 = new Point(points[i].X, points[i - 1].Y),
+                    Point1 = new WavesPoint(points[i].X, points[i - 1].Y),
                     Point2 = points[i],
                     Opacity = 1
                 };
@@ -528,7 +532,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                     IsVisible = true,
                     StrokeThickness = 2,
                     Point1 = points[i],
-                    Point2 = new Point(points[i].X + width, points[i].Y),
+                    Point2 = new WavesPoint(points[i].X + width, points[i].Y),
                     Opacity = 1
                 };
 
@@ -539,8 +543,8 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                     IsAntialiased = true,
                     IsVisible = true,
                     StrokeThickness = 2,
-                    Point1 = new Point(points[i].X + width, points[i].Y),
-                    Point2 = new Point(points[i].X + width, points[i + 1].Y),
+                    Point1 = new WavesPoint(points[i].X + width, points[i].Y),
+                    Point2 = new WavesPoint(points[i].X + width, points[i + 1].Y),
                     Opacity = 1
                 };
 
@@ -570,7 +574,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 if (visiblePoints.Count <= length / 32)
                 {
                     // Добавляем подписи на столбцы
-                    var ep = new Point(points[i].X + (points[i + 1].X - points[i].X) / 2, points[i].Y);
+                    var ep = new WavesPoint(points[i].X + (points[i + 1].X - points[i].X) / 2, points[i].Y);
                     var value = Valuation.DenormalizePointY2D(points[i].Y, Height, CurrentYMin, CurrentYMax);
 
                     var paint = new TextPaint
@@ -586,7 +590,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                     {
                         Stroke = Foreground,
                         Fill = Foreground,
-                        Location = new Point(ep.X, ep.Y),
+                        Location = new WavesPoint(ep.X, ep.Y),
                         Style = TextStyle,
                         Value = v,
                         IsVisible = true,
@@ -595,7 +599,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
                     var size = DrawingElement.MeasureText(v, paint);
 
-                    text.Location = new Point(text.Location.X - size.Width / 2, text.Location.Y - 6);
+                    text.Location = new WavesPoint(text.Location.X - size.Width / 2, text.Location.Y - 6);
 
                     AddTempObject(text);
                 }
@@ -634,7 +638,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 IsAntialiased = true,
                 IsVisible = true,
                 StrokeThickness = 2,
-                Point1 = new Point(points[lastIndex].X, points[lastIndex - 1].Y),
+                Point1 = new WavesPoint(points[lastIndex].X, points[lastIndex - 1].Y),
                 Point2 = points[lastIndex],
                 Opacity = 1
             };
@@ -647,7 +651,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 IsVisible = true,
                 StrokeThickness = 0,
                 Point1 = points[lastIndex],
-                Point2 = new Point(points[lastIndex].X + lastWidth, points[lastIndex].Y),
+                Point2 = new WavesPoint(points[lastIndex].X + lastWidth, points[lastIndex].Y),
                 Opacity = 1
             };
 
@@ -662,7 +666,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
             if (visiblePoints.Count <= length / 32)
             {
-                var ep = new Point(points[lastIndex].X + (points[lastIndex].X - points[lastIndex].X) / 2,
+                var ep = new WavesPoint(points[lastIndex].X + (points[lastIndex].X - points[lastIndex].X) / 2,
                     points[lastIndex].Y);
                 var value = Valuation.DenormalizePointY2D(points[lastIndex].Y, Height, CurrentYMin,
                     CurrentYMax);
@@ -680,7 +684,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 {
                     Stroke = Foreground,
                     Fill = Foreground,
-                    Location = new Point(ep.X, ep.Y),
+                    Location = new WavesPoint(ep.X, ep.Y),
                     Style = TextStyle,
                     Value = v,
                     IsVisible = true,
@@ -689,7 +693,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
                 var size = DrawingElement.MeasureText(v, paint);
 
-                text.Location = new Point(text.Location.X - size.Width / 2 + lastWidth / 2, text.Location.Y - 6);
+                text.Location = new WavesPoint(text.Location.X - size.Width / 2 + lastWidth / 2, text.Location.Y - 6);
 
                 AddTempObject(text);
             }

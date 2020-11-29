@@ -6,7 +6,7 @@ namespace Waves.UI.Drawing.Base.Interfaces
     /// <summary>
     ///     Interface of drawing object.
     /// </summary>
-    public interface IDrawingObject : IObject
+    public interface IDrawingObject : IWavesObject
     {
         /// <summary>
         ///     Gets whether drawing object is antialiased.
@@ -31,12 +31,12 @@ namespace Waves.UI.Drawing.Base.Interfaces
         /// <summary>
         ///     Gets or sets fill.
         /// </summary>
-        Color Fill { get; set; }
+        WavesColor Fill { get; set; }
 
         /// <summary>
         ///     Gets or sets stroke.
         /// </summary>
-        Color Stroke { get; set; }
+        WavesColor Stroke { get; set; }
 
         /// <summary>
         ///     Draw object in current canvas.

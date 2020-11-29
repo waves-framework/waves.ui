@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Waves.Core.Base;
 using Waves.Core.Base.Enums;
 using Waves.Core.Base.Interfaces;
@@ -19,9 +20,11 @@ namespace Waves.UI.Drawing.Services
     /// <summary>
     ///     Drawing service.
     /// </summary>
-    [Export(typeof(IService))]
-    public class DrawingService : MefLoaderService<IDrawingEngine>, IDrawingService
+    [Export(typeof(IWavesService))]
+    public class DrawingService : WavesMefLoaderService<IDrawingEngine>, IDrawingService
     {
+        private readonly string _currentDirectory = Environment.CurrentDirectory;
+        
         private IDrawingEngine _currentEngine;
 
         /// <inheritdoc />
@@ -34,6 +37,7 @@ namespace Waves.UI.Drawing.Services
         public override string Name { get; set; } = "Drawing service";
 
         /// <inheritdoc />
+        [Reactive]
         public IDrawingEngine CurrentEngine
         {
             get => _currentEngine;
@@ -75,7 +79,7 @@ namespace Waves.UI.Drawing.Services
             }
             catch (Exception e)
             {
-                OnMessageReceived(this, new Message(e, false));
+                OnMessageReceived(this, new WavesMessage(e, false));
             }
         }
 
@@ -91,13 +95,19 @@ namespace Waves.UI.Drawing.Services
             }
             catch (Exception e)
             {
-                OnMessageReceived(this, new Message(e, false));
+                OnMessageReceived(this, new WavesMessage(e, false));
             }
         }
-
+        
         /// <inheritdoc />
-        public override void Dispose()
+        public override void Update()
         {
+            if (Paths.Count == 0)
+                Paths.Add(_currentDirectory);
+
+            base.Update();
+
+            Paths.Remove(_currentDirectory);
         }
 
         /// <summary>
@@ -107,9 +117,14 @@ namespace Waves.UI.Drawing.Services
         {
             EngineChanged?.Invoke(this, EventArgs.Empty);
 
-            OnMessageReceived(this, new Message("Drawing engine",
+            OnMessageReceived(this, new WavesMessage("Drawing engine",
                 "Drawing engine changed to " + CurrentEngine.Name + ".", Name,
-                MessageType.Information));
+                WavesMessageType.Information));
+        }
+        
+        /// <inheritdoc />
+        public override void Dispose()
+        {
         }
     }
 }

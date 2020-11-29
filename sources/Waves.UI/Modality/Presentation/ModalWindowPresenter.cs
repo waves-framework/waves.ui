@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Waves.Core.Base;
 using Waves.Core.Base.Enums;
+using Waves.Core.Base.Interfaces;
 using Waves.Presentation.Interfaces;
 using Waves.UI.Base.Interfaces;
 using Waves.UI.Modality.Base.Interfaces;
@@ -24,9 +25,8 @@ namespace Waves.UI.Modality.Presentation
         /// Creates new instance of <see cref="ModalWindowPresenter"/>.
         /// </summary>
         /// <param name="core">Core instance.</param>
-        protected ModalWindowPresenter(Core core)
+        protected ModalWindowPresenter(IWavesCore core) : base(core)
         {
-            Core = core;
         }
 
         /// <inheritdoc />
@@ -57,11 +57,6 @@ namespace Waves.UI.Modality.Presentation
         /// </summary>
         public ICommand CloseWindowCommand { get; protected set; }
 
-        /// <summary>
-        /// Gets instance of UI <see cref="Core"/>.
-        /// </summary>
-        protected Core Core { get; }
-
         /// <inheritdoc />
         public override void Initialize()
         {
@@ -80,7 +75,7 @@ namespace Waves.UI.Modality.Presentation
             catch (Exception e)
             {
                 OnMessageReceived(this,
-                    new Message(
+                    new WavesMessage(
                     "Initialization", 
                     "Error initializing modal window presenter", 
                     "Modal window presentation", 

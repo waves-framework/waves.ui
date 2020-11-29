@@ -7,17 +7,17 @@ namespace Waves.UI.Drawing.Charting.Base.Interfaces
     /// <summary>
     ///     Interface for data set.
     /// </summary>
-    public interface IDataSet : IObject
+    public interface IDataSet : IWavesObject
     {
         /// <summary>
         ///     Gets or sets data set color.
         /// </summary>
-        Color Color { get; set; }
+        WavesColor Color { get; set; }
 
         /// <summary>
         ///     Gets or sets data set data.
         /// </summary>
-        Point[] Data { get; }
+        WavesPoint[] Data { get; }
 
         /// <summary>
         ///     Gets or sets data set descriptions.
@@ -38,13 +38,13 @@ namespace Waves.UI.Drawing.Charting.Base.Interfaces
         ///     Updates data set data.
         /// </summary>
         /// <param name="data">Data.</param>
-        void UpdateDataSet(Point[] data);
+        void UpdateDataSet(WavesPoint[] data);
 
         /// <summary>
         ///     Updates data set data and descriptions.
         /// </summary>
         /// <param name="data">Data.</param>
         /// <param name="description">Descriptions.</param>
-        void UpdateDataSet(Point[] data, string[] description);
+        void UpdateDataSet(WavesPoint[] data, string[] description);
     }
 }

@@ -30,7 +30,7 @@ namespace Waves.UI.Drawing.Base
                 StrokeThickness = StrokeThickness
             };
 
-            e.DrawRectangle(Location, new Size(Width, Height), paint, CornerRadius);
+            e.DrawRectangle(Location, new WavesSize(Width, Height), paint, CornerRadius);
         }
 
         /// <inheritdoc />

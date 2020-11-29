@@ -24,14 +24,14 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <param name="width">Chart's width.</param>
         /// <param name="height">Chart's height.</param>
         /// <returns>Returns text.</returns>
-        public static Text GetXAxisSignature(float value, string description, Color fill, TextStyle style,
+        public static Text GetXAxisSignature(float value, string description, WavesColor fill, TextStyle style,
             float opacity,
             float xMin, float xMax,
             float width, float height)
         {
             return new Text
             {
-                Location = new Point(Valuation.NormalizePointX2D(value, width, xMin, xMax), height - 12),
+                Location = new WavesPoint(Valuation.NormalizePointX2D(value, width, xMin, xMax), height - 12),
                 Style = style,
                 Value = description,
                 IsVisible = true,
@@ -57,7 +57,7 @@ namespace Waves.UI.Drawing.Charting.Utils
         {
             return new Text
             {
-                Location = new Point(Valuation.NormalizePointX2D(value, width, xMin, xMax), height - 12),
+                Location = new WavesPoint(Valuation.NormalizePointX2D(value, width, xMin, xMax), height - 12),
                 Style = paint.TextStyle,
                 Value = description,
                 IsVisible = true,
@@ -80,14 +80,14 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <param name="width">Chart's width.</param>
         /// <param name="height">Chart's height.</param>
         /// <returns>Returns text.</returns>
-        public static Text GetYAxisSignature(float value, string description, Color fill, TextStyle style,
+        public static Text GetYAxisSignature(float value, string description, WavesColor fill, TextStyle style,
             float opacity,
             float yMin, float yMax,
             float width, float height)
         {
             return new Text
             {
-                Location = new Point(12, Valuation.NormalizePointY2D(value, height, yMin, yMax)),
+                Location = new WavesPoint(12, Valuation.NormalizePointY2D(value, height, yMin, yMax)),
                 Style = style,
                 Value = description,
                 IsVisible = true,
@@ -113,7 +113,7 @@ namespace Waves.UI.Drawing.Charting.Utils
         {
             return new Text
             {
-                Location = new Point(12, Valuation.NormalizePointY2D(value, height, yMin, yMax)),
+                Location = new WavesPoint(12, Valuation.NormalizePointY2D(value, height, yMin, yMax)),
                 Style = paint.TextStyle,
                 Value = description,
                 IsVisible = true,
@@ -139,14 +139,14 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <param name="width">Chart's width.</param>
         /// <param name="height">Chart's height.</param>
         /// <returns>Signature's backing rectangle.</returns>
-        public static Rectangle GetXAxisSignatureRectangle(float value, Color fill,
-            Color stroke, float strokeThickness, float opacity, float cornerRadius, float innerTextWidth,
+        public static Rectangle GetXAxisSignatureRectangle(float value, WavesColor fill,
+            WavesColor stroke, float strokeThickness, float opacity, float cornerRadius, float innerTextWidth,
             float innerTextHeight, float xMin, float xMax,
             float width, float height)
         {
             return new Rectangle
             {
-                Location = new Point(Valuation.NormalizePointX2D(value, width, xMin, xMax) - innerTextWidth / 2 - 6,
+                Location = new WavesPoint(Valuation.NormalizePointX2D(value, width, xMin, xMax) - innerTextWidth / 2 - 6,
                     height - innerTextHeight - 12 - 6),
                 CornerRadius = cornerRadius,
                 Opacity = opacity,
@@ -176,14 +176,14 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <param name="width">Chart's width.</param>
         /// <param name="height">Chart's height.</param>
         /// <returns>Signature's backing rectangle.</returns>
-        public static Rectangle GetYAxisSignatureRectangle(float value, Color fill,
-            Color stroke, float strokeThickness, float opacity, float cornerRadius, float innerTextWidth,
+        public static Rectangle GetYAxisSignatureRectangle(float value, WavesColor fill,
+            WavesColor stroke, float strokeThickness, float opacity, float cornerRadius, float innerTextWidth,
             float innerTextHeight, float yMin, float yMax,
             float width, float height)
         {
             return new Rectangle
             {
-                Location = new Point(6,
+                Location = new WavesPoint(6,
                     Valuation.NormalizePointY2D(value, height, yMin, yMax) - innerTextHeight / 2 - 6),
                 CornerRadius = cornerRadius,
                 Fill = fill,
