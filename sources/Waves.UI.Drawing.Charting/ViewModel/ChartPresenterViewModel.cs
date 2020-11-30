@@ -26,7 +26,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         private readonly List<IDrawingObject> _axisSignaturesDrawingObjects = new List<IDrawingObject>();
 
         private readonly List<IDrawingObject> _axisTicksDrawingObjects = new List<IDrawingObject>();
-        private WavesColor _borderColor = WavesColor.Black;
+        private WavesColor _borderColor = WavesColor.White;
         private float _borderThickness = 1;
         private float _currentXMax = 1;
         private float _currentXMin;
@@ -549,7 +549,6 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         }
 
         /// <inheritdoc />
-        [Reactive]
         public float BorderThickness
         {
             get => _borderThickness;
@@ -705,7 +704,6 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         }
 
         /// <inheritdoc />
-        [Reactive]
         public WavesColor BorderColor
         {
             get => _borderColor;
@@ -727,6 +725,8 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 Update();
             }
         }
+
+        private bool _isDrawing = false;
 
         /// <inheritdoc />
         public override void Draw(object element)
@@ -1098,10 +1098,6 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 CurrentXMin = XMin;
             if (CurrentXMax > XMax)
                 CurrentXMax = XMax;
-            
-            Console.WriteLine($"Current XMin: {CurrentXMin}");
-            Console.WriteLine($"Current XMax: {CurrentXMax}");
-            Console.WriteLine($"----------------------------");
 
             Update();
         }

@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ReactiveUI;
 using Waves.Core.Base.Interfaces;
-using Waves.Core.Base.Interfaces.Services;
 using Waves.UI.Drawing.Charting.Base.Interfaces;
-using Waves.UI.Drawing.Charting.Presentation.Interfaces;
 using Waves.UI.Drawing.Charting.ViewModel;
-using Waves.UI.Drawing.Charting.ViewModel.Interfaces;
-using Waves.UI.Drawing.Services.Interfaces;
-using Waves.UI.Drawing.ViewModel;
-using Waves.UI.Services.Interfaces;
 
 namespace Waves.UI.Drawing.Charting.Presentation
 {
@@ -27,7 +20,7 @@ namespace Waves.UI.Drawing.Charting.Presentation
             : base(core, factory)
         {
         }
-        
+
         /// <inheritdoc />
         public override Guid Id { get; } = Guid.NewGuid();
 
@@ -37,17 +30,15 @@ namespace Waves.UI.Drawing.Charting.Presentation
         /// <inheritdoc />
         public override void Initialize()
         {
-            base.Initialize();
-
             if (DrawingService?.CurrentEngine == null)
                 throw new NullReferenceException(nameof(DrawingService.CurrentEngine));
 
-            var view = ChartViewFactory.GetChartView();
-            view.DrawingElementView = DrawingService.CurrentEngine.GetView(InputService);
-            
+            InitializeView();
+
             SetDataContext(new DataSetChartPresenterViewModel(Core, DrawingService.CurrentEngine.GetDrawingElement()));
-            SetView(view);
-            
+
+            InitializeColors();
+
             DataContextBackingField.Update();
         }
 
@@ -60,18 +51,17 @@ namespace Waves.UI.Drawing.Charting.Presentation
         /// <inheritdoc />
         protected override void OnDrawingServiceEngineChanged(object sender, EventArgs e)
         {
-            base.Initialize();
-            
-            if (DrawingService?.CurrentEngine == null)
-                throw new NullReferenceException(nameof(DrawingService.CurrentEngine));
+            Initialize();
+        }
 
+        /// <summary>
+        ///     Initializes view.
+        /// </summary>
+        private void InitializeView()
+        {
             var view = ChartViewFactory.GetChartView();
             view.DrawingElementView = DrawingService.CurrentEngine.GetView(InputService);
-            
-            SetDataContext(new DataSetChartPresenterViewModel(Core, DrawingService.CurrentEngine.GetDrawingElement()));
             SetView(view);
-
-            DataContextBackingField.Update();
         }
     }
 }

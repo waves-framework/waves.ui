@@ -25,14 +25,11 @@ namespace Waves.UI.Drawing.Presentation
         ///     Creates new instance of <see cref="DrawingElementPresenter" />
         /// </summary>
         /// <param name="core">Instance of core.</param>
-        public DrawingElementPresenter(
+        protected DrawingElementPresenter(
             IWavesCore core) :
             base(core)
         {
             InitializeServices();
-            
-            // DrawingService = drawingService;
-            // InputService = inputService;
         }
 
         /// <inheritdoc />

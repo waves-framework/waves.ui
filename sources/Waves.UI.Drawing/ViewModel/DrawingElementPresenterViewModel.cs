@@ -21,9 +21,9 @@ namespace Waves.UI.Drawing.ViewModel
         private readonly object _collectionLocker = new object();
 
         private IInputService _inputService;
-        
-        private WavesColor _background = WavesColor.White;
-        private WavesColor _foreground = WavesColor.Black;
+
+        private WavesColor _background;
+        private WavesColor _foreground;
 
         /// <summary>
         ///     Creates new instance of <see cref="DrawingElementPresenterViewModel" />.
@@ -119,7 +119,6 @@ namespace Waves.UI.Drawing.ViewModel
         protected WavesPoint LastMousePosition { get; set; }
 
         /// <inheritdoc />
-        [Reactive]
         public WavesColor Foreground
         {
             get => _foreground;
@@ -127,7 +126,6 @@ namespace Waves.UI.Drawing.ViewModel
         }
 
         /// <inheritdoc />
-        [Reactive]
         public WavesColor Background
         {
             get => _background;

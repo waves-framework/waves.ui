@@ -28,6 +28,7 @@ namespace Waves.UI.Drawing.Charting.Presentation
         {
             ChartViewFactory = factory;
             
+            InitializeServices();
             SubscribeEvents();
         }
         
@@ -52,23 +53,15 @@ namespace Waves.UI.Drawing.Charting.Presentation
         /// <inheritdoc />
         public override void Initialize()
         {
-            // base.Initialize();
-            
-            InitializeServices();
-
             if (DrawingService?.CurrentEngine == null)
                 throw new NullReferenceException(nameof(DrawingService.CurrentEngine));
-            
-            var view = ChartViewFactory.GetChartView();
-            view.DrawingElementView = DrawingService.CurrentEngine.GetView(InputService);
+
+            InitializeView();
             
             SetDataContext(new ChartPresenterViewModel(Core, DrawingService.CurrentEngine.GetDrawingElement()));
-            SetView(view);
-            
+
             InitializeColors();
-            
-            SubscribeEvents();
-            
+
             DataContextBackingField.Update();
         }
 
@@ -79,22 +72,7 @@ namespace Waves.UI.Drawing.Charting.Presentation
         /// <param name="e">Arguments.</param>
         protected override void OnDrawingServiceEngineChanged(object sender, EventArgs e)
         {
-            // base.Initialize();
-            
-            if (DrawingService?.CurrentEngine == null)
-                throw new NullReferenceException(nameof(DrawingService.CurrentEngine));
-            
-            UnsubscribeEvents();
-            
-            var view = ChartViewFactory.GetChartView();
-            view.DrawingElementView = DrawingService.CurrentEngine.GetView(InputService);
-            
-            SetDataContext(new ChartPresenterViewModel(Core, DrawingService.CurrentEngine.GetDrawingElement()));
-            SetView(view);
-
-            SubscribeEvents();
-
-            DataContextBackingField.Update();
+            Initialize();
         }
 
         /// <summary>
@@ -105,7 +83,7 @@ namespace Waves.UI.Drawing.Charting.Presentation
         /// <summary>
         ///     Initialize colors.
         /// </summary>
-        private void InitializeColors()
+        protected void InitializeColors()
         {
             if (!(DataContext is IChartPresenterViewModel context)) return;
 
@@ -173,6 +151,16 @@ namespace Waves.UI.Drawing.Charting.Presentation
             InitializeColors();
 
             DataContextBackingField.Update();
+        }
+
+        /// <summary>
+        /// Initializes view.
+        /// </summary>
+        private void InitializeView()
+        {
+            var view = ChartViewFactory.GetChartView();
+            view.DrawingElementView = DrawingService.CurrentEngine.GetView(InputService);
+            SetView(view);
         }
     }
 }
