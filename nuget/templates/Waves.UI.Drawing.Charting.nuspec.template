@@ -11,8 +11,9 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Waves UI charting library.</description>
     <releaseNotes>
-      The first release of package.
-      - Base charting classes.
+      - Refactoring;
+      - Advanced logging;
+      - ReactiveUI.
     </releaseNotes>
     <copyright>Copyright (c) 2020 Egor Khindikaynen</copyright>
     <tags>Waves ui drawing charting</tags>
