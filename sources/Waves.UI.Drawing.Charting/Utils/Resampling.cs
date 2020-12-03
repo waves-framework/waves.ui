@@ -92,24 +92,6 @@ namespace Waves.UI.Drawing.Charting.Utils
         /// <returns>Upsampled data.</returns>
         public static WavesPoint[] SplineUpsampling(WavesPoint[] input, int threshold)
         {
-            // var output = new WavesPoint[threshold];
-            // var originalLength = input.Length;
-            //
-            // var inputX = new float[originalLength];
-            // var inputY = new float[originalLength];
-            // for (var i = 0; i < originalLength; i++)
-            // {
-            //     inputX[i] = input[i].X;
-            //     inputY[i] = input[i].Y;
-            // }
-            //
-            // CubicSpline.FitParametric(inputX, inputY, threshold, out var outputX, out var outputY);
-            //
-            // for (var i = 0; i < threshold; i++)
-            // {
-            //     output[i] = new WavesPoint(outputX[i], outputY[i]);
-            // }
-            //
             return input;
         }
     }
