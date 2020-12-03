@@ -16,12 +16,12 @@ namespace Waves.UI.Drawing.Base.Interfaces
         /// <summary>
         ///     Gets or sets color.
         /// </summary>
-        Color Fill { get; set; }
+        WavesColor Fill { get; set; }
 
         /// <summary>
         ///     Gets or sets stroke color.
         /// </summary>
-        Color Stroke { get; set; }
+        WavesColor Stroke { get; set; }
 
         /// <summary>
         ///     Gets or sets opacity.

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Waves.Core.Base;
 using Waves.Core.Base.Enums;
 using Waves.Core.Base.EventArgs;
+using Waves.Core.Base.Interfaces;
 using Waves.Core.Base.Interfaces.Services;
 using Waves.Presentation.Base;
 using Waves.UI.Drawing.Base.Interfaces;
@@ -19,27 +22,49 @@ namespace Waves.UI.Drawing.ViewModel
 
         private IInputService _inputService;
 
+        private WavesColor _background;
+        private WavesColor _foreground;
+
         /// <summary>
         ///     Creates new instance of <see cref="DrawingElementPresenterViewModel" />.
         /// </summary>
-        public DrawingElementPresenterViewModel(IDrawingElement drawingElement)
+        public DrawingElementPresenterViewModel(
+            IWavesCore core, 
+            IDrawingElement drawingElement) 
+            : base(core)
         {
             DrawingElement = drawingElement;
+            
+            SubscribeEvents();
         }
+
+        /// <summary>
+        ///     Redrawing requested event handler.
+        /// </summary>
+        public event EventHandler RedrawRequested;
+
+        /// <inheritdoc />
+        public override Guid Id { get; } = Guid.NewGuid();
+
+        /// <inheritdoc />
+        public override string Name { get; set; } = "Drawing Element Presenter View Model";
 
         /// <summary>
         ///     Gets or sets whether is drawing initialized.
         /// </summary>
+        [Reactive]
         public bool IsDrawingInitialized { get; set; }
 
         /// <summary>
         ///     Gets or sets width.
         /// </summary>
+        [Reactive]
         public float Width { get; set; }
 
         /// <summary>
         ///     Gets or sets height.
         /// </summary>
+        [Reactive]
         public float Height { get; set; }
 
         /// <summary>
@@ -91,13 +116,21 @@ namespace Waves.UI.Drawing.ViewModel
         /// <summary>
         ///     Gets or sets last mouse position.
         /// </summary>
-        protected Point LastMousePosition { get; set; }
+        protected WavesPoint LastMousePosition { get; set; }
 
         /// <inheritdoc />
-        public Color Foreground { get; set; } = Color.Black;
+        public WavesColor Foreground
+        {
+            get => _foreground;
+            set => this.RaiseAndSetIfChanged(ref _foreground, value);
+        }
 
         /// <inheritdoc />
-        public Color Background { get; set; } = Color.White;
+        public WavesColor Background
+        {
+            get => _background;
+            set => this.RaiseAndSetIfChanged(ref _background, value);
+        }
 
         /// <summary>
         ///     Gets or sets drawing element.
@@ -105,6 +138,7 @@ namespace Waves.UI.Drawing.ViewModel
         public IDrawingElement DrawingElement { get; set; }
 
         /// <inheritdoc />
+        [Reactive]
         public ICollection<IDrawingObject> DrawingObjects { get; } = new List<IDrawingObject>();
 
         /// <inheritdoc />
@@ -149,9 +183,10 @@ namespace Waves.UI.Drawing.ViewModel
         }
 
         /// <inheritdoc />
-        public void Dispose()
+        public override void Dispose()
         {
             DrawingElement?.Dispose();
+            UnsubscribeEvents();
         }
 
         /// <inheritdoc />
@@ -166,11 +201,6 @@ namespace Waves.UI.Drawing.ViewModel
         }
 
         /// <summary>
-        ///     Redrawing requested event handler.
-        /// </summary>
-        public event EventHandler RedrawRequested;
-
-        /// <summary>
         ///     Notifies when redrawing requested.
         /// </summary>
         protected virtual void OnRedrawRequested()
@@ -183,7 +213,7 @@ namespace Waves.UI.Drawing.ViewModel
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Arguments.</param>
-        protected virtual void OnInputServicePointerStateChanged(object sender, PointerEventArgs e)
+        protected virtual void OnInputServicePointerStateChanged(object sender, WavesPointerEventArgs e)
         {
         }
 
@@ -192,11 +222,11 @@ namespace Waves.UI.Drawing.ViewModel
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Arguments.</param>
-        protected virtual void OnInputServiceKeyPressed(object sender, KeyEventArgs e)
+        protected virtual void OnInputServiceKeyPressed(object sender, WavesKeyEventArgs e)
         {
-            if (e.Key == VirtualKey.Control)
+            if (e.Key == WavesVirtualKey.Control)
                 IsCtrlPressed = true;
-            if (e.Key == VirtualKey.Shift)
+            if (e.Key == WavesVirtualKey.Shift)
                 IsShiftPressed = true;
         }
 
@@ -205,12 +235,40 @@ namespace Waves.UI.Drawing.ViewModel
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Arguments.</param>
-        protected virtual void OnInputServiceKeyReleased(object sender, KeyEventArgs e)
+        protected virtual void OnInputServiceKeyReleased(object sender, WavesKeyEventArgs e)
         {
-            if (e.Key == VirtualKey.Control)
+            if (e.Key == WavesVirtualKey.Control)
                 IsCtrlPressed = false;
-            if (e.Key == VirtualKey.Shift)
+            if (e.Key == WavesVirtualKey.Shift)
                 IsShiftPressed = false;
+        }
+        
+        /// <summary>
+        /// Subscribes to events.
+        /// </summary>
+        private void SubscribeEvents()
+        {
+            if (DrawingElement != null)
+                DrawingElement.MessageReceived += OnDrawingElementMessageReceived;
+        }
+
+        /// <summary>
+        /// Unsubscribes from events.
+        /// </summary>
+        private void UnsubscribeEvents()
+        {
+            if (DrawingElement != null)
+                DrawingElement.MessageReceived -= OnDrawingElementMessageReceived;
+        }
+        
+        /// <summary>
+        /// Actions when message received from drawing element.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">Arguments.</param>
+        private void OnDrawingElementMessageReceived(object sender, IWavesMessage e)
+        {
+            OnMessageReceived(this,e);
         }
     }
 }

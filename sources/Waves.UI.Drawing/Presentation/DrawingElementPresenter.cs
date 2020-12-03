@@ -1,5 +1,8 @@
 ﻿using System;
 using ReactiveUI;
+using Waves.Core.Base;
+using Waves.Core.Base.Enums;
+using Waves.Core.Base.Interfaces;
 using Waves.Core.Base.Interfaces.Services;
 using Waves.Presentation.Base;
 using Waves.Presentation.Interfaces;
@@ -21,25 +24,29 @@ namespace Waves.UI.Drawing.Presentation
         /// <summary>
         ///     Creates new instance of <see cref="DrawingElementPresenter" />
         /// </summary>
-        /// <param name="drawingService">Drawing service.</param>
-        /// <param name="inputService">Input service.</param>
-        public DrawingElementPresenter(
-            IDrawingService drawingService,
-            IInputService inputService)
+        /// <param name="core">Instance of core.</param>
+        protected DrawingElementPresenter(
+            IWavesCore core) :
+            base(core)
         {
-            DrawingService = drawingService;
-            InputService = inputService;
+            InitializeServices();
         }
+
+        /// <inheritdoc />
+        public override Guid Id { get; } = Guid.NewGuid();
+
+        /// <inheritdoc />
+        public override string Name { get; set; } = "Drawing Element Presenter";
         
         /// <summary>
         ///     Gets or sets Data context's backing field.
         /// </summary>
-        protected IDrawingElementPresenterViewModel DataContextBackingField;
+        protected IDrawingElementPresenterViewModel DataContextBackingField => DataContext as IDrawingElementPresenterViewModel;
 
         /// <summary>
         ///     Gets or sets View's backing field.
         /// </summary>
-        protected IDrawingElementPresenterView ViewBackingField;
+        protected IDrawingElementPresenterView ViewBackingField => View as IDrawingElementPresenterView;
 
         /// <summary>
         ///     Gets or sets drawing service.
@@ -52,42 +59,29 @@ namespace Waves.UI.Drawing.Presentation
         protected IInputService InputService { get; set; }
 
         /// <inheritdoc />
-        public override IPresenterViewModel DataContext
-        {
-            get => DataContextBackingField;
-            protected set => DataContextBackingField = (IDrawingElementPresenterViewModel) value;
-        }
-
-        /// <inheritdoc />
-        public override IPresenterView View
-        {
-            get => ViewBackingField;
-            protected set => ViewBackingField = (IDrawingElementPresenterView) value;
-        }
-
-        /// <inheritdoc />
         public override void Initialize()
         {
-            if (DrawingService?.CurrentEngine == null) return;
+            InitializeServices();
 
+            if (DrawingService?.CurrentEngine == null)
+                throw new NullReferenceException(nameof(DrawingService.CurrentEngine));
+            
+            SetDataContext(new DrawingElementPresenterViewModel(Core, DrawingService.CurrentEngine.GetDrawingElement()));
+            SetView(DrawingService.CurrentEngine.GetView(InputService));
+            
             SubscribeEvents();
-
-            DataContextBackingField =
-                new DrawingElementPresenterViewModel(DrawingService.CurrentEngine.GetDrawingElement());
-            ViewBackingField = DrawingService.CurrentEngine.GetView(InputService);
-
-            this.RaisePropertyChanged(nameof(DataContext));
-            this.RaisePropertyChanged(nameof(View));
-
+            
             base.Initialize();
+            
+            DataContextBackingField.Update();
         }
 
         /// <inheritdoc />
         public override void Dispose()
         {
+            UnsubscribeEvents();
+            
             base.Dispose();
-
-            DrawingService.EngineChanged -= OnDrawingServiceEngineChanged;
         }
 
         /// <summary>
@@ -97,22 +91,37 @@ namespace Waves.UI.Drawing.Presentation
         /// <param name="e">Arguments.</param>
         protected virtual void OnDrawingServiceEngineChanged(object sender, EventArgs e)
         {
-            var dataContext = new DrawingElementPresenterViewModel(DrawingService.CurrentEngine.GetDrawingElement());
+            if (DrawingService?.CurrentEngine == null)
+                throw new NullReferenceException(nameof(DrawingService.CurrentEngine));
+            
+            UnsubscribeEvents();
+            
+            SetDataContext(new DrawingElementPresenterViewModel(Core, DrawingService.CurrentEngine.GetDrawingElement()));
+            SetView(DrawingService.CurrentEngine.GetView(InputService));
+            
+            SubscribeEvents();
+            
+            base.Initialize();
+            
+            DataContextBackingField.Update();
+        }
 
-            var currentContext = DataContextBackingField;
-            if (currentContext == null) return;
+        /// <summary>
+        /// Initializes services.
+        /// </summary>
+        private void InitializeServices()
+        {
+            if (Core == null)
+                throw new NullReferenceException(nameof(Core));
 
-            var view = DrawingService.CurrentEngine.GetView(InputService);
+            DrawingService = Core.GetInstance<IDrawingService>();
+            InputService = Core.GetInstance<IInputService>();
+            
+            if (DrawingService == null)
+                throw new NullReferenceException(nameof(DrawingService));
 
-            DataContextBackingField = dataContext;
-            ViewBackingField = view;
-
-            ViewBackingField.DataContext = DataContextBackingField;
-
-            dataContext.Update();
-
-            this.RaisePropertyChanged(nameof(DataContext));
-            this.RaisePropertyChanged(nameof(View));
+            if (InputService == null)
+                throw new NullReferenceException(nameof(InputService));
         }
 
         /// <summary>
@@ -120,7 +129,29 @@ namespace Waves.UI.Drawing.Presentation
         /// </summary>
         private void SubscribeEvents()
         {
-            DrawingService.EngineChanged += OnDrawingServiceEngineChanged;
+            if (DrawingService != null)
+                DrawingService.EngineChanged += OnDrawingServiceEngineChanged;
+            
+            if (DataContextBackingField != null)
+                DataContextBackingField.MessageReceived += OnMessageReceived;
+            
+            if (ViewBackingField != null)
+                ViewBackingField.MessageReceived += OnMessageReceived;
+        }
+
+        /// <summary>
+        /// Unsubscribes from events.
+        /// </summary>
+        private void UnsubscribeEvents()
+        {
+            if (DrawingService != null)
+                DrawingService.EngineChanged -= OnDrawingServiceEngineChanged;
+            
+            if (DataContextBackingField != null)
+                DataContext.MessageReceived -= OnMessageReceived;
+            
+            if (ViewBackingField != null)
+                View.MessageReceived -= OnMessageReceived;
         }
     }
 }

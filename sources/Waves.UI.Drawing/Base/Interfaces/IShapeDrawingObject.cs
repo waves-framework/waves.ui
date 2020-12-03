@@ -20,6 +20,6 @@ namespace Waves.UI.Drawing.Base.Interfaces
         /// <summary>
         ///     Gets or sets location.
         /// </summary>
-        Point Location { get; set; }
+        WavesPoint Location { get; set; }
     }
 }

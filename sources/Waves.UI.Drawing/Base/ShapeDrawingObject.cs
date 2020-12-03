@@ -15,7 +15,7 @@ namespace Waves.UI.Drawing.Base
         public float Width { get; set; } = 0;
 
         /// <inheritdoc />
-        public Point Location { get; set; } = new Point(0, 0);
+        public WavesPoint Location { get; set; } = new WavesPoint(0, 0);
 
         /// <inheritdoc />
         public abstract override string Name { get; set; }

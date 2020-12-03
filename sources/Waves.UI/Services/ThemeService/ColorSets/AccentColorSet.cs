@@ -2,21 +2,20 @@ using System;
 using System.Collections.Generic;
 using Waves.Core.Base;
 using Waves.UI.Services.Interfaces;
-using Object = Waves.Core.Base.Object;
 
-namespace Waves.UI.Services
+namespace Waves.UI.Services.ThemeService.ColorSets
 {
     /// <summary>
-    /// Miscellaneous color set abstraction.
+    /// Accent color set abstraction.
     /// </summary>
-    public class MiscellaneousColorSet : Object, IKeyColorSet
+    public abstract class AccentColorSet : WavesObject, IWeightColorSet
     {
         /// <summary>
-        /// Creates new instance of <see cref="MiscellaneousColorSet"/>.
+        /// Creates new instance of <see cref="AccentColorSet"/>.
         /// </summary>
         /// <param name="id">Color set's ID.</param>
         /// <param name="name">Color set's name.</param>
-        protected MiscellaneousColorSet(Guid id, string name)
+        protected AccentColorSet(Guid id, string name)
         {
             Id = id;
             Name = name;
@@ -28,29 +27,32 @@ namespace Waves.UI.Services
         /// <inheritdoc />
         public sealed override string Name { get; set; }
 
+        /// <inheritdoc />
+        public WavesColor ColorExample => GetColor(500);
+        
         /// <summary>
         /// Gets color dictionary.
         /// </summary>
-        protected Dictionary<string, Color> ColorDictionary { get; } = new Dictionary<string, Color>();
+        protected Dictionary<int, WavesColor> ColorDictionary { get; } = new Dictionary<int, WavesColor>();
         
         /// <summary>
         /// Gets foreground color dictionary.
         /// </summary>
-        protected Dictionary<string, Color> ForegroundColorDictionary { get; } = new Dictionary<string, Color>();
+        protected Dictionary<int, WavesColor> ForegroundColorDictionary { get; } = new Dictionary<int, WavesColor>();
         
         /// <inheritdoc />
-        public Color GetColor(string key)
+        public WavesColor GetColor(int weight)
         {
-            if (ColorDictionary.ContainsKey(key))
-                return ColorDictionary[key];
+            if (ColorDictionary.ContainsKey(500))
+                return ColorDictionary[weight];
 
-            return Color.Transparent;
+            return WavesColor.Transparent;
         }
 
         /// <inheritdoc />
-        public Color GetForegroundColor(string key)
+        public WavesColor GetForegroundColor(int weight)
         {
-            return ForegroundColorDictionary[key];
+            return ForegroundColorDictionary[weight];
         }
         
         /// <inheritdoc />

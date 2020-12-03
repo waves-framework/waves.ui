@@ -220,37 +220,37 @@ namespace Waves.UI.Drawing.Charting.ViewModel.Interfaces
         /// <summary>
         ///     Gets or sets X axis primary ticks color.
         /// </summary>
-        Color XAxisPrimaryTicksColor { get; set; }
+        WavesColor XAxisPrimaryTicksColor { get; set; }
 
         /// <summary>
         ///     Gets or sets X axis additional ticks color.
         /// </summary>
-        Color XAxisAdditionalTicksColor { get; set; }
+        WavesColor XAxisAdditionalTicksColor { get; set; }
 
         /// <summary>
         ///     Gets or sets X axis zero line color.
         /// </summary>
-        Color XAxisZeroLineColor { get; set; }
+        WavesColor XAxisZeroLineColor { get; set; }
 
         /// <summary>
         ///     Gets or sets Y axis primary ticks color.
         /// </summary>
-        Color YAxisPrimaryTicksColor { get; set; }
+        WavesColor YAxisPrimaryTicksColor { get; set; }
 
         /// <summary>
         ///     Gets or sets Y axis additional ticks color.
         /// </summary>
-        Color YAxisAdditionalTicksColor { get; set; }
+        WavesColor YAxisAdditionalTicksColor { get; set; }
 
         /// <summary>
         ///     Gets or sets Y axis zero line color.
         /// </summary>
-        Color YAxisZeroLineColor { get; set; }
+        WavesColor YAxisZeroLineColor { get; set; }
 
         /// <summary>
         ///     Gets or sets chart border color.
         /// </summary>
-        Color BorderColor { get; set; }
+        WavesColor BorderColor { get; set; }
 
         /// <summary>
         ///     Gets or sets chart text style.

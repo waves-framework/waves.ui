@@ -14,12 +14,12 @@ namespace Waves.UI.Drawing.Base
         /// <summary>
         ///     Gets or sets first point.
         /// </summary>
-        public Point Point1 { get; set; }
+        public WavesPoint Point1 { get; set; }
 
         /// <summary>
         ///     Gets or sets second point.
         /// </summary>
-        public Point Point2 { get; set; }
+        public WavesPoint Point2 { get; set; }
 
         /// <summary>
         ///     Gets or sets dash pattern.

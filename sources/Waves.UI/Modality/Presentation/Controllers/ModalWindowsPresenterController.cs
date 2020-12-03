@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ReactiveUI;
+using Waves.Core.Base.Interfaces;
 using Waves.Presentation.Base;
 using Waves.Presentation.Interfaces;
 using Waves.UI.Modality.Presentation.Controllers.Interfaces;
@@ -16,6 +17,14 @@ namespace Waves.UI.Modality.Presentation.Controllers
         IModalWindowPresenterController
     {
         private IPresenter _presenter;
+        
+        /// <summary>
+        /// Creates new instance of <see cref="ModalWindowPresenterController"/>.
+        /// </summary>
+        /// <param name="core">Instance of core.</param>
+        protected ModalWindowPresenterController(IWavesCore core) : base(core)
+        {
+        }
 
         /// <inheritdoc />
         public bool IsVisible { get; private set; }

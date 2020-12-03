@@ -1,4 +1,5 @@
-﻿using Waves.Presentation.Interfaces;
+﻿using Waves.Core.Base.Interfaces;
+using Waves.Presentation.Interfaces;
 using Waves.UI.Presentation.Tabs.Interfaces;
 
 namespace Waves.UI.Presentation.Tabs
@@ -8,15 +9,15 @@ namespace Waves.UI.Presentation.Tabs
     /// </summary>
     public abstract class TabPresenter : Waves.Presentation.Base.Presenter, ITabPresenter
     {
-        /// <inheritdoc />
-        public abstract override IPresenterViewModel DataContext { get; }
-
-        /// <inheritdoc />
-        public abstract override IPresenterView View { get; }
-
-        /// <inheritdoc />
-        public abstract string Name { get; }
-
+        /// <summary>
+        /// Creates new instance of <see cref="TabPresenter"/>.
+        /// </summary>
+        /// <param name="core">Core.</param>
+        protected TabPresenter(IWavesCore core) : base(core)
+        {
+            
+        }
+        
         /// <inheritdoc />
         public abstract string VectorIconPathData { get; }
 
