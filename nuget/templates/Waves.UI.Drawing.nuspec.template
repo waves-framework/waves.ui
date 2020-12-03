@@ -11,15 +11,15 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Waves UI drawing library.</description>
     <releaseNotes>
-      The first release of package.
-      - Base drawing classes.
+      - Refactoring;
+      - Advanced logging;
+      - ReactiveUI.
     </releaseNotes>
     <copyright>Copyright (c) 2020 Egor Khindikaynen</copyright>
     <tags>Waves ui drawing</tags>
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
-        <dependency id="Waves.Core" version="2020.2.5" />
-        <dependency id="Waves.Presentation" version="2020.2.4" />
+        <dependency id="Waves.UI" version="{$NUGETVERSION}" />
       </group>
     </dependencies>
     <frameworkReferences>

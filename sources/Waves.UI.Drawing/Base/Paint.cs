@@ -12,10 +12,10 @@ namespace Waves.UI.Drawing.Base
         public bool IsAntialiased { get; set; } = true;
 
         /// <inheritdoc />
-        public Color Fill { get; set; } = Color.Black;
+        public WavesColor Fill { get; set; } = WavesColor.Black;
 
         /// <inheritdoc />
-        public Color Stroke { get; set; } = Color.Gray;
+        public WavesColor Stroke { get; set; } = WavesColor.Gray;
 
         /// <inheritdoc />
         public float Opacity { get; set; }

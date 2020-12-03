@@ -8,11 +8,6 @@ namespace Waves.UI.Presentation.Tabs.Interfaces
     public interface ITabPresenter : IPresenter
     {
         /// <summary>
-        /// Gets tab name.
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
         /// Gets vector icon path data.
         /// </summary>
         string VectorIconPathData { get; }

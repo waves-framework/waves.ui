@@ -14,12 +14,12 @@ namespace Waves.UI.Drawing.ViewModel.Interfaces
         /// <summary>
         ///     Gets or sets foreground.
         /// </summary>
-        Color Foreground { get; set; }
+        WavesColor Foreground { get; set; }
 
         /// <summary>
         ///     Gets or sets background.
         /// </summary>
-        Color Background { get; set; }
+        WavesColor Background { get; set; }
 
         /// <summary>
         ///     Gets or sets drawing element.

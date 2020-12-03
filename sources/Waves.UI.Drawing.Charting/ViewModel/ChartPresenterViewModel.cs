@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Waves.Core.Base;
 using Waves.Core.Base.Enums;
 using Waves.Core.Base.EventArgs;
+using Waves.Core.Base.Interfaces;
 using Waves.UI.Drawing.Base;
 using Waves.UI.Drawing.Base.Interfaces;
 using Waves.UI.Drawing.Charting.Base;
@@ -22,7 +25,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         private readonly List<IDrawingObject> _axisSignaturesDrawingObjects = new List<IDrawingObject>();
 
         private readonly List<IDrawingObject> _axisTicksDrawingObjects = new List<IDrawingObject>();
-        private Color _borderColor = Color.Black;
+        private WavesColor _borderColor = WavesColor.White;
         private float _borderThickness = 1;
         private float _currentXMax = 1;
         private float _currentXMin;
@@ -47,13 +50,13 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         private TextStyle _textStyle = new TextStyle();
 
         private string _title = "New chart";
-        private Color _xAxisAdditionalTicksColor = Color.LightGray;
+        private WavesColor _xAxisAdditionalTicksColor = WavesColor.LightGray;
         private int _xAxisAdditionalTicksCount = 4;
         private float[] _xAxisAdditionalTicksDashArray = {8.0f, 4.0f, 0.0f, 0.0f};
         private float _xAxisAdditionalTickThickness = 1;
         private string _xAxisName = "X axis";
 
-        private Color _xAxisPrimaryTicksColor = Color.Gray;
+        private WavesColor _xAxisPrimaryTicksColor = WavesColor.Gray;
 
         private int _xAxisPrimaryTicksCount = 4;
 
@@ -61,30 +64,33 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
         private float _xAxisPrimaryTickThickness = 1;
         private string _xAxisUnit = "unit";
-        private Color _xAxisZeroLineColor = Color.Black;
+        private WavesColor _xAxisZeroLineColor = WavesColor.Black;
         private float[] _xAxisZeroLineDashArray;
         private float _xAxisZeroLineThickness = 1;
         private float _xMax = 1;
 
         private float _xMin;
-        private Color _yAxisAdditionalTicksColor = Color.LightGray;
+        private WavesColor _yAxisAdditionalTicksColor = WavesColor.LightGray;
         private int _yAxisAdditionalTicksCount = 4;
         private float[] _yAxisAdditionalTicksDashArray = {8.0f, 4.0f, 0.0f, 0.0f};
         private float _yAxisAdditionalTickThickness = 1;
         private string _yAxisName = "Y axis";
-        private Color _yAxisPrimaryTicksColor = Color.Gray;
+        private WavesColor _yAxisPrimaryTicksColor = WavesColor.Gray;
         private int _yAxisPrimaryTicksCount = 4;
         private float[] _yAxisPrimaryTicksDashArray = {4.0f, 4.0f, 0.0f, 0.0f};
         private float _yAxisPrimaryTickThickness = 1;
         private string _yAxisUnit = "unit";
-        private Color _yAxisZeroLineColor = Color.Black;
+        private WavesColor _yAxisZeroLineColor = WavesColor.Black;
         private float[] _yAxisZeroLineDashArray;
         private float _yAxisZeroLineThickness = 1;
         private float _yMax = 1;
         private float _yMin = -1;
 
         /// <inheritdoc />
-        public ChartPresenterViewModel(IDrawingElement drawingElement) : base(drawingElement)
+        public ChartPresenterViewModel(
+            IWavesCore core, 
+            IDrawingElement drawingElement)
+            : base(core, drawingElement)
         {
             SetDefaultTicks();
         }
@@ -92,12 +98,13 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         /// <summary>
         ///     Gets or sets current XMin.
         /// </summary>
+        [Reactive]
         public float CurrentXMin
         {
             get => _currentXMin;
             set
             {
-                _currentXMin = value;
+                this.RaiseAndSetIfChanged(ref _currentXMin, value);
                 Update();
             }
         }
@@ -105,12 +112,13 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         /// <summary>
         ///     Gets or sets current XMax.
         /// </summary>
+        [Reactive]
         public float CurrentXMax
         {
             get => _currentXMax;
             set
             {
-                _currentXMax = value;
+                this.RaiseAndSetIfChanged(ref _currentXMax, value);
                 Update();
             }
         }
@@ -118,12 +126,13 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         /// <summary>
         ///     Gets or sets current YMin.
         /// </summary>
+        [Reactive]
         public float CurrentYMin
         {
             get => _currentYMin;
             set
             {
-                _currentYMin = value;
+                this.RaiseAndSetIfChanged(ref _currentYMin, value);
                 Update();
             }
         }
@@ -131,12 +140,13 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         /// <summary>
         ///     Gets or sets current YMax.
         /// </summary>
+        [Reactive]
         public float CurrentYMax
         {
             get => _currentYMax;
             set
             {
-                _currentYMax = value;
+                this.RaiseAndSetIfChanged(ref _currentYMax, value);
                 Update();
             }
         }
@@ -144,219 +154,240 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         /// <summary>
         ///     Gets or sets Axis ticks list.
         /// </summary>
-        protected List<AxisTick> AxisTicks { get; set; } = new List<AxisTick>();
+        private List<AxisTick> AxisTicks { get; set; } = new List<AxisTick>();
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsZoomEnabled
         {
             get => _isZoomEnabled;
             set
             {
-                _isZoomEnabled = value;
+                this.RaiseAndSetIfChanged(ref _isZoomEnabled, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsTitleVisible
         {
             get => _isTitleVisible;
             set
             {
-                _isTitleVisible = value;
+                this.RaiseAndSetIfChanged(ref _isTitleVisible, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsXAxisPrimaryTicksVisible
         {
             get => _isXAxisPrimaryTicksVisible;
             set
             {
-                _isXAxisPrimaryTicksVisible = value;
+                this.RaiseAndSetIfChanged(ref _isXAxisPrimaryTicksVisible, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsXAxisAdditionalTicksVisible
         {
             get => _isXAxisAdditionalTicksVisible;
             set
             {
-                _isXAxisAdditionalTicksVisible = value;
+                this.RaiseAndSetIfChanged(ref _isXAxisAdditionalTicksVisible, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsXAxisSignaturesVisible
         {
             get => _isXAxisSignaturesVisible;
             set
             {
-                _isXAxisSignaturesVisible = value;
+                this.RaiseAndSetIfChanged(ref _isXAxisSignaturesVisible, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsXAxisZeroLineVisible
         {
             get => _isXAxisZeroLineVisible;
             set
             {
-                _isXAxisZeroLineVisible = value;
+                this.RaiseAndSetIfChanged(ref _isXAxisZeroLineVisible, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsXAxisDescriptionVisible
         {
             get => _isXAxisDescriptionVisible;
             set
             {
-                _isXAxisDescriptionVisible = value;
+                this.RaiseAndSetIfChanged(ref _isXAxisDescriptionVisible, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsYAxisPrimaryTicksVisible
         {
             get => _isYAxisPrimaryTicksVisible;
             set
             {
-                _isYAxisPrimaryTicksVisible = value;
+                this.RaiseAndSetIfChanged(ref _isYAxisPrimaryTicksVisible, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsYAxisAdditionalTicksVisible
         {
             get => _isYAxisAdditionalTicksVisible;
             set
             {
-                _isYAxisAdditionalTicksVisible = value;
+                this.RaiseAndSetIfChanged(ref _isYAxisAdditionalTicksVisible, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsYAxisSignaturesVisible
         {
             get => _isYAxisSignaturesVisible;
             set
             {
-                _isYAxisSignaturesVisible = value;
+                this.RaiseAndSetIfChanged(ref _isYAxisSignaturesVisible, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsYAxisZeroLineVisible
         {
             get => _isYAxisZeroLineVisible;
             set
             {
-                _isYAxisZeroLineVisible = value;
+                this.RaiseAndSetIfChanged(ref _isYAxisZeroLineVisible, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsYAxisDescriptionVisible
         {
             get => _isYAxisDescriptionVisible;
             set
             {
-                _isYAxisDescriptionVisible = value;
+                this.RaiseAndSetIfChanged(ref _isYAxisDescriptionVisible, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsBorderVisible
         {
             get => _isBorderVisible;
             set
             {
-                _isBorderVisible = value;
+                this.RaiseAndSetIfChanged(ref _isBorderVisible, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsXAxisZoomAroundZero { get; set; }
 
         /// <inheritdoc />
+        [Reactive]
         public bool IsYAxisZoomAroundZero { get; set; }
 
         /// <inheritdoc />
+        [Reactive]
         public string Title
         {
             get => _title;
             set
             {
-                _title = value;
+                this.RaiseAndSetIfChanged(ref _title, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public string XAxisName
         {
             get => _xAxisName;
             set
             {
-                _xAxisName = value;
+                this.RaiseAndSetIfChanged(ref _xAxisName, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public string XAxisUnit
         {
             get => _xAxisUnit;
             set
             {
-                _xAxisUnit = value;
+                this.RaiseAndSetIfChanged(ref _xAxisUnit, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public string YAxisName
         {
             get => _yAxisName;
             set
             {
-                _yAxisName = value;
+                this.RaiseAndSetIfChanged(ref _yAxisName, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public string YAxisUnit
         {
             get => _yAxisUnit;
             set
             {
-                _yAxisUnit = value;
+                this.RaiseAndSetIfChanged(ref _yAxisUnit, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float XMin
         {
             get => _xMin;
             set
             {
-                _xMin = value;
+                this.RaiseAndSetIfChanged(ref _xMin, value);
                 Update();
             }
         }
@@ -367,139 +398,151 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             get => _xMax;
             set
             {
-                _xMax = value;
+                this.RaiseAndSetIfChanged(ref _xMax, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float YMin
         {
             get => _yMin;
             set
             {
-                _yMin = value;
+                this.RaiseAndSetIfChanged(ref _yMin, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float YMax
         {
             get => _yMax;
             set
             {
-                _yMax = value;
+                this.RaiseAndSetIfChanged(ref _yMax, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public int XAxisPrimaryTicksCount
         {
             get => _xAxisPrimaryTicksCount;
             set
             {
-                _xAxisPrimaryTicksCount = value;
+                this.RaiseAndSetIfChanged(ref _xAxisPrimaryTicksCount, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public int XAxisAdditionalTicksCount
         {
             get => _xAxisAdditionalTicksCount;
             set
             {
-                _xAxisAdditionalTicksCount = value;
+                this.RaiseAndSetIfChanged(ref _xAxisAdditionalTicksCount, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public int YAxisPrimaryTicksCount
         {
             get => _yAxisPrimaryTicksCount;
             set
             {
-                _yAxisPrimaryTicksCount = value;
+                this.RaiseAndSetIfChanged(ref _yAxisPrimaryTicksCount, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public int YAxisAdditionalTicksCount
         {
             get => _yAxisAdditionalTicksCount;
             set
             {
-                _yAxisAdditionalTicksCount = value;
+                this.RaiseAndSetIfChanged(ref _yAxisAdditionalTicksCount, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float XAxisPrimaryTickThickness
         {
             get => _xAxisPrimaryTickThickness;
             set
             {
-                _xAxisPrimaryTickThickness = value;
+                this.RaiseAndSetIfChanged(ref _xAxisPrimaryTickThickness, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float XAxisAdditionalTickThickness
         {
             get => _xAxisAdditionalTickThickness;
             set
             {
-                _xAxisAdditionalTickThickness = value;
+                this.RaiseAndSetIfChanged(ref _xAxisAdditionalTickThickness, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float XAxisZeroLineThickness
         {
             get => _xAxisZeroLineThickness;
             set
             {
-                _xAxisZeroLineThickness = value;
+                this.RaiseAndSetIfChanged(ref _xAxisZeroLineThickness, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float YAxisPrimaryTickThickness
         {
             get => _yAxisPrimaryTickThickness;
             set
             {
-                _yAxisPrimaryTickThickness = value;
+                this.RaiseAndSetIfChanged(ref _yAxisPrimaryTickThickness, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float YAxisAdditionalTickThickness
         {
             get => _yAxisAdditionalTickThickness;
             set
             {
-                _yAxisAdditionalTickThickness = value;
+                this.RaiseAndSetIfChanged(ref _yAxisAdditionalTickThickness, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float YAxisZeroLineThickness
         {
             get => _yAxisZeroLineThickness;
             set
             {
-                _yAxisZeroLineThickness = value;
+                this.RaiseAndSetIfChanged(ref _yAxisZeroLineThickness, value);
                 Update();
             }
         }
@@ -510,165 +553,178 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             get => _borderThickness;
             set
             {
-                _borderThickness = value;
+                this.RaiseAndSetIfChanged(ref _borderThickness, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float[] XAxisPrimaryTicksDashArray
         {
             get => _xAxisPrimaryTicksDashArray;
             set
             {
-                _xAxisPrimaryTicksDashArray = value;
+                this.RaiseAndSetIfChanged(ref _xAxisPrimaryTicksDashArray, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float[] XAxisAdditionalTicksDashArray
         {
             get => _xAxisAdditionalTicksDashArray;
             set
             {
-                _xAxisAdditionalTicksDashArray = value;
+                this.RaiseAndSetIfChanged(ref _xAxisAdditionalTicksDashArray, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float[] XAxisZeroLineDashArray
         {
             get => _xAxisZeroLineDashArray;
             set
             {
-                _xAxisZeroLineDashArray = value;
+                this.RaiseAndSetIfChanged(ref _xAxisZeroLineDashArray, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float[] YAxisPrimaryTicksDashArray
         {
             get => _yAxisPrimaryTicksDashArray;
             set
             {
-                _yAxisPrimaryTicksDashArray = value;
+                this.RaiseAndSetIfChanged(ref _yAxisPrimaryTicksDashArray, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float[] YAxisAdditionalTicksDashArray
         {
             get => _yAxisAdditionalTicksDashArray;
             set
             {
-                _yAxisAdditionalTicksDashArray = value;
+                this.RaiseAndSetIfChanged(ref _yAxisAdditionalTicksDashArray, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public float[] YAxisZeroLineDashArray
         {
             get => _yAxisZeroLineDashArray;
             set
             {
-                _yAxisZeroLineDashArray = value;
+                this.RaiseAndSetIfChanged(ref _yAxisZeroLineDashArray, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
-        public Color XAxisPrimaryTicksColor
+        [Reactive]
+        public WavesColor XAxisPrimaryTicksColor
         {
             get => _xAxisPrimaryTicksColor;
             set
             {
-                _xAxisPrimaryTicksColor = value;
+                this.RaiseAndSetIfChanged(ref _xAxisPrimaryTicksColor, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
-        public Color XAxisAdditionalTicksColor
+        [Reactive]
+        public WavesColor XAxisAdditionalTicksColor
         {
             get => _xAxisAdditionalTicksColor;
             set
             {
-                _xAxisAdditionalTicksColor = value;
+                this.RaiseAndSetIfChanged(ref _xAxisAdditionalTicksColor, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
-        public Color XAxisZeroLineColor
+        [Reactive]
+        public WavesColor XAxisZeroLineColor
         {
             get => _xAxisZeroLineColor;
             set
             {
-                _xAxisZeroLineColor = value;
+                this.RaiseAndSetIfChanged(ref _xAxisZeroLineColor, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
-        public Color YAxisPrimaryTicksColor
+        [Reactive]
+        public WavesColor YAxisPrimaryTicksColor
         {
             get => _yAxisPrimaryTicksColor;
             set
             {
-                _yAxisPrimaryTicksColor = value;
+                this.RaiseAndSetIfChanged(ref _yAxisPrimaryTicksColor, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
-        public Color YAxisAdditionalTicksColor
+        [Reactive]
+        public WavesColor YAxisAdditionalTicksColor
         {
             get => _yAxisAdditionalTicksColor;
             set
             {
-                _yAxisAdditionalTicksColor = value;
+                this.RaiseAndSetIfChanged(ref _yAxisAdditionalTicksColor, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
-        public Color YAxisZeroLineColor
+        [Reactive]
+        public WavesColor YAxisZeroLineColor
         {
             get => _yAxisZeroLineColor;
             set
             {
-                _yAxisZeroLineColor = value;
+                this.RaiseAndSetIfChanged(ref _yAxisZeroLineColor, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
-        public Color BorderColor
+        public WavesColor BorderColor
         {
             get => _borderColor;
             set
             {
-                _borderColor = value;
+                this.RaiseAndSetIfChanged(ref _borderColor, value);
                 Update();
             }
         }
 
         /// <inheritdoc />
+        [Reactive]
         public TextStyle TextStyle
         {
             get => _textStyle;
             set
             {
-                _textStyle = value;
+                this.RaiseAndSetIfChanged(ref _textStyle, value);
                 Update();
             }
         }
-
+        
         /// <inheritdoc />
         public override void Draw(object element)
         {
@@ -724,42 +780,42 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Arguments.</param>
-        protected override void OnInputServicePointerStateChanged(object sender, PointerEventArgs e)
+        protected override void OnInputServicePointerStateChanged(object sender, WavesPointerEventArgs e)
         {
-            if (e.Type == PointerEventType.VerticalScroll)
+            if (e.Type == WavesPointerEventType.VerticalScroll)
             {
                 LastMouseDelta = (int) e.Delta.X;
                 ZoomChart(LastMouseDelta, LastMousePosition);
             }
 
-            if (e.Type == PointerEventType.Enter)
+            if (e.Type == WavesPointerEventType.Enter)
             {
                 IsMouseOver = true;
                 Update();
             }
 
-            if (e.Type == PointerEventType.Leave)
+            if (e.Type == WavesPointerEventType.Leave)
             {
                 IsMouseOver = false;
                 Update();
             }
 
-            if (e.Type == PointerEventType.Enter || e.Type == PointerEventType.Leave || e.Type == PointerEventType.Move)
+            if (e.Type == WavesPointerEventType.Enter || e.Type == WavesPointerEventType.Leave || e.Type == WavesPointerEventType.Move)
             {
-                LastMousePosition = new Point(e.X, e.Y);
+                LastMousePosition = new WavesPoint(e.X, e.Y);
                 Update();
             }
 
-            if (e.Type == PointerEventType.TouchZoom)
+            if (e.Type == WavesPointerEventType.TouchZoom)
                 if (IsZoomEnabled)
                 {
                     LastMouseDelta = (int) e.Delta.X;
                     ZoomChart(LastMouseDelta, LastMousePosition);
                 }
 
-            if (e.Type == PointerEventType.TouchMove)
+            if (e.Type == WavesPointerEventType.TouchMove)
             {
-                LastMousePosition = new Point(e.X, e.Y);
+                LastMousePosition = new WavesPoint(e.X, e.Y);
                 Update();
             }
         }
@@ -769,7 +825,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Arguments.</param>
-        protected override void OnInputServiceKeyPressed(object sender, KeyEventArgs e)
+        protected override void OnInputServiceKeyPressed(object sender, WavesKeyEventArgs e)
         {
         }
 
@@ -778,7 +834,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Arguments.</param>
-        protected override void OnInputServiceKeyReleased(object sender, KeyEventArgs e)
+        protected override void OnInputServiceKeyReleased(object sender, WavesKeyEventArgs e)
         {
         }
 
@@ -909,7 +965,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
                     var size = DrawingElement.MeasureText(tick.Description, paint);
 
-                    text.Location = new Point(text.Location.X - size.Width / 2, text.Location.Y);
+                    text.Location = new WavesPoint(text.Location.X - size.Width / 2, text.Location.Y);
 
                     var rectangle = Signatures.GetXAxisSignatureRectangle(
                         tick.Value,
@@ -941,7 +997,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
                     var size = DrawingElement.MeasureText(tick.Description, paint);
 
-                    text.Location = new Point(text.Location.X, text.Location.Y + size.Height / 2);
+                    text.Location = new WavesPoint(text.Location.X, text.Location.Y + size.Height / 2);
 
                     var rectangle = Signatures.GetYAxisSignatureRectangle(
                         tick.Value,
@@ -971,7 +1027,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         /// </summary>
         /// <param name="delta">Zoom delta.</param>
         /// <param name="position">Zoom position.</param>
-        private void ZoomChart(int delta, Point position)
+        private void ZoomChart(int delta, WavesPoint position)
         {
             if (!IsMouseOver) return;
             if (!IsZoomEnabled) return;
@@ -980,6 +1036,12 @@ namespace Waves.UI.Drawing.Charting.ViewModel
 
             var x = Valuation.DenormalizePointX2D(position.X, Width, CurrentXMin, CurrentXMax);
             var y = Valuation.DenormalizePointY2D(position.Y, Height, CurrentYMin, CurrentYMax);
+            
+            if (float.IsInfinity(x))
+                return;
+            
+            if (float.IsInfinity(y))
+                return;
 
             if (IsCtrlPressed)
             {

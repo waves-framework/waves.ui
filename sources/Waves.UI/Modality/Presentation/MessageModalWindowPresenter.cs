@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Waves.Core.Base.Interfaces;
 using Waves.Presentation.Interfaces;
 using Waves.UI.Base.Interfaces;
 using Waves.UI.Modality.Base.Interfaces;
@@ -24,7 +26,7 @@ namespace Waves.UI.Modality.Presentation
         /// <param name="messageIcon">Message icon.</param>
         /// <param name="windowIcon">Window icon.</param>
         public MessageModalWindowPresenter(
-            Core core, 
+            IWavesCore core, 
             string title, 
             string message, 
             MessageIcon messageIcon, 
@@ -36,6 +38,12 @@ namespace Waves.UI.Modality.Presentation
             MessageIcon = messageIcon;
             Icon = windowIcon;
         }
+        
+        /// <inheritdoc />
+        public override Guid Id { get; } = Guid.NewGuid();
+
+        /// <inheritdoc />
+        public override string Name { get; set; } = "Message Modal Window Presenter";
 
         /// <inheritdoc />
         public override IVectorImage Icon { get; }
@@ -62,7 +70,7 @@ namespace Waves.UI.Modality.Presentation
         /// <inheritdoc />
         public override void Initialize()
         {
-            _dataContext = new MessageModalWindowPresenterViewModel(Message, Icon);
+            _dataContext = new MessageModalWindowPresenterViewModel(Core, Message, Icon);
 
             base.Initialize();
         }

@@ -13,7 +13,7 @@ namespace Waves.UI.Base
         /// </summary>
         /// <param name="pathData">Geometry path data.</param>
         /// <param name="color">Path color.</param>
-        public VectorPath(string pathData, Color color)
+        public VectorPath(string pathData, WavesColor color)
         {
             GeometryPathData = pathData;
             Color = color;
@@ -23,6 +23,6 @@ namespace Waves.UI.Base
         public string GeometryPathData { get; }
         
         /// <inheritdoc />
-        public Color Color { get; }
+        public WavesColor Color { get; }
     }
 }

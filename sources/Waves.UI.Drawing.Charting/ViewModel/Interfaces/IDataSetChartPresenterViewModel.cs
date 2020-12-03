@@ -25,7 +25,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel.Interfaces
         /// </summary>
         /// <param name="index">Data set index.</param>
         /// <param name="points">Array of points.</param>
-        void UpdateDataSet(int index, Point[] points);
+        void UpdateDataSet(int index, WavesPoint[] points);
 
         /// <summary>
         ///     Removes existing data set.

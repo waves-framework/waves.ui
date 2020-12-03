@@ -7,7 +7,7 @@ namespace Waves.UI.Base.Interfaces
     /// <summary>
     /// Interface of theme group.
     /// </summary>
-    public interface ITheme : IObject
+    public interface ITheme : IWavesObject
     {
         /// <summary>
         /// Primary color set changed event.

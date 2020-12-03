@@ -9,7 +9,7 @@ namespace Waves.UI.Services.Interfaces
     /// <summary>
     ///     Interface of theme service classes.
     /// </summary>
-    public interface IThemeService : IService
+    public interface IThemeService : IWavesService
     {
         /// <summary>
         /// Theme changed event.

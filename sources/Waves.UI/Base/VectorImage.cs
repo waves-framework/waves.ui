@@ -7,7 +7,7 @@ namespace Waves.UI.Base
     /// <summary>
     /// Vector image base.
     /// </summary>
-    public abstract class VectorImage: ObservableObject, IVectorImage
+    public abstract class VectorImage: WavesObservableObject, IVectorImage
     {
         /// <inheritdoc />
         public abstract string Name { get; set; }

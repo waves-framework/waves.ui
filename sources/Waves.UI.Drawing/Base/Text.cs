@@ -24,7 +24,7 @@ namespace Waves.UI.Drawing.Base
         /// <summary>
         ///     Gets or sets text location.
         /// </summary>
-        public Point Location { get; set; } = new Point(0, 0);
+        public WavesPoint Location { get; set; } = new WavesPoint(0, 0);
 
         /// <inheritdoc />
         public override void Draw(IDrawingElement e)

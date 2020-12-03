@@ -1,11 +1,15 @@
 ﻿using System;
 using Waves.Core.Base;
 using Waves.Core.Base.Enums;
+using Waves.Core.Base.Interfaces;
 using Waves.Core.Base.Interfaces.Services;
 using Waves.Presentation.Interfaces;
+using Waves.UI.Drawing.Charting.Base.Interfaces;
 using Waves.UI.Drawing.Charting.Presentation.Interfaces;
 using Waves.UI.Drawing.Charting.View.Interface;
+using Waves.UI.Drawing.Charting.ViewModel;
 using Waves.UI.Drawing.Charting.ViewModel.Interfaces;
+using Waves.UI.Drawing.Presentation;
 using Waves.UI.Drawing.Services.Interfaces;
 using Waves.UI.Services.Interfaces;
 
@@ -14,76 +18,51 @@ namespace Waves.UI.Drawing.Charting.Presentation
     /// <summary>
     ///     Chart presenter.
     /// </summary>
-    public abstract class ChartPresenter : Waves.Presentation.Base.Presenter, IChartPresenter
+    public abstract class ChartPresenter : DrawingElementPresenter, IChartPresenter
     {
-        /// <summary>
-        ///     Gets or sets Data context's backing field.
-        /// </summary>
-        protected IChartPresenterViewModel DataContextBackingField;
-
-        /// <summary>
-        ///     Gets or sets View's backing field.
-        /// </summary>
-        protected IChartPresenterView ViewBackingField;
-
         /// <inheritdoc />
         protected ChartPresenter(
-            IDrawingService drawingService,
-            IThemeService themeService,
-            IInputService inputService)
+            IWavesCore core,
+            IChartViewFactory factory) 
+            : base(core)
         {
-            DrawingService = drawingService;
-            ThemeService = themeService;
-            InputService = inputService;
-
+            ChartViewFactory = factory;
+            
+            InitializeServices();
             SubscribeEvents();
         }
+        
+        /// <summary>
+        /// Gets chart view factory.
+        /// </summary>
+        protected IChartViewFactory ChartViewFactory { get; }
 
         /// <summary>
         ///     Gets or sets theme service.
         /// </summary>
         protected IThemeService ThemeService { get; set; }
 
-        /// <summary>
-        ///     Gets or sets drawing service.
-        /// </summary>
-        protected IDrawingService DrawingService { get; set; }
-
-        /// <summary>
-        ///     Gets or sets input service.
-        /// </summary>
-        protected IInputService InputService { get; set; }
-
-        /// <inheritdoc />
-        public override IPresenterViewModel DataContext
-        {
-            get => DataContextBackingField;
-            protected set => DataContextBackingField = (IChartPresenterViewModel) value;
-        } 
-
-        /// <inheritdoc />
-        public override IPresenterView View
-        {
-            get => ViewBackingField;
-            protected set => ViewBackingField = (IChartPresenterView) value;
-        }
-
         /// <inheritdoc />
         public override void Dispose()
         {
+            UnsubscribeEvents();
+            
             base.Dispose();
-
-            if (ThemeService != null)
-                ThemeService.ThemeChanged -= OnThemeChanged;
-
-            if (DrawingService != null)
-                DrawingService.EngineChanged -= OnDrawingServiceEngineChanged;
         }
 
         /// <inheritdoc />
         public override void Initialize()
         {
-            if (DataContext != null && View != null) base.Initialize();
+            if (DrawingService?.CurrentEngine == null)
+                throw new NullReferenceException(nameof(DrawingService.CurrentEngine));
+
+            InitializeView();
+            
+            SetDataContext(new ChartPresenterViewModel(Core, DrawingService.CurrentEngine.GetDrawingElement()));
+
+            InitializeColors();
+
+            DataContextBackingField.Update();
         }
 
         /// <summary>
@@ -91,9 +70,9 @@ namespace Waves.UI.Drawing.Charting.Presentation
         /// </summary>
         /// <param name="sender">Sender.</param>
         /// <param name="e">Arguments.</param>
-        protected virtual void OnDrawingServiceEngineChanged(object sender, EventArgs e)
+        protected override void OnDrawingServiceEngineChanged(object sender, EventArgs e)
         {
-            Update();
+            Initialize();
         }
 
         /// <summary>
@@ -104,7 +83,7 @@ namespace Waves.UI.Drawing.Charting.Presentation
         /// <summary>
         ///     Initialize colors.
         /// </summary>
-        protected virtual void InitializeColors()
+        protected void InitializeColors()
         {
             if (!(DataContext is IChartPresenterViewModel context)) return;
 
@@ -121,7 +100,27 @@ namespace Waves.UI.Drawing.Charting.Presentation
             context.TextStyle.FontFamily = "#Lato Regular";
             context.TextStyle.FontSize = 12;
 
-            OnMessageReceived(new Message("Chart colors", "Chart colors were changed", "Chart", MessageType.Success));
+            OnMessageReceived(
+                this, 
+                new WavesMessage(
+                    "Chart colors", 
+                    "Chart colors were changed", 
+                    Name, 
+                    WavesMessageType.Success));
+        }
+        
+        /// <summary>
+        /// Initializes services.
+        /// </summary>
+        private void InitializeServices()
+        {
+            if (Core == null)
+                throw new NullReferenceException(nameof(Core));
+
+            ThemeService = Core.GetInstance<IThemeService>();
+            
+            if (ThemeService == null)
+                throw new NullReferenceException(nameof(ThemeService));
         }
 
         /// <summary>
@@ -131,9 +130,15 @@ namespace Waves.UI.Drawing.Charting.Presentation
         {
             if (ThemeService != null)
                 ThemeService.ThemeChanged += OnThemeChanged;
-
-            if (DrawingService != null)
-                DrawingService.EngineChanged += OnDrawingServiceEngineChanged;
+        }
+        
+        /// <summary>
+        ///     Unsubscribes events.
+        /// </summary>
+        private void UnsubscribeEvents()
+        {
+            if (ThemeService != null)
+                ThemeService.ThemeChanged -= OnThemeChanged;
         }
 
         /// <summary>
@@ -146,6 +151,16 @@ namespace Waves.UI.Drawing.Charting.Presentation
             InitializeColors();
 
             DataContextBackingField.Update();
+        }
+
+        /// <summary>
+        /// Initializes view.
+        /// </summary>
+        private void InitializeView()
+        {
+            var view = ChartViewFactory.GetChartView();
+            view.DrawingElementView = DrawingService.CurrentEngine.GetView(InputService);
+            SetView(view);
         }
     }
 }

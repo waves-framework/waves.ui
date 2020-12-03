@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Waves.Core.Base;
 using Waves.Core.Base.Enums;
 using Waves.Core.Base.Interfaces;
@@ -19,16 +20,12 @@ namespace Waves.UI.Drawing.Services
     /// <summary>
     ///     Drawing service.
     /// </summary>
-    [Export(typeof(IService))]
-    public class DrawingService : Service, IDrawingService
+    [Export(typeof(IWavesService))]
+    public class DrawingService : WavesMefLoaderService<IDrawingEngine>, IDrawingService
     {
+        private readonly string _currentDirectory = Environment.CurrentDirectory;
+        
         private IDrawingEngine _currentEngine;
-
-        /// <summary>
-        ///     Gets or sets loaded drawing engines.
-        /// </summary>
-        [ImportMany]
-        private IEnumerable<IDrawingEngine> DrawingEngines { get; set; }
 
         /// <inheritdoc />
         public event EventHandler EngineChanged;
@@ -40,6 +37,7 @@ namespace Waves.UI.Drawing.Services
         public override string Name { get; set; } = "Drawing service";
 
         /// <inheritdoc />
+        [Reactive]
         public IDrawingEngine CurrentEngine
         {
             get => _currentEngine;
@@ -52,97 +50,18 @@ namespace Waves.UI.Drawing.Services
         }
 
         /// <inheritdoc />
-        public List<string> EnginePaths { get; set; } = new List<string>();
-
-        /// <inheritdoc />
-        public ICollection<IDrawingEngine> Engines { get; } = new List<IDrawingEngine>();
-
-        /// <inheritdoc />
-        public void AddPath(string path)
-        {
-            try
-            {
-                if (!EnginePaths.Contains(path)) EnginePaths?.Add(path);
-
-                OnMessageReceived(this, new Message("Adding drawing engines path",
-                    "Drawing engines path added successfully.", Name,
-                    MessageType.Success));
-            }
-            catch (Exception e)
-            {
-                OnMessageReceived(this, new Message(e, false));
-            }
-        }
-
-        /// <inheritdoc />
-        public void RemovePath(string path)
-        {
-            try
-            {
-                if (EnginePaths.Contains(path)) EnginePaths?.Remove(path);
-
-                OnMessageReceived(this, new Message("Removing drawing engines path",
-                    "Drawing engines path removed successfully.", Name,
-                    MessageType.Success));
-            }
-            catch (Exception e)
-            {
-                OnMessageReceived(this, new Message(e, false));
-            }
-        }
-
-        /// <inheritdoc />
-        public void UpdateEnginesCollection()
-        {
-            try
-            {
-                LoadEngines();
-            }
-            catch (Exception e)
-            {
-                OnMessageReceived(this, new Message(e, false));
-            }
-        }
-
-        /// <inheritdoc />
-        public override void Initialize(ICore core)
-        {
-            if (IsInitialized) return;
-
-            Core = core;
-
-            try
-            {
-                LoadEngines();
-
-                IsInitialized = true;
-
-                OnMessageReceived(this,
-                    new Message(
-                        "Initialization",
-                        "Service was initialized.",
-                        Name,
-                        MessageType.Information));
-            }
-            catch (Exception e)
-            {
-                OnMessageReceived(this, new Message(e, false));
-            }
-        }
+        protected override string ObjectsName => "Drawing Engines";
 
         /// <inheritdoc />
         public override void LoadConfiguration()
         {
             try
             {
-                EnginePaths.AddRange(LoadConfigurationValue(Core.Configuration, "DrawingService-EnginePaths",
-                    new List<string>()));
-
                 var name = LoadConfigurationValue(Core.Configuration, "DrawingService-DefaultEngineName", string.Empty);
 
                 if (!string.IsNullOrEmpty(name))
                 {
-                    foreach (var engine in Engines)
+                    foreach (var engine in Objects)
                     {
                         if (!string.Equals(engine.Name, name, StringComparison.OrdinalIgnoreCase)) continue;
 
@@ -152,16 +71,15 @@ namespace Waves.UI.Drawing.Services
                 }
                 else
                 {
-                    if (Engines.Count > 0)
-                        CurrentEngine = Engines.First();
+                    if (Objects.Any())
+                        CurrentEngine = Objects.First();
                 }
-
-                OnMessageReceived(this, new Message("Configuration loading", "Configuration loads successfully.", Name,
-                    MessageType.Success));
+                
+                base.LoadConfiguration();
             }
             catch (Exception e)
             {
-                OnMessageReceived(this, new Message(e, false));
+                OnMessageReceived(this, new WavesMessage(e, false));
             }
         }
 
@@ -170,28 +88,26 @@ namespace Waves.UI.Drawing.Services
         {
             try
             {
-                if (EnginePaths.Count > 1)
-                {
-                    Core.Configuration.SetPropertyValue("ApplicationService-Paths",
-                        EnginePaths.GetRange(1, EnginePaths.Count - 1));
-
-                    OnMessageReceived(this, new Message("Configuration saving", "Configuration saves successfully.",
-                        Name,
-                        MessageType.Success));
-                }
-
                 if (CurrentEngine != null)
-                    Core.Configuration.SetPropertyValue("DrawingService-DefaultEngineName", CurrentEngine.Name);
+                    Core.Configuration.SetPropertyValue("DrawingService-DefaultEngineName", CurrentEngine.Id);
+                
+                base.SaveConfiguration();
             }
             catch (Exception e)
             {
-                OnMessageReceived(this, new Message(e, false));
+                OnMessageReceived(this, new WavesMessage(e, false));
             }
         }
-
+        
         /// <inheritdoc />
-        public override void Dispose()
+        public override void Update()
         {
+            if (Paths.Count == 0)
+                Paths.Add(_currentDirectory);
+
+            base.Update();
+
+            Paths.Remove(_currentDirectory);
         }
 
         /// <summary>
@@ -201,103 +117,14 @@ namespace Waves.UI.Drawing.Services
         {
             EngineChanged?.Invoke(this, EventArgs.Empty);
 
-            OnMessageReceived(this, new Message("Drawing engine",
+            OnMessageReceived(this, new WavesMessage("Drawing engine",
                 "Drawing engine changed to " + CurrentEngine.Name + ".", Name,
-                MessageType.Information));
+                WavesMessageType.Information));
         }
-
-        /// <summary>
-        ///     Loads engines.
-        /// </summary>
-        private void LoadEngines()
+        
+        /// <inheritdoc />
+        public override void Dispose()
         {
-            try
-            {
-                var assemblies = new List<Assembly>();
-
-                // TODO: Path to current directory. Temporary solution.
-                EnginePaths.Add(Environment.CurrentDirectory);
-
-                foreach (var path in EnginePaths)
-                {
-                    if (!Directory.Exists(path))
-                    {
-                        OnMessageReceived(this,
-                            new Message(
-                                "Loading path error",
-                                "Path to engine ( " + path + ") doesn't exists or was deleted.",
-                                Name,
-                                MessageType.Error));
-
-                        continue;
-                    }
-
-                    foreach (var file in Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories))
-                        try
-                        {
-                            var hasItem = false;
-                            var fileInfo = new FileInfo(file);
-                            foreach (var assembly in assemblies)
-                            {
-                                var name = assembly.GetName().Name;
-
-                                if (name == fileInfo.Name.Replace(fileInfo.Extension, "")) hasItem = true;
-                            }
-
-                            if (!hasItem) assemblies.Add(AssemblyLoadContext.Default.LoadFromAssemblyPath(file));
-                        }
-                        catch (Exception e)
-                        {
-                            OnMessageReceived(this,
-                                new Message("Loading assemblies", "Error loading assembly (" + file + ").", Name, e,
-                                    false));
-                        }
-                }
-
-                // TODO: Path to current directory. Temporary solution.
-                EnginePaths.Remove(Environment.CurrentDirectory);
-
-                var configuration = new ContainerConfiguration()
-                    .WithAssemblies(assemblies);
-
-                using var container = configuration.CreateContainer();
-                DrawingEngines = container.GetExports<IDrawingEngine>();
-
-                Engines.Clear();
-                foreach (var engine in DrawingEngines) Engines.Add(engine);
-
-                if (DrawingEngines != null)
-                {
-                    if (!Engines.Any())
-                    {
-                        OnMessageReceived(this, new Message("Loading engines", "Engines not found.", Name,
-                            MessageType.Warning));
-                    }
-                    else
-                    {
-                        var text = "Engines loads successfully (" + Engines.Count() + " engines):\r\n";
-
-                        if (Engines.Count > 1)
-                            foreach (var engine in Engines)
-                                text += "· " + engine.Name + "\r\n";
-                        else
-                            foreach (var engine in Engines)
-                                text += "· " + engine.Name;
-
-                        OnMessageReceived(this, new Message("Loading engines", text, Name,
-                            MessageType.Success));
-                    }
-                }
-                else
-                {
-                    OnMessageReceived(this,
-                        new Message("Loading engines", "Engines were not loaded.", Name, MessageType.Warning));
-                }
-            }
-            catch (Exception e)
-            {
-                OnMessageReceived(this, new Message(e, false));
-            }
         }
     }
 }

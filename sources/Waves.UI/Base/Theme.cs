@@ -1,15 +1,15 @@
 using System;
 using ReactiveUI;
+using Waves.Core.Base;
 using Waves.UI.Base.Interfaces;
 using Waves.UI.Services.Interfaces;
-using Object = Waves.Core.Base.Object;
 
 namespace Waves.UI.Base
 {
     /// <summary>
     /// Color theme abstraction.
     /// </summary>
-    public abstract class Theme : Object, ITheme
+    public abstract class Theme : WavesObject, ITheme
     {
         private bool _useDarkSet = false;
 
@@ -55,12 +55,10 @@ namespace Waves.UI.Base
             get => _useDarkSet;
             set
             {
-                _useDarkSet = value;
-
-                PrimaryColorSet = _useDarkSet ? PrimaryDarkColorSet : PrimaryLightColorSet;
-
                 this.RaiseAndSetIfChanged(ref _useDarkSet, value);
                 
+                PrimaryColorSet = _useDarkSet ? PrimaryDarkColorSet : PrimaryLightColorSet;
+
                 OnPrimaryColorSetChanged();
             }
         }

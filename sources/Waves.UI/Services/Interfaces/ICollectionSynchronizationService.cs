@@ -7,7 +7,7 @@ namespace Waves.UI.Services.Interfaces
     /// <summary>
     /// Interface for collection synchronization service.
     /// </summary>
-    public interface ICollectionSynchronizationService : IService
+    public interface ICollectionSynchronizationService : IWavesService
     {
         /// <summary>
         ///  Register a callback used to synchronize access to a given collection.
