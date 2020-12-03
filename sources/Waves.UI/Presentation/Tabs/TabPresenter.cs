@@ -15,6 +15,7 @@ namespace Waves.UI.Presentation.Tabs
         /// <param name="core">Core.</param>
         protected TabPresenter(IWavesCore core) : base(core)
         {
+            
         }
         
         /// <inheritdoc />

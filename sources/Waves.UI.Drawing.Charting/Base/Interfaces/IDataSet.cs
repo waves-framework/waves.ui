@@ -10,11 +10,6 @@ namespace Waves.UI.Drawing.Charting.Base.Interfaces
     public interface IDataSet : IWavesObject
     {
         /// <summary>
-        ///     Gets or sets data set color.
-        /// </summary>
-        WavesColor Color { get; set; }
-
-        /// <summary>
         ///     Gets or sets data set data.
         /// </summary>
         WavesPoint[] Data { get; }

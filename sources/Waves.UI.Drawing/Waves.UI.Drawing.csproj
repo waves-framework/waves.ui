@@ -3,8 +3,7 @@
     <Import Project="../../props/Waves.UI.props" />
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\core\sources\Waves.Core\Waves.Core.csproj" />
-      <ProjectReference Include="..\..\..\presentation\sources\Waves.Presentation\Waves.Presentation.csproj" />
+      <ProjectReference Include="..\Waves.UI\Waves.UI.csproj" />
     </ItemGroup>
 
 </Project>

@@ -10,11 +10,6 @@ namespace Waves.UI.Drawing.Base.Interfaces
     public interface IDrawingEngine : IWavesObject
     {
         /// <summary>
-        ///     Gets name of engine.
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
         ///     Gets new instance of drawing element view.
         /// </summary>
         /// <param name="inputService">Input service.</param>

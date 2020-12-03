@@ -48,10 +48,7 @@ namespace Waves.UI.Drawing.Charting.Base
 
         /// <inheritdoc />
         public override string Name { get; set; } = "Data set";
-
-        /// <inheritdoc />
-        public WavesColor Color { get; set; } = WavesColor.Black;
-
+        
         /// <inheritdoc />
         public WavesPoint[] Data { get; private set; }
 

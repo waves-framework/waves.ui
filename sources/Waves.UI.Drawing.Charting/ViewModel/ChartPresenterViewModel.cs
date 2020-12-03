@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -725,9 +724,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 Update();
             }
         }
-
-        private bool _isDrawing = false;
-
+        
         /// <inheritdoc />
         public override void Draw(object element)
         {
