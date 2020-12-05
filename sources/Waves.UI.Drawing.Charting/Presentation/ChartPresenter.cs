@@ -88,7 +88,7 @@ namespace Waves.UI.Drawing.Charting.Presentation
             if (!(DataContext is IChartPresenterViewModel context)) return;
 
             context.Background = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(100);
-            context.BorderColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(900);
+            context.BorderColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(500);
             context.XAxisZeroLineColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(900);
             context.XAxisPrimaryTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(700);
             context.XAxisAdditionalTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(500);

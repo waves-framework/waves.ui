@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="../../props/Waves.UI.props" />
+
+    <ItemGroup>
+      <PackageReference Include="SkiaSharp" Version="2.80.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\core\sources\Waves.Core.Base\Waves.Core.Base.csproj" />
+      <ProjectReference Include="..\Waves.UI.Drawing\Waves.UI.Drawing.csproj" />
+    </ItemGroup>
+
+</Project>
