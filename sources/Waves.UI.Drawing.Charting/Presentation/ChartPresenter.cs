@@ -85,28 +85,46 @@ namespace Waves.UI.Drawing.Charting.Presentation
         /// </summary>
         protected void InitializeColors()
         {
-            if (!(DataContext is IChartPresenterViewModel context)) return;
+            try
+            {
+                if (!(DataContext is IChartPresenterViewModel context)) return;
 
-            context.Background = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(100);
-            context.BorderColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(500);
-            context.XAxisZeroLineColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(900);
-            context.XAxisPrimaryTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(700);
-            context.XAxisAdditionalTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(500);
-            context.YAxisZeroLineColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(900);
-            context.YAxisPrimaryTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(700);
-            context.YAxisAdditionalTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(500);
-            context.Foreground = ThemeService.SelectedTheme.PrimaryColorSet.GetForegroundColor(100);
+                if (ThemeService.SelectedTheme == null)
+                    throw new NullReferenceException(nameof(ThemeService.SelectedTheme));
 
-            context.TextStyle.FontFamily = "#Lato Regular";
-            context.TextStyle.FontSize = 12;
+                context.Background = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(100);
+                context.BorderColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(500);
+                context.XAxisZeroLineColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(900);
+                context.XAxisPrimaryTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(700);
+                context.XAxisAdditionalTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(500);
+                context.YAxisZeroLineColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(900);
+                context.YAxisPrimaryTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(700);
+                context.YAxisAdditionalTicksColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(500);
+                context.Foreground = ThemeService.SelectedTheme.PrimaryColorSet.GetForegroundColor(100);
 
-            OnMessageReceived(
-                this, 
-                new WavesMessage(
-                    "Chart colors", 
-                    "Chart colors were changed", 
-                    Name, 
-                    WavesMessageType.Success));
+                context.TextStyle.FontFamily = "#Lato Regular";
+                context.TextStyle.FontSize = 12;
+
+                OnMessageReceived(
+                    this,
+                    new WavesMessage(
+                        "Chart colors",
+                        "Chart colors were changed",
+                        Name,
+                        WavesMessageType.Success));
+            }
+            catch (Exception e)
+            {
+                OnMessageReceived(
+                    this,
+                    new WavesMessage(
+                        "Colors initialization",
+                        "Error occured while chart colors initialization.",
+                        Name,
+                        e,
+                        false));
+            }
+ 
         }
         
         /// <summary>
