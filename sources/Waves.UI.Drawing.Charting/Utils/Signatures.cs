@@ -31,7 +31,7 @@ namespace Waves.UI.Drawing.Charting.Utils
         {
             return new Text
             {
-                Location = new WavesPoint(Valuation.NormalizePointX2D(value, width, xMin, xMax), height - 12),
+                Location = new WavesPoint(Valuation.NormalizePointX2D(value, width, xMin, xMax), height),
                 Style = style,
                 Value = description,
                 IsVisible = true,
@@ -57,7 +57,7 @@ namespace Waves.UI.Drawing.Charting.Utils
         {
             return new Text
             {
-                Location = new WavesPoint(Valuation.NormalizePointX2D(value, width, xMin, xMax) + 1, height - 14),
+                Location = new WavesPoint(Valuation.NormalizePointX2D(value, width, xMin, xMax), height - 14),
                 Style = paint.TextStyle,
                 Value = description,
                 IsVisible = true,
@@ -113,7 +113,7 @@ namespace Waves.UI.Drawing.Charting.Utils
         {
             return new Text
             {
-                Location = new WavesPoint(13, Valuation.NormalizePointY2D(value, height, yMin, yMax) - 2),
+                Location = new WavesPoint(13, Valuation.NormalizePointY2D(value, height, yMin, yMax)),
                 Style = paint.TextStyle,
                 Value = description,
                 IsVisible = true,
