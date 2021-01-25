@@ -10,6 +10,8 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\core\sources\Waves.Core\Waves.Core.csproj" />
       <ProjectReference Include="..\..\..\presentation\sources\Waves.Presentation\Waves.Presentation.csproj" />
+      <ProjectReference Include="..\..\submodules\presentation\sources\Waves.Presentation\Waves.Presentation.csproj" />
+      <ProjectReference Include="..\..\submodules\presentation\submodules\core\sources\Waves.Core\Waves.Core.csproj" />
     </ItemGroup>
 
 </Project>

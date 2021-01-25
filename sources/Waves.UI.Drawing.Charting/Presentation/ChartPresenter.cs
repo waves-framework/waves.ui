@@ -90,7 +90,17 @@ namespace Waves.UI.Drawing.Charting.Presentation
                 if (!(DataContext is IChartPresenterViewModel context)) return;
 
                 if (ThemeService.SelectedTheme == null)
-                    throw new NullReferenceException(nameof(ThemeService.SelectedTheme));
+                {
+                    OnMessageReceived(
+                        this,
+                        new WavesMessage(
+                            "Chart colors",
+                            "Theme not selected.",
+                            Name,
+                            WavesMessageType.Error));
+
+                    return;
+                }
 
                 context.Background = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(100);
                 context.BorderColor = ThemeService.SelectedTheme.PrimaryColorSet.GetColor(500);

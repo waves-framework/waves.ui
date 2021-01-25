@@ -7,6 +7,7 @@ using Waves.Core.Base.Enums;
 using Waves.Core.Base.Interfaces;
 using Waves.Presentation.Interfaces;
 using Waves.UI.Base.Interfaces;
+using Waves.UI.Commands;
 using Waves.UI.Modality.Base.Interfaces;
 using Waves.UI.Modality.Presentation.Interfaces;
 using Waves.UI.Modality.ViewModel.Interfaces;
@@ -64,6 +65,8 @@ namespace Waves.UI.Modality.Presentation
 
             try
             {
+                CloseWindowCommand = new SimpleCommand(OnCloseWindow);
+
                 CollectionSynchronizationService = Core.GetInstance<ICollectionSynchronizationService>();
 
                 CollectionSynchronizationService?.EnableCollectionSynchronization(Actions, _locker);

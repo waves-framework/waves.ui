@@ -1,0 +1,4 @@
+[submodule "submodules/presentation"]
+	path = submodules/presentation
+	url = https://github.com/waves-framework/waves.presentation.git
+	branch = BigUpdate

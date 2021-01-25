@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Waves.Core.Base.Interfaces;
 using Waves.Presentation.Base;
 using Waves.Presentation.Interfaces;
@@ -17,7 +18,8 @@ namespace Waves.UI.Modality.Presentation.Controllers
         IModalWindowPresenterController
     {
         private IPresenter _presenter;
-        
+        private bool _isVisible;
+
         /// <summary>
         /// Creates new instance of <see cref="ModalWindowPresenterController"/>.
         /// </summary>
@@ -27,9 +29,15 @@ namespace Waves.UI.Modality.Presentation.Controllers
         }
 
         /// <inheritdoc />
-        public bool IsVisible { get; private set; }
+        [Reactive]
+        public bool IsVisible
+        {
+            get => _isVisible;
+            private set => this.RaiseAndSetIfChanged(ref _isVisible, value);
+        }
 
         /// <inheritdoc />
+        [Reactive]
         public override IPresenter SelectedPresenter
         {
             get => _presenter;
@@ -42,14 +50,12 @@ namespace Waves.UI.Modality.Presentation.Controllers
                     Presenters.Add(_presenter);
                 }
 
-                _presenter = value;
+                this.RaiseAndSetIfChanged(ref _presenter, value);
 
                 if (_presenter != null)
                 {
                     Presenters.Remove(_presenter);
                 }
-
-                this.RaiseAndSetIfChanged(ref _presenter, value);
             }
         }
 

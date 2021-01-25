@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Waves.Core.Base;
 using Waves.UI.Drawing.Charting.Base.Interfaces;
 
@@ -12,7 +13,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel.Interfaces
         /// <summary>
         ///     Gets collection of added data sets.
         /// </summary>
-        List<IDataSet> DataSets { get; }
+        ObservableCollection<IDataSet> DataSets { get; }
 
         /// <summary>
         ///     Adds new data set.

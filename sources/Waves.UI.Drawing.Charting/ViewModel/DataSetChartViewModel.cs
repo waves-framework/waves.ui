@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Waves.Core.Base;
 using Waves.Core.Base.Interfaces;
 using Waves.UI.Drawing.Base;
@@ -31,7 +33,8 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         }
 
         /// <inheritdoc />
-        public List<IDataSet> DataSets { get; } = new List<IDataSet>();
+        [Reactive]
+        public ObservableCollection<IDataSet> DataSets { get; private set; } = new ObservableCollection<IDataSet>();
 
         /// <inheritdoc />
         public void AddDataSet(IDataSet dataSet)
@@ -147,7 +150,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                     Opacity = dataSet.Opacity
                 };
 
-                if (visiblePoints.Count > length) line.IsAntialiased = false;
+                if (visiblePoints.Count > length) line.IsAntialiased = true;
 
                 AddTempObject(line);
             }
@@ -261,7 +264,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 var rectangle = new Rectangle
                 {
                     Fill = dataSet.Color,
-                    IsAntialiased = false,
+                    IsAntialiased = true,
                     IsVisible = true,
                     StrokeThickness = 2,
                     Stroke = Background,
@@ -274,7 +277,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 if (visiblePoints.Count > length / 4)
                 {
                     rectangle.StrokeThickness = 0;
-                    rectangle.IsAntialiased = false;
+                    rectangle.IsAntialiased = true;
                 }
 
                 if (visiblePoints.Count <= length / 32)
@@ -336,7 +339,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             if (visiblePoints.Count > length / 4)
             {
                 lastRectangle.StrokeThickness = 0;
-                lastRectangle.IsAntialiased = false;
+                lastRectangle.IsAntialiased = true;
             }
 
             if (visiblePoints.Count <= length / 32)
@@ -462,10 +465,10 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             if (visiblePoints.Count > length / 4)
             {
                 firstRectangle.StrokeThickness = 0;
-                firstRectangle.IsAntialiased = false;
+                firstRectangle.IsAntialiased = true;
 
-                firstLine1.IsAntialiased = false;
-                firstLine2.IsAntialiased = false;
+                firstLine1.IsAntialiased = true;
+                firstLine2.IsAntialiased = true;
             }
 
             if (visiblePoints.Count <= length / 32)
@@ -564,11 +567,11 @@ namespace Waves.UI.Drawing.Charting.ViewModel
                 if (visiblePoints.Count > length / 4)
                 {
                     rectangle.StrokeThickness = 0;
-                    rectangle.IsAntialiased = false;
+                    rectangle.IsAntialiased = true;
 
-                    line0.IsAntialiased = false;
-                    line1.IsAntialiased = false;
-                    line2.IsAntialiased = false;
+                    line0.IsAntialiased = true;
+                    line1.IsAntialiased = true;
+                    line2.IsAntialiased = true;
                 }
 
                 if (visiblePoints.Count <= length / 32)
@@ -621,7 +624,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             var lastRectangle = new Rectangle
             {
                 Fill = dataSet.Color,
-                IsAntialiased = false,
+                IsAntialiased = true,
                 IsVisible = true,
                 StrokeThickness = 2,
                 Stroke = Background,
@@ -658,10 +661,10 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             if (visiblePoints.Count > length / 4)
             {
                 lastRectangle.StrokeThickness = 0;
-                lastRectangle.IsAntialiased = false;
+                lastRectangle.IsAntialiased = true;
 
-                lastLine0.IsAntialiased = false;
-                lastLine1.IsAntialiased = false;
+                lastLine0.IsAntialiased = true;
+                lastLine1.IsAntialiased = true;
             }
 
             if (visiblePoints.Count <= length / 32)

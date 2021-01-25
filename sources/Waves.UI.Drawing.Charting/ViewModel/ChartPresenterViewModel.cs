@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -85,6 +86,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
         private float _yAxisZeroLineThickness = 1;
         private float _yMax = 1;
         private float _yMin = -1;
+        private float _mouseDeltaFactor = 1.0f;
 
         /// <inheritdoc />
         public ChartPresenterViewModel(
@@ -93,6 +95,28 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             : base(core, drawingElement)
         {
             SetDefaultTicks();
+            InitializeMouseDeltaFactor();
+        }
+
+        /// <summary>
+        /// Initializes mouse delta factor.
+        /// </summary>
+        private void InitializeMouseDeltaFactor()
+        {
+            if (Core == null)
+                return;
+
+            // Avalonia
+            if (Core.Id.Equals(Guid.Parse("F9E7901B-68A0-4F2D-B542-3536BFAFB4D9")))
+            {
+                _mouseDeltaFactor = 0.1f;
+            }
+
+            // WPF
+            if (Core.Id.Equals(Guid.Parse("3F4611EE-0A6C-440E-93D0-FC664C3880DE")))
+            {
+                _mouseDeltaFactor = 0.001f;
+            }
         }
 
         /// <summary>
@@ -1032,7 +1056,7 @@ namespace Waves.UI.Drawing.Charting.ViewModel
             if (!IsMouseOver) return;
             if (!IsZoomEnabled) return;
 
-            var deltaF = delta / 1000.0f;
+            var deltaF = delta * _mouseDeltaFactor;
 
             var x = Valuation.DenormalizePointX2D(position.X, Width, CurrentXMin, CurrentXMax);
             var y = Valuation.DenormalizePointY2D(position.Y, Height, CurrentYMin, CurrentYMax);
