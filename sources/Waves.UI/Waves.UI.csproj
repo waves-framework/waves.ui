@@ -1,17 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="../../props/Waves.UI.props" />
+  <Import Project="../../build/props/common.props" />
 
-    <ItemGroup>
-      <PackageReference Include="Waves.Core" Version="2021.1.1-preview1" />
-      <PackageReference Include="Waves.Presentation" Version="2021.1.1-preview1" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\core\sources\Waves.Core\Waves.Core.csproj" />
-      <ProjectReference Include="..\..\..\presentation\sources\Waves.Presentation\Waves.Presentation.csproj" />
-      <ProjectReference Include="..\..\submodules\presentation\sources\Waves.Presentation\Waves.Presentation.csproj" />
-      <ProjectReference Include="..\..\submodules\presentation\submodules\core\sources\Waves.Core\Waves.Core.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\submodules\core\sources\Waves.Core\Waves.Core.csproj" />
+  </ItemGroup>
 
 </Project>
