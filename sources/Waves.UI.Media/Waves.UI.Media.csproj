@@ -1,9 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <Import Project="../../build/props/MTL.UI.props" />
-
-  <ItemGroup>
-    <ProjectReference Include="..\MTL.UI\MTL.UI.csproj" />
-  </ItemGroup>
-
-</Project>
