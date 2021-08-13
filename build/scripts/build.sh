@@ -5,11 +5,6 @@ Solutions=("../../solutions/Waves.UI.sln")
 EC='\033[1;36m'
 DC='\033[0m'
 
-cd ../../submodules/core/build/scripts/
-sh clean.sh
-sh build.sh
-cd ../../../../build/scripts/
-
 for Solution in ${Solutions[@]}; do
 	echo "${EC}Cleaning...${DC}" 
 	dotnet clean $Solution --configuration Release
