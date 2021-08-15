@@ -17,7 +17,7 @@ namespace Waves.UI.Presentation.Dialogs
     [WavesViewModel(typeof(WavesMessageDialogViewModel))]
     public class WavesMessageDialogViewModel : WavesDialogViewModelBase<WavesMessageDialogParameter, WavesMessageDialogResult>
     {
-        private List<WavesResultTool> _subscibedWavesResultTools;
+        private List<WavesResultTool> _subscribedWavesResultTools;
         private WavesMessageDialogResult _doneResult;
         private WavesMessageDialogResult _cancelResult;
 
@@ -93,7 +93,7 @@ namespace Waves.UI.Presentation.Dialogs
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         private Task InitializeButtons(WavesMessageDialogButtons buttons)
         {
-            _subscibedWavesResultTools = new List<WavesResultTool>();
+            _subscribedWavesResultTools = new List<WavesResultTool>();
 
             return buttons switch
             {
@@ -177,7 +177,7 @@ namespace Waves.UI.Presentation.Dialogs
             CancelText = _cancelResult.ToDescription();
 
             var tool = new WavesResultTool(WavesMessageDialogResult.Ignore);
-            _subscibedWavesResultTools.Add(tool);
+            _subscribedWavesResultTools.Add(tool);
 
             Tools.Add(tool);
 
@@ -220,7 +220,7 @@ namespace Waves.UI.Presentation.Dialogs
             CancelText = _cancelResult.ToDescription();
 
             var tool = new WavesResultTool(WavesMessageDialogResult.No);
-            _subscibedWavesResultTools.Add(tool);
+            _subscribedWavesResultTools.Add(tool);
 
             Tools.Add(tool);
 
@@ -263,7 +263,7 @@ namespace Waves.UI.Presentation.Dialogs
             CancelText = _cancelResult.ToDescription();
 
             var tool = new WavesResultTool(WavesMessageDialogResult.DontSave);
-            _subscibedWavesResultTools.Add(tool);
+            _subscribedWavesResultTools.Add(tool);
 
             Tools.Add(tool);
 
@@ -274,7 +274,7 @@ namespace Waves.UI.Presentation.Dialogs
 
         private void SubscribeToTools()
         {
-            foreach (var tool in _subscibedWavesResultTools)
+            foreach (var tool in _subscribedWavesResultTools)
             {
                 tool.Invoked += OnToolInvoked;
             }
@@ -282,7 +282,7 @@ namespace Waves.UI.Presentation.Dialogs
 
         private void UnsubscribeFromTools()
         {
-            foreach (var tool in _subscibedWavesResultTools)
+            foreach (var tool in _subscribedWavesResultTools)
             {
                 tool.Invoked -= OnToolInvoked;
             }
