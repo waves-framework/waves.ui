@@ -2,8 +2,25 @@
 
   <Import Project="../../build/props/common.props" />
 
+  <PropertyGroup>
+    <Title>Waves.UI</Title>
+    <Authors>Egor Khindikaynen</Authors>
+    <Description>Waves.UI contains UI abstractions, interfaces and services responsible for the UI layer.</Description>
+    <Copyright>Copyright (c) 2020-2021 Egor Khindikaynen</Copyright>
+    <PackageProjectUrl>https://github.com/waves-framework/waves.core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/waves-framework/waves.core</RepositoryUrl>
+    <PackageTags>waves ui framework</PackageTags>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\..\submodules\core\sources\Waves.Core\Waves.Core.csproj" />
+    <PackageReference Include="Waves.Core" Version="2021.2.1-prerelease.1" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <PackageIcon>logo_c_128.png</PackageIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageLicenseFile>license.md</PackageLicenseFile>
+  </PropertyGroup>
 
 </Project>
