@@ -7,7 +7,7 @@
 
 ### 📒 About Waves.UI
 
-**Waves.UI** is a set of abstract classes used for developing of desktop application.
+**Waves.UI** contains UI abstractions, interfaces and services responsible for the UI layer.
 
 ### 📋 Licence
 
