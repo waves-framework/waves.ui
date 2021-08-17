@@ -3,7 +3,7 @@
 namespace Waves.UI.Drawing
 {
     /// <summary>
-    ///     Rectangle.
+    ///     Rectangle object.
     /// </summary>
     public class WavesRectangle : WavesShapeDrawingObject
     {
