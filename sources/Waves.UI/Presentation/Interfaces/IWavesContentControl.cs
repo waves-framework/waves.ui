@@ -6,6 +6,11 @@ namespace Waves.UI.Presentation.Interfaces
     public interface IWavesContentControl : IWavesView
     {
         /// <summary>
+        /// Gets or sets opacity.
+        /// </summary>
+        double Opacity { get; set; }
+    
+        /// <summary>
         /// Gets or sets content.
         /// </summary>
         object Content { get; set; }
