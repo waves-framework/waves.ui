@@ -41,7 +41,7 @@ namespace Waves.UI.Plugins.Services
         /// <summary>
         /// Gets dictionary of view models keyed by region.
         /// </summary>
-        private Dictionary<string, Stack<IWavesViewModel>> Histories { get; set; }
+        protected Dictionary<string, Stack<IWavesViewModel>> Histories { get; set; }
         
         /// <summary>
         /// Gets dialog sessions.
