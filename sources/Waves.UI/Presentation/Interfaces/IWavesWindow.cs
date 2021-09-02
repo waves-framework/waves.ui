@@ -5,5 +5,9 @@ namespace Waves.UI.Presentation.Interfaces
     /// </summary>
     public interface IWavesWindow : IWavesContentControl
     {
+        /// <summary>
+        /// Shows window.
+        /// </summary>
+        void Show();
     }
 }
