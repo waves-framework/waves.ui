@@ -8,7 +8,7 @@ namespace Waves.UI.Presentation.Interfaces.ViewModel
     /// </summary>
 #pragma warning disable SA1402 // File may only contain a single type
     public interface IWavesViewModel
-        : IWavesPlugin
+        : IWavesObservablePlugin
     {
         /// <summary>
         ///     Actions when view appeared.
