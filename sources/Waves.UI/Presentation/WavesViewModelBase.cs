@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Waves.Core.Base;
 using Waves.UI.Presentation.Interfaces;
+using Waves.UI.Presentation.Interfaces.ViewModel;
 
 namespace Waves.UI.Presentation
 {

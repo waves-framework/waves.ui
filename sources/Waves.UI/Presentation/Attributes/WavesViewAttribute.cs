@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using Waves.Core.Base.Attributes;
 using Waves.UI.Presentation.Interfaces;
+using Waves.UI.Presentation.Interfaces.View;
 
 namespace Waves.UI.Presentation.Attributes
 {

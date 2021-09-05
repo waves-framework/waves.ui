@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Waves.UI.Presentation.Dialogs.Interfaces;
 
-namespace Waves.UI.Presentation.Interfaces
+namespace Waves.UI.Presentation.Interfaces.ViewModel
 {
     /// <summary>
     /// Interface for dialog.
