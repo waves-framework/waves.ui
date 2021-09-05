@@ -1,9 +1,9 @@
-namespace Waves.UI.Presentation.Interfaces
+namespace Waves.UI.Presentation.Interfaces.View
 {
     /// <summary>
     /// Interface for Waves content controls.
     /// </summary>
-    public interface IWavesContentControl : IWavesView
+    public interface IWavesContentControl<TContent> : IWavesView
     {
         /// <summary>
         /// Gets or sets opacity.
@@ -13,6 +13,6 @@ namespace Waves.UI.Presentation.Interfaces
         /// <summary>
         /// Gets or sets content.
         /// </summary>
-        object Content { get; set; }
+        TContent Content { get; set; }
     }
 }

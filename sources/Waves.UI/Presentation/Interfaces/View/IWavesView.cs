@@ -1,6 +1,6 @@
 ﻿using Waves.Core.Base.Interfaces;
 
-namespace Waves.UI.Presentation.Interfaces
+namespace Waves.UI.Presentation.Interfaces.View
 {
     /// <summary>
     /// Interface for all views.

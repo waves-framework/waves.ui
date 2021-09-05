@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Waves.Core.Base.Interfaces;
 
-namespace Waves.UI.Presentation.Interfaces
+namespace Waves.UI.Presentation.Interfaces.ViewModel
 {
     /// <summary>
     ///     Interfaces for all view models.

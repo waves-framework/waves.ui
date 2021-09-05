@@ -7,6 +7,8 @@ using ReactiveUI.Fody.Helpers;
 using Waves.UI.Plugins.Services.Interfaces;
 using Waves.UI.Presentation.Dialogs.Interfaces;
 using Waves.UI.Presentation.Interfaces;
+using Waves.UI.Presentation.Interfaces.View;
+using Waves.UI.Presentation.Interfaces.ViewModel;
 
 namespace Waves.UI.Presentation.Dialogs
 {

@@ -8,20 +8,21 @@ using Waves.Core.Extensions;
 using Waves.Core.Plugins.Services.EventArgs;
 using Waves.UI.Plugins.Services.Interfaces;
 using Waves.UI.Presentation.Extensions;
-using Waves.UI.Presentation.Interfaces;
+using Waves.UI.Presentation.Interfaces.View;
+using Waves.UI.Presentation.Interfaces.ViewModel;
 
 namespace Waves.UI.Plugins.Services
 {
     /// <summary>
     /// Navigation service base.
     /// </summary>
-    public abstract class WavesNavigationServiceBase 
+    public abstract class WavesNavigationServiceBase<TContent>
         : WavesService, IWavesNavigationService
     {
         private readonly IWavesCore _core;
 
         /// <summary>
-        /// Creates new instance of <see cref="WavesNavigationServiceBase"/>.
+        /// Creates new instance of <see cref="WavesNavigationServiceBase{T}"/>.
         /// </summary>
         /// <param name="core">Instance of core.</param>
         protected WavesNavigationServiceBase(IWavesCore core)
@@ -169,16 +170,16 @@ namespace Waves.UI.Plugins.Services
 
                 switch (view)
                 {
-                    case IWavesWindow window:
+                    case IWavesWindow<TContent> window:
                         await InitializeWindowAsync(window, viewModel);
                         break;
-                    case IWavesUserControl userControl:
+                    case IWavesUserControl<TContent> userControl:
                         await InitializeUserControlAsync(userControl, viewModel, addToHistory);
                         break;
-                    case IWavesPage page:
+                    case IWavesPage<TContent> page:
                         await InitializePageAsync(page, viewModel, addToHistory);
                         break;
-                    case IWavesDialog dialog:
+                    case IWavesDialog<TContent> dialog:
                         await InitializeDialogAsync(dialog, (IWavesDialogViewModel)viewModel, addToHistory);
                         break;
                 }
@@ -201,16 +202,16 @@ namespace Waves.UI.Plugins.Services
 
                 switch (view)
                 {
-                    case IWavesWindow window:
+                    case IWavesWindow<TContent> window:
                         await NavigateToWindowAsync(window, viewModel, parameter);
                         break;
-                    case IWavesUserControl userControl:
+                    case IWavesUserControl<TContent> userControl:
                         await NavigateToUserControlAsync(userControl, viewModel, parameter, addToHistory);
                         break;
-                    case IWavesPage page:
+                    case IWavesPage<TContent> page:
                         await NavigateToPageAsync(page, viewModel, parameter, addToHistory);
                         break;
-                    case IWavesDialog dialog:
+                    case IWavesDialog<TContent> dialog:
                         await NavigateToDialogAsync(dialog, viewModel, parameter, addToHistory);
                         break;
                 }
@@ -232,13 +233,13 @@ namespace Waves.UI.Plugins.Services
 
                 switch (view)
                 {
-                    case IWavesWindow window:
+                    case IWavesWindow<TContent> window:
                         return await NavigateToWindowAsync(window, viewModel);
-                    case IWavesUserControl userControl:
+                    case IWavesUserControl<TContent> userControl:
                         return await NavigateToUserControlAsync(userControl, viewModel, addToHistory);
-                    case IWavesPage page:
+                    case IWavesPage<TContent> page:
                         return await NavigateToPageAsync(page, viewModel, addToHistory);
-                    case IWavesDialog dialog:
+                    case IWavesDialog<TContent> dialog:
                         return await NavigateToDialogAsync(dialog, (IWavesDialogViewModel<TResult>)viewModel, addToHistory);
                 }
             }
@@ -262,13 +263,13 @@ namespace Waves.UI.Plugins.Services
 
                 switch (view)
                 {
-                    case IWavesWindow window:
+                    case IWavesWindow<TContent> window:
                         return await NavigateToWindowAsync(window, viewModel, parameter);
-                    case IWavesUserControl userControl:
+                    case IWavesUserControl<TContent> userControl:
                         return await NavigateToUserControlAsync(userControl, viewModel, parameter, addToHistory);
-                    case IWavesPage page:
+                    case IWavesPage<TContent> page:
                         return await NavigateToPageAsync(page, viewModel, parameter, addToHistory);
-                    case IWavesDialog dialog:
+                    case IWavesDialog<TContent> dialog:
                         return await NavigateToDialogAsync(dialog, (IWavesDialogViewModel<TParameter, TResult>)viewModel, parameter, addToHistory);
                 }
             }
@@ -322,7 +323,9 @@ namespace Waves.UI.Plugins.Services
         /// </summary>
         /// <param name="view">Window view.</param>
         /// <param name="viewModel">ViewModel.</param>
-        protected abstract Task InitializeWindowAsync(IWavesWindow view, IWavesViewModel viewModel);
+        protected abstract Task InitializeWindowAsync(
+            IWavesWindow<TContent> view,
+            IWavesViewModel viewModel);
 
         /// <summary>
         /// Navigates to page.
@@ -331,7 +334,7 @@ namespace Waves.UI.Plugins.Services
         /// <param name="viewModel">View model.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
         protected abstract Task InitializePageAsync(
-            IWavesPage view,
+            IWavesPage<TContent> view,
             IWavesViewModel viewModel,
             bool addToHistory = true);
 
@@ -342,7 +345,7 @@ namespace Waves.UI.Plugins.Services
         /// <param name="viewModel">View model.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
         protected abstract Task InitializeUserControlAsync(
-            IWavesUserControl view,
+            IWavesUserControl<TContent> view,
             IWavesViewModel viewModel,
             bool addToHistory = true);
 
@@ -353,7 +356,7 @@ namespace Waves.UI.Plugins.Services
         /// <param name="viewModel">View model.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
         protected abstract Task InitializeDialogAsync(
-            IWavesDialog view,
+            IWavesDialog<TContent> view,
             IWavesDialogViewModel viewModel,
             bool addToHistory = true);
         
@@ -401,7 +404,9 @@ namespace Waves.UI.Plugins.Services
         /// </summary>
         /// <param name="view">Window view.</param>
         /// <param name="viewModel">ViewModel.</param>
-        private async Task<TResult> NavigateToWindowAsync<TResult>(IWavesWindow view, IWavesViewModel<TResult> viewModel)
+        private async Task<TResult> NavigateToWindowAsync<TResult>(
+            IWavesWindow<TContent> view,
+            IWavesViewModel<TResult> viewModel)
         {
             await InitializeWindowAsync(view, viewModel);
             return viewModel.Result;
@@ -413,7 +418,10 @@ namespace Waves.UI.Plugins.Services
         /// <param name="view">Window view.</param>
         /// <param name="viewModel">ViewModel.</param>
         /// <param name="parameter">Parameter.</param>
-        private async Task NavigateToWindowAsync<TParameter>(IWavesWindow view, IWavesParameterizedViewModel<TParameter> viewModel, TParameter parameter)
+        private async Task NavigateToWindowAsync<TParameter>(
+            IWavesWindow<TContent> view,
+            IWavesParameterizedViewModel<TParameter> viewModel,
+            TParameter parameter)
         {
             await viewModel.Prepare(parameter);
             await InitializeWindowAsync(view, viewModel);
@@ -425,7 +433,10 @@ namespace Waves.UI.Plugins.Services
         /// <param name="view">Window view.</param>
         /// <param name="viewModel">ViewModel.</param>
         /// <param name="parameter">Parameter.</param>
-        private async Task<TResult> NavigateToWindowAsync<TParameter, TResult>(IWavesWindow view, IWavesViewModel<TParameter, TResult> viewModel, TParameter parameter)
+        private async Task<TResult> NavigateToWindowAsync<TParameter, TResult>(
+            IWavesWindow<TContent> view,
+            IWavesViewModel<TParameter, TResult> viewModel,
+            TParameter parameter)
         {
             await viewModel.Prepare(parameter);
             await InitializeWindowAsync(view, viewModel);
@@ -438,7 +449,10 @@ namespace Waves.UI.Plugins.Services
         /// <param name="view">Page view.</param>
         /// <param name="viewModel">View model.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
-        private async Task<TResult> NavigateToPageAsync<TResult>(IWavesPage view, IWavesViewModel<TResult> viewModel, bool addToHistory = true)
+        private async Task<TResult> NavigateToPageAsync<TResult>(
+            IWavesPage<TContent> view,
+            IWavesViewModel<TResult> viewModel,
+            bool addToHistory = true)
         {
             await InitializePageAsync(view, viewModel, addToHistory);
             return viewModel.Result;
@@ -451,7 +465,11 @@ namespace Waves.UI.Plugins.Services
         /// <param name="viewModel">View model.</param>
         /// <param name="parameter">Parameter.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
-        private async Task NavigateToPageAsync<TParameter>(IWavesPage view, IWavesParameterizedViewModel<TParameter> viewModel, TParameter parameter, bool addToHistory = true)
+        private async Task NavigateToPageAsync<TParameter>(
+            IWavesPage<TContent> view,
+            IWavesParameterizedViewModel<TParameter> viewModel,
+            TParameter parameter,
+            bool addToHistory = true)
         {
             await viewModel.Prepare(parameter);
             await InitializePageAsync(view, viewModel, addToHistory);
@@ -464,7 +482,11 @@ namespace Waves.UI.Plugins.Services
         /// <param name="viewModel">View model.</param>
         /// <param name="parameter">Parameter.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
-        private async Task<TResult> NavigateToPageAsync<TParameter, TResult>(IWavesPage view, IWavesViewModel<TParameter, TResult> viewModel, TParameter parameter, bool addToHistory = true)
+        private async Task<TResult> NavigateToPageAsync<TParameter, TResult>(
+            IWavesPage<TContent> view,
+            IWavesViewModel<TParameter, TResult> viewModel,
+            TParameter parameter,
+            bool addToHistory = true)
         {
             await viewModel.Prepare(parameter);
             await InitializePageAsync(view, viewModel, addToHistory);
@@ -477,7 +499,10 @@ namespace Waves.UI.Plugins.Services
         /// <param name="view">User control view.</param>
         /// <param name="viewModel">View model.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
-        private async Task<TResult> NavigateToUserControlAsync<TResult>(IWavesUserControl view, IWavesViewModel<TResult> viewModel, bool addToHistory = true)
+        private async Task<TResult> NavigateToUserControlAsync<TResult>(
+            IWavesUserControl<TContent> view,
+            IWavesViewModel<TResult> viewModel,
+            bool addToHistory = true)
         {
             await InitializeUserControlAsync(view, viewModel, addToHistory);
             return viewModel.Result;
@@ -490,7 +515,11 @@ namespace Waves.UI.Plugins.Services
         /// <param name="viewModel">View model.</param>
         /// <param name="parameter">Parameter.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
-        private async Task NavigateToUserControlAsync<TParameter>(IWavesUserControl view, IWavesParameterizedViewModel<TParameter> viewModel, TParameter parameter, bool addToHistory = true)
+        private async Task NavigateToUserControlAsync<TParameter>(
+            IWavesUserControl<TContent> view,
+            IWavesParameterizedViewModel<TParameter> viewModel,
+            TParameter parameter,
+            bool addToHistory = true)
         {
             await viewModel.Prepare(parameter);
             await InitializeUserControlAsync(view, viewModel, addToHistory);
@@ -503,7 +532,11 @@ namespace Waves.UI.Plugins.Services
         /// <param name="viewModel">View model.</param>
         /// <param name="parameter">Parameter.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
-        private async Task<TResult> NavigateToUserControlAsync<TParameter, TResult>(IWavesUserControl view, IWavesViewModel<TParameter, TResult> viewModel, TParameter parameter, bool addToHistory = true)
+        private async Task<TResult> NavigateToUserControlAsync<TParameter, TResult>(
+            IWavesUserControl<TContent> view,
+            IWavesViewModel<TParameter, TResult> viewModel,
+            TParameter parameter,
+            bool addToHistory = true)
         {
             await viewModel.Prepare(parameter);
             await InitializeUserControlAsync(view, viewModel, addToHistory);
@@ -516,7 +549,10 @@ namespace Waves.UI.Plugins.Services
         /// <param name="view">Dialog view.</param>
         /// <param name="viewModel">View model.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
-        private async Task<TResult> NavigateToDialogAsync<TResult>(IWavesDialog view, IWavesDialogViewModel<TResult> viewModel, bool addToHistory = true)
+        private async Task<TResult> NavigateToDialogAsync<TResult>(
+            IWavesDialog<TContent> view,
+            IWavesDialogViewModel<TResult> viewModel,
+            bool addToHistory = true)
         {
             var completionSource = new TaskCompletionSource<TResult>();
             await InitializeDialogAsync(view, viewModel, addToHistory).LogExceptions(_core);
@@ -531,7 +567,11 @@ namespace Waves.UI.Plugins.Services
         /// <param name="viewModel">View model.</param>
         /// <param name="parameter">Parameter.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
-        private async Task NavigateToDialogAsync<TParameter>(IWavesDialog view, IWavesParameterizedViewModel<TParameter> viewModel, TParameter parameter, bool addToHistory = true)
+        private async Task NavigateToDialogAsync<TParameter>(
+            IWavesDialog<TContent> view,
+            IWavesParameterizedViewModel<TParameter> viewModel,
+            TParameter parameter,
+            bool addToHistory = true)
         {
             await viewModel.Prepare(parameter);
             await InitializeDialogAsync(view, (IWavesDialogViewModel)viewModel, addToHistory);
@@ -544,7 +584,11 @@ namespace Waves.UI.Plugins.Services
         /// <param name="viewModel">View model.</param>
         /// <param name="parameter">Parameter.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
-        private async Task<TResult> NavigateToDialogAsync<TParameter, TResult>(IWavesDialog view, IWavesDialogViewModel<TParameter, TResult> viewModel, TParameter parameter, bool addToHistory = true)
+        private async Task<TResult> NavigateToDialogAsync<TParameter, TResult>(
+            IWavesDialog<TContent> view,
+            IWavesDialogViewModel<TParameter, TResult> viewModel,
+            TParameter parameter,
+            bool addToHistory = true)
         {
             await viewModel.Prepare(parameter);
             var completionSource = new TaskCompletionSource<TResult>();
@@ -559,7 +603,9 @@ namespace Waves.UI.Plugins.Services
         /// <typeparam name="TResult">Result type.</typeparam>
         /// <param name="viewModel">View model.</param>
         /// <param name="completionSource">Completion source.</param>
-        private void InitializeDialog<TResult>(IWavesDialogViewModel<TResult> viewModel, TaskCompletionSource<TResult> completionSource)
+        private void InitializeDialog<TResult>(
+            IWavesDialogViewModel<TResult> viewModel,
+            TaskCompletionSource<TResult> completionSource)
         {
             void OnDone(object sender, EventArgs e)
             {

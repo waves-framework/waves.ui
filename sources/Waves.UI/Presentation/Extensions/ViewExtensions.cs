@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Waves.UI.Presentation.Attributes;
 using Waves.UI.Presentation.Interfaces;
+using Waves.UI.Presentation.Interfaces.View;
 
 namespace Waves.UI.Presentation.Extensions
 {

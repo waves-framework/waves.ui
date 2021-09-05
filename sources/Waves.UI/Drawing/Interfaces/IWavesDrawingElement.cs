@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Waves.UI.Presentation.Interfaces;
+using Waves.UI.Presentation.Interfaces.View;
 
 namespace Waves.UI.Drawing.Interfaces
 {
