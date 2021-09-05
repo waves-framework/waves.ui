@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Waves.Core.Base.Interfaces;
 using Waves.Core.Plugins.Services.EventArgs;
 using Waves.UI.Presentation.Interfaces;
+using Waves.UI.Presentation.Interfaces.ViewModel;
 
 namespace Waves.UI.Plugins.Services.Interfaces
 {

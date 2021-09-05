@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Waves.Core" Version="2021.2.1-prerelease.1" />
+    <PackageReference Include="Waves.Core" Version="2021.2.1-prerelease.5" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -5,6 +5,13 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Waves.UI", "..\sources\Waves.UI\Waves.UI.csproj", "{B8ECF9B4-ED14-467E-88B4-73D45A1C8964}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{98C2E114-F42D-4E50-ACF7-30B57413A430}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Props", "Props", "{56CAEF6A-0FF0-4383-9D23-76BBB152EA4F}"
+ProjectSection(SolutionItems) = preProject
+	..\build\props\common.props = ..\build\props\common.props
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +39,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{56CAEF6A-0FF0-4383-9D23-76BBB152EA4F} = {98C2E114-F42D-4E50-ACF7-30B57413A430}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C83D1648-EB11-4B09-AACA-4134BE8A7B82}

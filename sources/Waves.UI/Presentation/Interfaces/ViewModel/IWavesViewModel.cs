@@ -1,14 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Waves.Core.Base.Interfaces;
 
-namespace Waves.UI.Presentation.Interfaces
+namespace Waves.UI.Presentation.Interfaces.ViewModel
 {
     /// <summary>
     ///     Interfaces for all view models.
     /// </summary>
 #pragma warning disable SA1402 // File may only contain a single type
     public interface IWavesViewModel
-        : IWavesPlugin
+        : IWavesObservablePlugin
     {
         /// <summary>
         ///     Actions when view appeared.

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Waves.Core.Base;
 using Waves.UI.Presentation.Interfaces;
+using Waves.UI.Presentation.Interfaces.ViewModel;
 
 namespace Waves.UI.Presentation
 {
@@ -8,7 +9,7 @@ namespace Waves.UI.Presentation
     /// Base view model.
     /// </summary>
 #pragma warning disable SA1402 // File may only contain a single type
-    public abstract class WavesViewModelBase : WavesPlugin, IWavesViewModel
+    public abstract class WavesViewModelBase : WavesObservablePlugin, IWavesViewModel
     {
         /// <inheritdoc />
         public virtual Task ViewAppeared()
