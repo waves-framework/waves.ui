@@ -1,26 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="../../build/props/common.props" />
+    <Import Project="../../build/props/common.props" />
 
-  <PropertyGroup>
-    <Title>Waves.UI</Title>
-    <Authors>Egor Khindikaynen</Authors>
-    <Description>Waves.UI contains UI abstractions, interfaces and services responsible for the UI layer.</Description>
-    <Copyright>Copyright (c) 2020-2021 Egor Khindikaynen</Copyright>
-    <PackageProjectUrl>https://github.com/waves-framework/waves.core</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/waves-framework/waves.core</RepositoryUrl>
-    <PackageTags>waves ui framework</PackageTags>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-  </PropertyGroup>
+    <PropertyGroup>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Waves.Core" Version="2021.2.1-prerelease.5" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <PackageIcon>logo_c_128.png</PackageIcon>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
-    <PackageLicenseFile>license.md</PackageLicenseFile>
-  </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="ReactiveUI" Version="18.0.7" />
+      <PackageReference Include="ReactiveUI.Fody" Version="18.0.7" />
+      <PackageReference Include="Waves.Core" Version="2022.2.2" />
+    </ItemGroup>
 
 </Project>
