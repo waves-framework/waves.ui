@@ -1,23 +1,18 @@
 <Project>
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net462;net5.0;net6.0;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net462;net6.0;netstandard2.0</TargetFrameworks>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <Configurations>Debug;Release</Configurations>
     <Platforms>AnyCPU;x86;x64</Platforms>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <LangVersion>latest</LangVersion>
-    <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
-    <IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX>
-    <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageIcon>logo_128.png</PackageIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageLicenseFile>license.md</PackageLicenseFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <SupportedPlatform Include="windows"/>
-    <SupportedPlatform Include="linux"/>
-    <SupportedPlatform Include="macos"/>
-  </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\bin\common\anyCPU\debug\</OutputPath>
@@ -53,18 +48,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\files\images\logo_c_128.png">
+    <None Include="..\..\files\images\logo_128.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath/>
     </None>
     <None Include="..\..\readme.md">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath/>
     </None>
     <None Include="..\..\license.md">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath/>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <Import Project="..\..\build\stylecop\stylecop.targets" />
 
 </Project>

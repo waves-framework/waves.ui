@@ -7,8 +7,9 @@ namespace Waves.UI.Presentation.Interfaces.ViewModel
     ///     Interfaces for all view models.
     /// </summary>
 #pragma warning disable SA1402 // File may only contain a single type
-    public interface IWavesViewModel
-        : IWavesObservablePlugin
+    public interface IWavesViewModel :
+        IWavesObservablePlugin,
+        IWavesConfigurablePlugin
     {
         /// <summary>
         ///     Actions when view appeared.
@@ -31,6 +32,11 @@ namespace Waves.UI.Presentation.Interfaces.ViewModel
     public interface IWavesViewModel<out TResult>
         : IWavesViewModel
     {
+        /// <summary>
+        /// Event when the result approved and you want to send notification about it to the caller view model.
+        /// </summary>
+        event EventHandler ResultApproved;
+
         /// <summary>
         ///     Gets result.
         /// </summary>

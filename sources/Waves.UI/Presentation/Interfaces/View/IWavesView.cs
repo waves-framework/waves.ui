@@ -5,7 +5,9 @@ namespace Waves.UI.Presentation.Interfaces.View
     /// <summary>
     /// Interface for all views.
     /// </summary>
-    public interface IWavesView : IWavesPlugin
+    public interface IWavesView :
+        IWavesInitializablePlugin,
+        IDisposable
     {
         /// <summary>
         ///     Gets or sets view model context.
