@@ -8,6 +8,8 @@ Waves is a cross-platform framework designed for flexible developing of desktop,
 
 **Waves.UI** contains UI abstractions, interfaces and services responsible for the UI layer.
 
+**⚠️ _Other documentation will be available soon._**
+
 ### 📋 Licence
 
 Waves.UI is licenced under the [MIT licence](https://github.com/waves-framework/waves.ui/blob/develop/license.md).
