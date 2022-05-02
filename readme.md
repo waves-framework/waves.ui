@@ -1,4 +1,4 @@
-## <img style="float: right;" src="files/images/logo_64.png"/>  Waves Core
+## <img style="float: right;" src="files/images/logo_64.png"/>  Waves UI
 ![logo](https://img.shields.io/github/license/waves-framework/waves.ui) ![logo](https://img.shields.io/nuget/v/Waves.UI) ![logo](https://img.shields.io/nuget/dt/Waves.UI)
 
 ### 📚 About Waves
