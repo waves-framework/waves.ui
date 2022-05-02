@@ -10,5 +10,5 @@ Waves is a cross-platform framework designed for flexible developing of desktop,
 
 ### 📋 Licence
 
-Waves.Core is licenced under the [MIT licence](https://github.com/ambertape/waves.presentation/blob/master/license.md).
+Waves.UI is licenced under the [MIT licence](https://github.com/waves-framework/waves.ui/blob/develop/license.md).
 
