@@ -1,6 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <Import Project="../../build/props/common.props" />
+    
+    <PropertyGroup>
+        <Title>Waves.UI</Title>
+        <Authors>Egor Khindikaynen</Authors>
+        <Description>Waves is a cross-platform framework designed for flexible developing of desktop, mobile applications and web-services.</Description>
+        <Copyright>Copyright (c) 2020-2022 Egor Khindikaynen</Copyright>
+        <PackageProjectUrl>https://github.com/waves-framework/waves.ui</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/waves-framework/waves.ui</RepositoryUrl>
+        <PackageTags>waves ui framework</PackageTags>
+    </PropertyGroup>
 
     <PropertyGroup>
         <ImplicitUsings>enable</ImplicitUsings>
