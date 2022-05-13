@@ -1,4 +1,6 @@
-﻿using Waves.Core.Base.Interfaces;
+﻿using System;
+using System.Threading.Tasks;
+using Waves.Core.Base.Interfaces;
 using Waves.UI.Dialogs.Enums;
 
 namespace Waves.UI.Services.Interfaces

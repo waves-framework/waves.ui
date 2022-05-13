@@ -1,4 +1,5 @@
-﻿using Waves.UI.Dialogs.Enums;
+﻿using System;
+using Waves.UI.Dialogs.Enums;
 
 namespace Waves.UI.Dialogs.Parameters
 {

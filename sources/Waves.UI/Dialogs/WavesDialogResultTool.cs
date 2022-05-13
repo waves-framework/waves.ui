@@ -1,4 +1,5 @@
-﻿using Waves.Core.Extensions;
+﻿using System.Threading.Tasks;
+using Waves.Core.Extensions;
 using Waves.UI.Dialogs.Enums;
 
 namespace Waves.UI.Dialogs
