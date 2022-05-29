@@ -70,7 +70,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
     protected Dictionary<string, Action> PendingActions { get; }
 
     /// <inheritdoc />
-    public async Task GoBackAsync(IWavesViewModel viewModel)
+    public virtual async Task GoBackAsync(IWavesViewModel viewModel)
     {
         foreach (var history in Histories
                      .Select(pair => pair.Value)
@@ -406,6 +406,21 @@ public abstract class WavesNavigationServiceBase<TContent> :
     }
 
     /// <summary>
+    /// Checks dialogs.
+    /// </summary>
+    protected void NotifyDialogEvents()
+    {
+        if (DialogSessions.Count > 0)
+        {
+            OnDialogsShown();
+        }
+        else
+        {
+            OnDialogsHidden();
+        }
+    }
+
+    /// <summary>
     /// Navigates to windows.
     /// </summary>
     /// <param name="view">Window view.</param>
@@ -669,20 +684,5 @@ public abstract class WavesNavigationServiceBase<TContent> :
 
         viewModel.Done += OnDone;
         viewModel.Cancel += OnCancel;
-    }
-
-    /// <summary>
-    /// Checks dialogs.
-    /// </summary>
-    private void NotifyDialogEvents()
-    {
-        if (DialogSessions.Count > 0)
-        {
-            OnDialogsShown();
-        }
-        else
-        {
-            OnDialogsHidden();
-        }
     }
 }
