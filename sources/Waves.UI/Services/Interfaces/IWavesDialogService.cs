@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Waves.Core.Base.Interfaces;
+using Waves.UI.Dialogs;
 using Waves.UI.Dialogs.Enums;
 
 namespace Waves.UI.Services.Interfaces
@@ -29,7 +30,7 @@ namespace Waves.UI.Services.Interfaces
         /// <param name="type">Message type.</param>
         /// <param name="buttons">Buttons.</param>
         /// <returns>Dialog result.</returns>
-        Task<WavesMessageDialogResult> ShowDialogAsync(string text, string title = null, string sender = null, WavesDialogMessageType type = WavesDialogMessageType.Information, WavesMessageDialogButtons buttons = WavesMessageDialogButtons.Ok);
+        Task<WavesDialogResult> ShowDialogAsync(string text, string title = null, string sender = null, WavesDialogMessageType type = WavesDialogMessageType.Information, WavesDialogButtons buttons = WavesDialogButtons.Ok);
 
         /// <summary>
         /// Shows dialog with text.
@@ -40,7 +41,7 @@ namespace Waves.UI.Services.Interfaces
         /// <param name="type">Type.</param>
         /// <param name="buttons">Buttons.</param>
         /// <returns>Dialog result.</returns>
-        Task<WavesMessageDialogResult> ShowDialogAsync(string text, string title = null, IWavesObject sender = null, WavesDialogMessageType type = WavesDialogMessageType.Information, WavesMessageDialogButtons buttons = WavesMessageDialogButtons.Ok);
+        Task<WavesDialogResult> ShowDialogAsync(string text, string title = null, IWavesObject sender = null, WavesDialogMessageType type = WavesDialogMessageType.Information, WavesDialogButtons buttons = WavesDialogButtons.Ok);
 
         /// <summary>
         /// Shows dialog with text.
@@ -51,6 +52,13 @@ namespace Waves.UI.Services.Interfaces
         /// <param name="type">Type.</param>
         /// <param name="buttons">Buttons.</param>
         /// <returns>Dialog result.</returns>
-        Task<WavesMessageDialogResult> ShowDialogAsync(string text, Exception exception, IWavesObject sender = null, WavesDialogMessageType type = WavesDialogMessageType.Error, WavesMessageDialogButtons buttons = WavesMessageDialogButtons.Ok);
+        Task<WavesDialogResult> ShowDialogAsync(string text, Exception exception, IWavesObject sender = null, WavesDialogMessageType type = WavesDialogMessageType.Error, WavesDialogButtons buttons = WavesDialogButtons.Ok);
+
+        /// <summary>
+        /// Shows open file dialog.
+        /// </summary>
+        /// <param name="filter">Filter.</param>
+        /// <returns>Returns dialog result.</returns>
+        Task<WavesOpenFileDialogResult> ShowOpenFileDialogAsync(IEnumerable<WavesFileDialogFilter> filter = null);
     }
 }

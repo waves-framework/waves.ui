@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Waves.Core.Base.Interfaces;
 using Waves.UI.Base.EventArgs;
+using Waves.UI.Dialogs;
 using Waves.UI.Presentation.Interfaces.ViewModel;
 
 namespace Waves.UI.Services.Interfaces;
@@ -168,6 +169,13 @@ public interface IWavesNavigationService : IWavesConfigurablePlugin
         Type type,
         TParameter parameter,
         bool addToHistory = true);
+
+    /// <summary>
+    /// Shows open file dialog.
+    /// </summary>
+    /// <param name="filter">Filter.</param>
+    /// <returns>Returns dialog result.</returns>
+    Task<WavesOpenFileDialogResult> ShowOpenFileDialogAsync(IEnumerable<WavesFileDialogFilter> filter = null);
 
     /// <summary>
     /// Registers content control.

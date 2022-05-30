@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Waves.Core;
 using Waves.Core.Base;
 using Waves.Core.Extensions;
 using Waves.UI.Base.EventArgs;
+using Waves.UI.Dialogs;
 using Waves.UI.Dialogs.Interfaces;
 using Waves.UI.Extensions;
 using Waves.UI.Presentation.Interfaces.View;
@@ -43,6 +40,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
         Histories = new Dictionary<string, Stack<IWavesViewModel>>();
         DialogSessions = new List<IWavesDialogViewModel>();
         PendingActions = new Dictionary<string, Action>();
+        OpenedWindows = new Dictionary<IWavesViewModel, IWavesWindow<TContent>>();
     }
 
     /// <inheritdoc />
@@ -68,6 +66,11 @@ public abstract class WavesNavigationServiceBase<TContent> :
     /// Gets pending actions.
     /// </summary>
     protected Dictionary<string, Action> PendingActions { get; }
+
+    /// <summary>
+    /// Gets opened windows.
+    /// </summary>
+    protected Dictionary<IWavesViewModel, IWavesWindow<TContent>> OpenedWindows { get; }
 
     /// <inheritdoc />
     public virtual async Task GoBackAsync(IWavesViewModel viewModel)
@@ -159,6 +162,11 @@ public abstract class WavesNavigationServiceBase<TContent> :
         var viewModel = await _core.GetInstanceAsync(type);
         return await NavigateAsync((IWavesViewModel<TParameter, TResult>)viewModel, parameter, addToHistory);
     }
+
+    /// <param name="filter"></param>
+    /// <inheritdoc />
+    public abstract Task<WavesOpenFileDialogResult> ShowOpenFileDialogAsync(
+        IEnumerable<WavesFileDialogFilter> filter = null);
 
     /// <inheritdoc />
     public abstract void RegisterContentControl(string region, object contentControl);

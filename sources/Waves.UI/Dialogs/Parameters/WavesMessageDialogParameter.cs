@@ -23,7 +23,7 @@ namespace Waves.UI.Dialogs.Parameters
             string sender = null,
             Exception exception = null,
             WavesDialogMessageType messageType = WavesDialogMessageType.Information,
-            WavesMessageDialogButtons buttons = WavesMessageDialogButtons.Ok)
+            WavesDialogButtons buttons = WavesDialogButtons.Ok)
         {
             Text = text;
             Title = title;
@@ -61,6 +61,6 @@ namespace Waves.UI.Dialogs.Parameters
         /// <summary>
         /// Gets buttons.
         /// </summary>
-        public WavesMessageDialogButtons Buttons { get; }
+        public WavesDialogButtons Buttons { get; }
     }
 }

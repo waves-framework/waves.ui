@@ -16,7 +16,7 @@ namespace Waves.UI.Services;
 /// <summary>
 /// Creates new instance of <see cref="WavesDialogService"/>.
 /// </summary>
-[WavesPlugin(typeof(IWavesDialogService), WavesLifetime.Singleton)]
+[WavesPlugin(typeof(IWavesDialogService))]
 public class WavesDialogService :
     WavesPlugin,
     IWavesDialogService
@@ -46,39 +46,46 @@ public class WavesDialogService :
     public event EventHandler DialogsHidden;
 
     /// <inheritdoc />
-    public Task<WavesMessageDialogResult> ShowDialogAsync(
+    public Task<WavesDialogResult> ShowDialogAsync(
         string text,
         string title = null,
         string sender = null,
         WavesDialogMessageType type = WavesDialogMessageType.Information,
-        WavesMessageDialogButtons buttons = WavesMessageDialogButtons.Ok)
+        WavesDialogButtons buttons = WavesDialogButtons.Ok)
     {
-        return _navigationService.NavigateAsync<WavesMessageDialogViewModel, WavesMessageDialogParameter, WavesMessageDialogResult>(
+        return _navigationService.NavigateAsync<WavesMessageDialogViewModel, WavesMessageDialogParameter, WavesDialogResult>(
             new WavesMessageDialogParameter(text, title, sender, null, type, buttons));
     }
 
     /// <inheritdoc />
-    public Task<WavesMessageDialogResult> ShowDialogAsync(
+    public Task<WavesDialogResult> ShowDialogAsync(
         string text,
         string title = null,
         IWavesObject sender = null,
         WavesDialogMessageType type = WavesDialogMessageType.Information,
-        WavesMessageDialogButtons buttons = WavesMessageDialogButtons.Ok)
+        WavesDialogButtons buttons = WavesDialogButtons.Ok)
     {
-        return _navigationService.NavigateAsync<WavesMessageDialogViewModel, WavesMessageDialogParameter, WavesMessageDialogResult>(
+        return _navigationService.NavigateAsync<WavesMessageDialogViewModel, WavesMessageDialogParameter, WavesDialogResult>(
             new WavesMessageDialogParameter(text, title, sender?.GetType().GetFriendlyName(), null, type, buttons));
     }
 
     /// <inheritdoc />
-    public Task<WavesMessageDialogResult> ShowDialogAsync(
+    public Task<WavesDialogResult> ShowDialogAsync(
         string text,
         Exception exception,
         IWavesObject sender = null,
         WavesDialogMessageType type = WavesDialogMessageType.Error,
-        WavesMessageDialogButtons buttons = WavesMessageDialogButtons.Ok)
+        WavesDialogButtons buttons = WavesDialogButtons.Ok)
     {
-        return _navigationService.NavigateAsync<WavesMessageDialogViewModel, WavesMessageDialogParameter, WavesMessageDialogResult>(
+        return _navigationService.NavigateAsync<WavesMessageDialogViewModel, WavesMessageDialogParameter, WavesDialogResult>(
             new WavesMessageDialogParameter(text, "An exception occured", sender?.GetType().GetFriendlyName(), exception, type, buttons));
+    }
+
+    /// <param name="filter"></param>
+    /// <inheritdoc />
+    public Task<WavesOpenFileDialogResult> ShowOpenFileDialogAsync(IEnumerable<WavesFileDialogFilter> filter = null)
+    {
+        return _navigationService.ShowOpenFileDialogAsync(filter);
     }
 
     /// <summary>
