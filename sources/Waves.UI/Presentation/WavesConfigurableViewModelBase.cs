@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using ReactiveUI.Fody.Helpers;
 using Waves.Core.Base;
 using Waves.UI.Presentation.Interfaces.ViewModel;
 
@@ -28,6 +29,10 @@ namespace Waves.UI.Presentation
         }
 
         /// <inheritdoc />
+        [Reactive]
+        public IWavesViewModelLoadingState LoadingState { get; private set; }
+
+        /// <inheritdoc />
         public virtual Task ViewAppeared()
         {
             return Task.CompletedTask;
@@ -36,6 +41,57 @@ namespace Waves.UI.Presentation
         /// <inheritdoc />
         public virtual Task ViewDisappeared()
         {
+            return Task.CompletedTask;
+        }
+
+        /// <inheritdoc />
+        public override async Task InitializeAsync()
+        {
+            LoadingState = new WavesViewModelLoadingState();
+
+            if (IsInitialized)
+            {
+                return;
+            }
+
+            LoadingState.IsLoading = true;
+            LoadingState.IsIntermediate = true;
+
+            try
+            {
+                await LoadConfigurationAsync();
+                await RunInitializationAsync();
+                IsInitialized = true;
+                Logger.LogDebug($"View model {this} initialized");
+            }
+            catch (Exception e)
+            {
+                IsInitialized = false;
+                LoadingState.IsLoading = false;
+                LoadingState.IsIntermediate = false;
+                Logger.LogError(e, $"View model {this} initialization error");
+            }
+        }
+
+        /// <summary>
+        /// Does initialization work.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public virtual Task RunPostInitializationAsync()
+        {
+            LoadingState.IsLoading = false;
+            LoadingState.IsIntermediate = false;
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Does initialization work.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        protected override Task RunInitializationAsync()
+        {
+            LoadingState.IsLoading = false;
+            LoadingState.IsIntermediate = false;
             return Task.CompletedTask;
         }
     }

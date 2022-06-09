@@ -13,6 +13,11 @@ namespace Waves.UI.Presentation.Interfaces.ViewModel
         IWavesConfigurablePlugin
     {
         /// <summary>
+        /// Gets loading state.
+        /// </summary>
+        IWavesViewModelLoadingState LoadingState { get; }
+
+        /// <summary>
         ///     Actions when view appeared.
         /// </summary>
         /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
@@ -23,6 +28,12 @@ namespace Waves.UI.Presentation.Interfaces.ViewModel
         /// </summary>
         /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
         Task ViewDisappeared();
+
+        /// <summary>
+        /// Runs post initialization work in separate thread.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task RunPostInitializationAsync();
     }
 
     /// <summary>
