@@ -56,7 +56,7 @@ namespace Waves.UI.Presentation
             }
 
             LoadingState.IsLoading = true;
-            LoadingState.IsIntermediate = true;
+            LoadingState.IsIndeterminate = true;
 
             try
             {
@@ -68,7 +68,7 @@ namespace Waves.UI.Presentation
             {
                 IsInitialized = false;
                 LoadingState.IsLoading = false;
-                LoadingState.IsIntermediate = false;
+                LoadingState.IsIndeterminate = false;
                 Logger?.LogError(e, $"View model {this} initialization error");
             }
         }
@@ -92,7 +92,7 @@ namespace Waves.UI.Presentation
         public virtual Task RunPostInitializationAsync()
         {
             LoadingState.IsLoading = false;
-            LoadingState.IsIntermediate = false;
+            LoadingState.IsIndeterminate = false;
             return Task.CompletedTask;
         }
 
@@ -103,7 +103,7 @@ namespace Waves.UI.Presentation
         protected virtual Task RunInitializationAsync()
         {
             LoadingState.IsLoading = false;
-            LoadingState.IsIntermediate = false;
+            LoadingState.IsIndeterminate = false;
             return Task.CompletedTask;
         }
     }

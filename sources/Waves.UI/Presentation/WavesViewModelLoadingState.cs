@@ -15,7 +15,7 @@ public class WavesViewModelLoadingState : ReactiveObject, IWavesViewModelLoading
 
     /// <inheritdoc />
     [Reactive]
-    public bool IsIntermediate { get; set; }
+    public bool IsIndeterminate { get; set; }
 
     /// <inheritdoc />
     [Reactive]

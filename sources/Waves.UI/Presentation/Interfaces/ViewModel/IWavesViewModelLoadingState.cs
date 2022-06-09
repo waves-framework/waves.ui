@@ -11,9 +11,9 @@ public interface IWavesViewModelLoadingState
     bool IsLoading { get; set; }
 
     /// <summary>
-    /// Gets or sets whether view-model loading state is intermediate.
+    /// Gets or sets whether view-model loading state is indeterminate.
     /// </summary>
-    bool IsIntermediate { get; set; }
+    bool IsIndeterminate { get; set; }
 
     /// <summary>
     /// Gets or sets progress value.
