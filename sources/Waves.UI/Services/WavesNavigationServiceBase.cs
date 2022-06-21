@@ -4,6 +4,7 @@ using Waves.Core;
 using Waves.Core.Base;
 using Waves.Core.Extensions;
 using Waves.UI.Base.EventArgs;
+using Waves.UI.Dialogs;
 using Waves.UI.Dialogs.Interfaces;
 using Waves.UI.Extensions;
 using Waves.UI.Presentation.Interfaces.View;
@@ -39,6 +40,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
         Histories = new Dictionary<string, Stack<IWavesViewModel>>();
         DialogSessions = new List<IWavesDialogViewModel>();
         PendingActions = new Dictionary<string, Action>();
+        OpenedWindows = new Dictionary<IWavesViewModel, IWavesWindow<TContent>>();
     }
 
     /// <inheritdoc />
@@ -65,8 +67,13 @@ public abstract class WavesNavigationServiceBase<TContent> :
     /// </summary>
     protected Dictionary<string, Action> PendingActions { get; }
 
+    /// <summary>
+    /// Gets opened windows.
+    /// </summary>
+    protected Dictionary<IWavesViewModel, IWavesWindow<TContent>> OpenedWindows { get; }
+
     /// <inheritdoc />
-    public async Task GoBackAsync(IWavesViewModel viewModel)
+    public virtual async Task GoBackAsync(IWavesViewModel viewModel)
     {
         foreach (var history in Histories
                      .Select(pair => pair.Value)
@@ -155,6 +162,11 @@ public abstract class WavesNavigationServiceBase<TContent> :
         var viewModel = await _core.GetInstanceAsync(type);
         return await NavigateAsync((IWavesViewModel<TParameter, TResult>)viewModel, parameter, addToHistory);
     }
+
+    /// <param name="filter"></param>
+    /// <inheritdoc />
+    public abstract Task<WavesOpenFileDialogResult> ShowOpenFileDialogAsync(
+        IEnumerable<WavesFileDialogFilter> filter = null);
 
     /// <inheritdoc />
     public abstract void RegisterContentControl(string region, object contentControl);
@@ -399,6 +411,21 @@ public abstract class WavesNavigationServiceBase<TContent> :
     protected virtual void OnDialogsHidden()
     {
         DialogsHidden?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// Checks dialogs.
+    /// </summary>
+    protected void NotifyDialogEvents()
+    {
+        if (DialogSessions.Count > 0)
+        {
+            OnDialogsShown();
+        }
+        else
+        {
+            OnDialogsHidden();
+        }
     }
 
     /// <summary>
@@ -665,20 +692,5 @@ public abstract class WavesNavigationServiceBase<TContent> :
 
         viewModel.Done += OnDone;
         viewModel.Cancel += OnCancel;
-    }
-
-    /// <summary>
-    /// Checks dialogs.
-    /// </summary>
-    private void NotifyDialogEvents()
-    {
-        if (DialogSessions.Count > 0)
-        {
-            OnDialogsShown();
-        }
-        else
-        {
-            OnDialogsHidden();
-        }
     }
 }

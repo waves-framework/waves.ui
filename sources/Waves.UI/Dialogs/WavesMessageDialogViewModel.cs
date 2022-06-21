@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using ReactiveUI.Fody.Helpers;
 using Waves.Core.Extensions;
@@ -13,11 +16,11 @@ namespace Waves.UI.Dialogs
     /// Waves message dialog view model.
     /// </summary>
     [WavesViewModel(typeof(WavesMessageDialogViewModel))]
-    public class WavesMessageDialogViewModel : WavesDialogViewModelBase<WavesMessageDialogParameter, WavesMessageDialogResult>
+    public class WavesMessageDialogViewModel : WavesDialogViewModelBase<WavesMessageDialogParameter, WavesDialogResult>
     {
         private List<WavesDialogResultTool> _subscribedWavesResultTools;
-        private WavesMessageDialogResult _doneResult;
-        private WavesMessageDialogResult _cancelResult;
+        private WavesDialogResult _doneResult;
+        private WavesDialogResult _cancelResult;
 
         /// <summary>
         /// Creates new instance of <see cref="WavesMessageDialogViewModel"/>.
@@ -102,20 +105,20 @@ namespace Waves.UI.Dialogs
         /// Initializes buttons.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        private Task InitializeButtons(WavesMessageDialogButtons buttons)
+        private Task InitializeButtons(WavesDialogButtons buttons)
         {
             _subscribedWavesResultTools = new List<WavesDialogResultTool>();
 
             return buttons switch
             {
-                WavesMessageDialogButtons.Ok => InitializeOkButtons(),
-                WavesMessageDialogButtons.OkCancel => InitializeOkCancelButtons(),
-                WavesMessageDialogButtons.RetryCancel => InitializeRetryCancelButtons(),
-                WavesMessageDialogButtons.AbortRetryIgnore => InitializeAbortRetryIgnoreButtons(),
-                WavesMessageDialogButtons.YesNo => InitializeYesNoButtons(),
-                WavesMessageDialogButtons.YesNoCancel => InitializeYesNoCancelIgnoreButtons(),
-                WavesMessageDialogButtons.SaveDontSave => InitializeSaveDontSaveButtons(),
-                WavesMessageDialogButtons.SaveDontSaveCancel => InitializeSaveDontSaveCancelButtons(),
+                WavesDialogButtons.Ok => InitializeOkButtons(),
+                WavesDialogButtons.OkCancel => InitializeOkCancelButtons(),
+                WavesDialogButtons.RetryCancel => InitializeRetryCancelButtons(),
+                WavesDialogButtons.AbortRetryIgnore => InitializeAbortRetryIgnoreButtons(),
+                WavesDialogButtons.YesNo => InitializeYesNoButtons(),
+                WavesDialogButtons.YesNoCancel => InitializeYesNoCancelIgnoreButtons(),
+                WavesDialogButtons.SaveDontSave => InitializeSaveDontSaveButtons(),
+                WavesDialogButtons.SaveDontSaveCancel => InitializeSaveDontSaveCancelButtons(),
                 _ => throw new ArgumentOutOfRangeException(nameof(buttons), buttons, null),
             };
         }
@@ -129,7 +132,7 @@ namespace Waves.UI.Dialogs
             IsCancelAvailable = false;
             IsDoneAvailable = true;
 
-            _doneResult = WavesMessageDialogResult.Ok;
+            _doneResult = WavesDialogResult.Ok;
 
             DoneText = _doneResult.ToDescription();
 
@@ -145,8 +148,8 @@ namespace Waves.UI.Dialogs
             IsCancelAvailable = true;
             IsDoneAvailable = true;
 
-            _doneResult = WavesMessageDialogResult.Ok;
-            _cancelResult = WavesMessageDialogResult.Cancel;
+            _doneResult = WavesDialogResult.Ok;
+            _cancelResult = WavesDialogResult.Cancel;
 
             DoneText = _doneResult.ToDescription();
             CancelText = _cancelResult.ToDescription();
@@ -163,8 +166,8 @@ namespace Waves.UI.Dialogs
             IsCancelAvailable = true;
             IsDoneAvailable = true;
 
-            _doneResult = WavesMessageDialogResult.Retry;
-            _cancelResult = WavesMessageDialogResult.Cancel;
+            _doneResult = WavesDialogResult.Retry;
+            _cancelResult = WavesDialogResult.Cancel;
 
             DoneText = _doneResult.ToDescription();
             CancelText = _cancelResult.ToDescription();
@@ -181,13 +184,13 @@ namespace Waves.UI.Dialogs
             IsCancelAvailable = true;
             IsDoneAvailable = true;
 
-            _doneResult = WavesMessageDialogResult.Retry;
-            _cancelResult = WavesMessageDialogResult.Abort;
+            _doneResult = WavesDialogResult.Retry;
+            _cancelResult = WavesDialogResult.Abort;
 
             DoneText = _doneResult.ToDescription();
             CancelText = _cancelResult.ToDescription();
 
-            var tool = new WavesDialogResultTool(WavesMessageDialogResult.Ignore);
+            var tool = new WavesDialogResultTool(WavesDialogResult.Ignore);
             _subscribedWavesResultTools.Add(tool);
 
             Tools.Add(tool);
@@ -206,8 +209,8 @@ namespace Waves.UI.Dialogs
             IsCancelAvailable = true;
             IsDoneAvailable = true;
 
-            _doneResult = WavesMessageDialogResult.Yes;
-            _cancelResult = WavesMessageDialogResult.No;
+            _doneResult = WavesDialogResult.Yes;
+            _cancelResult = WavesDialogResult.No;
 
             DoneText = _doneResult.ToDescription();
             CancelText = _cancelResult.ToDescription();
@@ -224,13 +227,13 @@ namespace Waves.UI.Dialogs
             IsCancelAvailable = true;
             IsDoneAvailable = true;
 
-            _doneResult = WavesMessageDialogResult.Yes;
-            _cancelResult = WavesMessageDialogResult.Cancel;
+            _doneResult = WavesDialogResult.Yes;
+            _cancelResult = WavesDialogResult.Cancel;
 
             DoneText = _doneResult.ToDescription();
             CancelText = _cancelResult.ToDescription();
 
-            var tool = new WavesDialogResultTool(WavesMessageDialogResult.No);
+            var tool = new WavesDialogResultTool(WavesDialogResult.No);
             _subscribedWavesResultTools.Add(tool);
 
             Tools.Add(tool);
@@ -249,8 +252,8 @@ namespace Waves.UI.Dialogs
             IsCancelAvailable = true;
             IsDoneAvailable = true;
 
-            _doneResult = WavesMessageDialogResult.Save;
-            _cancelResult = WavesMessageDialogResult.DontSave;
+            _doneResult = WavesDialogResult.Save;
+            _cancelResult = WavesDialogResult.DontSave;
 
             DoneText = _doneResult.ToDescription();
             CancelText = _cancelResult.ToDescription();
@@ -267,13 +270,13 @@ namespace Waves.UI.Dialogs
             IsCancelAvailable = true;
             IsDoneAvailable = true;
 
-            _doneResult = WavesMessageDialogResult.Save;
-            _cancelResult = WavesMessageDialogResult.Cancel;
+            _doneResult = WavesDialogResult.Save;
+            _cancelResult = WavesDialogResult.Cancel;
 
             DoneText = _doneResult.ToDescription();
             CancelText = _cancelResult.ToDescription();
 
-            var tool = new WavesDialogResultTool(WavesMessageDialogResult.DontSave);
+            var tool = new WavesDialogResultTool(WavesDialogResult.DontSave);
             _subscribedWavesResultTools.Add(tool);
 
             Tools.Add(tool);
@@ -308,7 +311,7 @@ namespace Waves.UI.Dialogs
             object sender,
             object e)
         {
-            if (e is not WavesMessageDialogResult result)
+            if (e is not WavesDialogResult result)
             {
                 return;
             }
