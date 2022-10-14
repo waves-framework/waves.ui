@@ -26,7 +26,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)'!='Debug'">
-        <PackageReference Include="Waves.Core" Version="2022.2.3-dev.302" />
+        <PackageReference Include="Waves.Core" Version="2022.3.1" />
     </ItemGroup>
 
 </Project>
