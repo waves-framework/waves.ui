@@ -1,3 +1,6 @@
 [submodule "submodules/core"]
 	path = submodules/core
 	url = https://github.com/waves-framework/waves.core.git
+[submodule "submodules/stylecop"]
+	path = submodules/stylecop
+	url = https://github.com/waves-framework/waves.stylecop.git
