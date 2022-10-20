@@ -1,4 +1,5 @@
-﻿using Waves.Core.Base.Attributes;
+﻿using System;
+using Waves.Core.Base.Attributes;
 using Waves.Core.Base.Enums;
 
 namespace Waves.UI.Dialogs.Attributes

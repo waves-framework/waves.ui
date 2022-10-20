@@ -1,4 +1,5 @@
-﻿using Waves.Core.Extensions;
+﻿using System.Threading.Tasks;
+using Waves.Core.Extensions;
 using Waves.UI.Dialogs.Enums;
 
 namespace Waves.UI.Dialogs
@@ -13,7 +14,7 @@ namespace Waves.UI.Dialogs
         /// </summary>
         /// <param name="result">Result.</param>
         public WavesDialogResultTool(
-            WavesMessageDialogResult result)
+            WavesDialogResult result)
         {
             Result = result;
         }
@@ -21,7 +22,7 @@ namespace Waves.UI.Dialogs
         /// <summary>
         ///     Gets result.
         /// </summary>
-        public WavesMessageDialogResult Result { get; }
+        public WavesDialogResult Result { get; }
 
         /// <inheritdoc />
         public override string Caption => Result.ToDescription();

@@ -1,3 +1,4 @@
+using System;
 using Waves.UI.Base.Enums;
 
 namespace Waves.UI.Base.Interfaces
