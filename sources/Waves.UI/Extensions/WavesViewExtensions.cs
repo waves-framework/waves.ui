@@ -1,4 +1,5 @@
-﻿using Waves.UI.Base.Attributes;
+﻿using System.Linq;
+using Waves.UI.Base.Attributes;
 using Waves.UI.Presentation.Interfaces.View;
 
 namespace Waves.UI.Extensions

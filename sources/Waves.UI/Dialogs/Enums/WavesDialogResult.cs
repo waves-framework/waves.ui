@@ -5,7 +5,7 @@ namespace Waves.UI.Dialogs.Enums
     /// <summary>
     /// Waves message dialog results enum.
     /// </summary>
-    public enum WavesMessageDialogResult
+    public enum WavesDialogResult
     {
         /// <summary>
         /// None.

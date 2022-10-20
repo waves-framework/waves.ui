@@ -1,5 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using ReactiveUI.Fody.Helpers;
 using Waves.Core.Base;
 using Waves.UI.Presentation.Interfaces.ViewModel;
 
@@ -32,6 +36,10 @@ namespace Waves.UI.Presentation
         /// <inheritdoc />
         public bool IsInitialized { get; internal set; }
 
+        /// <inheritdoc />
+        [Reactive]
+        public IWavesViewModelLoadingState LoadingState { get; private set; }
+
         /// <summary>
         /// Gets logger.
         /// </summary>
@@ -40,21 +48,28 @@ namespace Waves.UI.Presentation
         /// <inheritdoc />
         public virtual async Task InitializeAsync()
         {
+            LoadingState = new WavesViewModelLoadingState();
+
             if (IsInitialized)
             {
                 return;
             }
 
+            LoadingState.IsLoading = true;
+            LoadingState.IsIndeterminate = true;
+
             try
             {
                 await RunInitializationAsync();
                 IsInitialized = true;
-                Logger.LogDebug($"View model {this} initialized");
+                Logger.LogDebug("View model {@This} initialized", this);
             }
             catch (Exception e)
             {
                 IsInitialized = false;
-                Logger?.LogError(e, "Object initialization error");
+                LoadingState.IsLoading = false;
+                LoadingState.IsIndeterminate = false;
+                Logger?.LogError(e, "View model {@This} initialization error", this);
             }
         }
 
@@ -74,8 +89,33 @@ namespace Waves.UI.Presentation
         /// Does initialization work.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public virtual Task RunPostInitializationAsync()
+        {
+            if (LoadingState == null)
+            {
+                return Task.CompletedTask;
+            }
+
+            LoadingState.IsLoading = false;
+            LoadingState.IsIndeterminate = false;
+
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Does initialization work.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         protected virtual Task RunInitializationAsync()
         {
+            if (LoadingState == null)
+            {
+                return Task.CompletedTask;
+            }
+
+            LoadingState.IsLoading = false;
+            LoadingState.IsIndeterminate = false;
+
             return Task.CompletedTask;
         }
     }
@@ -94,7 +134,7 @@ namespace Waves.UI.Presentation
         /// </summary>
         /// <param name="logger">Logger.</param>
         protected WavesViewModelBase(
-            ILogger<WavesViewModelBase> logger)
+            ILogger<WavesViewModelBase<TResult>> logger)
             : base(logger)
         {
         }
@@ -126,7 +166,7 @@ namespace Waves.UI.Presentation
         /// </summary>
         /// <param name="logger">Logger.</param>
         protected WavesParameterizedViewModelBase(
-            ILogger<WavesViewModelBase> logger)
+            ILogger<WavesParameterizedViewModelBase<TParameter>> logger)
             : base(logger)
         {
         }
@@ -148,7 +188,7 @@ namespace Waves.UI.Presentation
         /// </summary>
         /// <param name="logger">Logger.</param>
         protected WavesViewModelBase(
-            ILogger<WavesViewModelBase> logger)
+            ILogger<WavesViewModelBase<TParameter, TResult>> logger)
             : base(logger)
         {
         }

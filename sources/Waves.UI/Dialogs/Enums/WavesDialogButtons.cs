@@ -3,7 +3,7 @@
     /// <summary>
     /// Waves buttons enum for message dialog.
     /// </summary>
-    public enum WavesMessageDialogButtons
+    public enum WavesDialogButtons
     {
         /// <summary>
         /// OK.
