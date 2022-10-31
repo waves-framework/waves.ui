@@ -17,7 +17,7 @@ namespace Waves.UI.Extensions
         public static WavesViewAttribute GetViewAttribute(this IWavesView view)
         {
             var attributes = view.GetType().GetCustomAttributes(false);
-            return (WavesViewAttribute)attributes.FirstOrDefault(x => x.GetType() == typeof(WavesViewAttribute))!;
+            return (WavesViewAttribute)attributes.FirstOrDefault(x => x.GetType() == typeof(WavesViewAttribute)) !;
         }
     }
 }

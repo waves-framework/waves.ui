@@ -13,5 +13,5 @@ public class WavesFileDialogFilter
     /// <summary>
     /// Gets or sets Extensions.
     /// </summary>
-    public List<string> Extensions { get; set; } = new();
+    public List<string> Extensions { get; set; } = new ();
 }
