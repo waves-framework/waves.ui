@@ -23,23 +23,21 @@ public abstract class WavesNavigationServiceBase<TContent> :
     WavesConfigurablePlugin,
     IWavesNavigationService
 {
-    private readonly WavesCore _core;
     private readonly IWavesServiceProvider _serviceProvider;
 
     /// <summary>
     /// Creates new instance of <see cref="WavesNavigationServiceBase{TContent}"/>.
     /// </summary>
-    /// <param name="core">Core.</param>
+    /// <param name="serviceProvider">Service provider.</param>
     /// <param name="configuration">Configuration.</param>
     /// <param name="logger">Logger.</param>
     protected WavesNavigationServiceBase(
-        WavesCore core,
+        IWavesServiceProvider serviceProvider,
         IConfiguration configuration,
         ILogger<WavesNavigationServiceBase<TContent>> logger)
         : base(configuration, logger)
     {
-        _core = core;
-        _serviceProvider = _core.ServiceProvider;
+        _serviceProvider = serviceProvider;
         Histories = new Dictionary<string, Stack<IWavesViewModel>>();
         DialogSessions = new List<IWavesDialogViewModel>();
         PendingActions = new Dictionary<string, Action>();
@@ -599,7 +597,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
         bool addToHistory = true)
     {
         var completionSource = new TaskCompletionSource<TResult>();
-        await InitializeDialogAsync(view, viewModel, addToHistory).LogExceptions(_core);
+        await InitializeDialogAsync(view, viewModel, addToHistory).LogExceptions(_serviceProvider);
         InitializeDialog(viewModel!, completionSource);
         return await completionSource.Task;
     }
@@ -636,7 +634,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
     {
         await viewModel.Prepare(parameter);
         var completionSource = new TaskCompletionSource<TResult>();
-        await InitializeDialogAsync(view, viewModel, addToHistory).LogExceptions(_core);
+        await InitializeDialogAsync(view, viewModel, addToHistory).LogExceptions(_serviceProvider);
         InitializeDialog(viewModel, completionSource);
         return await completionSource.Task;
     }
