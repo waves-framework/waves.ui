@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Waves.Core;
 using Waves.Core.Base;
 using Waves.Core.Extensions;
+using Waves.Core.Services.Interfaces;
 using Waves.UI.Base.EventArgs;
 using Waves.UI.Dialogs;
 using Waves.UI.Dialogs.Interfaces;
@@ -23,6 +24,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
     IWavesNavigationService
 {
     private readonly WavesCore _core;
+    private readonly IWavesServiceProvider _serviceProvider;
 
     /// <summary>
     /// Creates new instance of <see cref="WavesNavigationServiceBase{TContent}"/>.
@@ -37,6 +39,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
         : base(configuration, logger)
     {
         _core = core;
+        _serviceProvider = _core.ServiceProvider;
         Histories = new Dictionary<string, Stack<IWavesViewModel>>();
         DialogSessions = new List<IWavesDialogViewModel>();
         PendingActions = new Dictionary<string, Action>();
@@ -102,7 +105,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
     public async Task NavigateAsync<T>(bool addToHistory = true)
         where T : class
     {
-        var viewModel = await _core.GetInstanceAsync<T>();
+        var viewModel = await _serviceProvider.GetInstanceAsync<T>();
         await NavigateAsync((IWavesViewModel)viewModel, addToHistory);
     }
 
@@ -112,7 +115,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
         bool addToHistory = true)
         where T : class
     {
-        var viewModel = await _core.GetInstanceAsync<T>();
+        var viewModel = await _serviceProvider.GetInstanceAsync<T>();
         await NavigateAsync((IWavesParameterizedViewModel<TParameter>)viewModel, parameter, addToHistory);
     }
 
@@ -121,7 +124,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
         bool addToHistory = true)
         where T : class
     {
-        var viewModel = await _core.GetInstanceAsync<T>();
+        var viewModel = await _serviceProvider.GetInstanceAsync<T>();
         return await NavigateAsync((IWavesViewModel<TResult>)viewModel, addToHistory);
     }
 
@@ -131,35 +134,35 @@ public abstract class WavesNavigationServiceBase<TContent> :
         bool addToHistory = true)
         where T : class
     {
-        var viewModel = await _core.GetInstanceAsync<T>();
+        var viewModel = await _serviceProvider.GetInstanceAsync<T>();
         return await NavigateAsync((IWavesViewModel<TParameter, TResult>)viewModel, parameter, addToHistory);
     }
 
     /// <inheritdoc />
     public async Task NavigateAsync(Type type, bool addToHistory = true)
     {
-        var viewModel = await _core.GetInstanceAsync(type);
+        var viewModel = await _serviceProvider.GetInstanceAsync(type);
         await NavigateAsync((IWavesViewModel)viewModel, addToHistory);
     }
 
     /// <inheritdoc />
     public async Task NavigateAsync<TParameter>(Type type, TParameter parameter, bool addToHistory = true)
     {
-        var viewModel = await _core.GetInstanceAsync(type);
+        var viewModel = await _serviceProvider.GetInstanceAsync(type);
         await NavigateAsync((IWavesParameterizedViewModel<TParameter>)viewModel, parameter, addToHistory);
     }
 
     /// <inheritdoc />
     public async Task<TResult> NavigateAsync<TResult>(Type type, bool addToHistory = true)
     {
-        var viewModel = await _core.GetInstanceAsync(type);
+        var viewModel = await _serviceProvider.GetInstanceAsync(type);
         return await NavigateAsync((IWavesViewModel<TResult>)viewModel, addToHistory);
     }
 
     /// <inheritdoc />
     public async Task<TResult> NavigateAsync<TParameter, TResult>(Type type, TParameter parameter, bool addToHistory = true)
     {
-        var viewModel = await _core.GetInstanceAsync(type);
+        var viewModel = await _serviceProvider.GetInstanceAsync(type);
         return await NavigateAsync((IWavesViewModel<TParameter, TResult>)viewModel, parameter, addToHistory);
     }
 
@@ -189,7 +192,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
     {
         try
         {
-            var view = await _core.GetInstanceAsync<IWavesView>(viewModel.GetType());
+            var view = await _serviceProvider.GetInstanceAsync<IWavesView>(viewModel.GetType());
 
             switch (view)
             {
@@ -221,7 +224,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
     {
         try
         {
-            var view = await _core.GetInstanceAsync<IWavesView>(viewModel.GetType());
+            var view = await _serviceProvider.GetInstanceAsync<IWavesView>(viewModel.GetType());
 
             switch (view)
             {
@@ -252,7 +255,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
     {
         try
         {
-            var view = await _core.GetInstanceAsync<IWavesView>(viewModel.GetType());
+            var view = await _serviceProvider.GetInstanceAsync<IWavesView>(viewModel.GetType());
 
             switch (view)
             {
@@ -282,7 +285,7 @@ public abstract class WavesNavigationServiceBase<TContent> :
     {
         try
         {
-            var view = await _core.GetInstanceAsync<IWavesView>(viewModel.GetType());
+            var view = await _serviceProvider.GetInstanceAsync<IWavesView>(viewModel.GetType());
 
             switch (view)
             {
