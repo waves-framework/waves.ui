@@ -74,6 +74,29 @@ public abstract class WavesNavigationServiceBase<TContent> :
     protected Dictionary<IWavesViewModel, IWavesWindow<TContent>> OpenedWindows { get; }
 
     /// <inheritdoc />
+    public async Task GoBackAsync(string region)
+    {
+        var history = Histories.FirstOrDefault(x => x.Key.Equals(region)).Value;
+        if (history != null)
+        {
+            if (history.Count <= 1)
+            {
+                return;
+            }
+
+            var removingViewModel = history.Pop();
+            if (removingViewModel is IWavesDialogViewModel removingDialogViewModel)
+            {
+                DialogSessions.Remove(removingDialogViewModel);
+            }
+
+            NotifyDialogEvents();
+
+            await NavigateAsync(history.First(), false);
+        }
+    }
+
+    /// <inheritdoc />
     public virtual async Task GoBackAsync(IWavesViewModel viewModel)
     {
         foreach (var history in Histories
