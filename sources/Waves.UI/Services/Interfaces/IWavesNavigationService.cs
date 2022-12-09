@@ -28,6 +28,13 @@ public interface IWavesNavigationService : IWavesConfigurablePlugin
     event EventHandler DialogsHidden;
 
     /// <summary>
+    /// Goes back on current region.
+    /// </summary>
+    /// <param name="region">Name of region.</param>
+    /// <returns>A<see cref="Task"/> representing the asynchronous operation.</returns>
+    Task GoBackAsync(string region);
+
+    /// <summary>
     /// Goes back.
     /// </summary>
     /// <param name="viewModel">Instance of <see cref="IWavesViewModel"/>.</param>
