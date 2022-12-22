@@ -74,6 +74,13 @@ public abstract class WavesNavigationServiceBase<TContent> :
     protected Dictionary<IWavesViewModel, IWavesWindow<TContent>> OpenedWindows { get; }
 
     /// <inheritdoc />
+    public Task<bool> CanGoBack(string region)
+    {
+        var history = Histories.FirstOrDefault(x => x.Key.Equals(region)).Value;
+        return history == null ? Task.FromResult(false) : Task.FromResult(history.Count > 1);
+    }
+
+    /// <inheritdoc />
     public async Task GoBackAsync(string region)
     {
         var history = Histories.FirstOrDefault(x => x.Key.Equals(region)).Value;

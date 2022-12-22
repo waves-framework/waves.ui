@@ -28,6 +28,13 @@ public interface IWavesNavigationService : IWavesConfigurablePlugin
     event EventHandler DialogsHidden;
 
     /// <summary>
+    /// Returns can go back in current region or not.
+    /// </summary>
+    /// <param name="region">Region name.</param>
+    /// <returns>Returns can go back or not.</returns>
+    Task<bool> CanGoBack(string region);
+
+    /// <summary>
     /// Goes back on current region.
     /// </summary>
     /// <param name="region">Name of region.</param>
