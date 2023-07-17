@@ -17,12 +17,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="ReactiveUI" Version="18.4.1" />
-      <PackageReference Include="ReactiveUI.Fody" Version="18.4.1" />
+      <PackageReference Include="ReactiveUI" Version="19.4.1" />
+      <PackageReference Include="ReactiveUI.Fody" Version="19.4.1" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)'=='Debug'">
-        <ProjectReference Include="..\..\submodules\core\sources\Waves.Core\Waves.Core.csproj" />
+        <ProjectReference Include="..\..\submodules\core\src\Waves.Core\Waves.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)'!='Debug'">

@@ -3,18 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Waves.UI", "..\sources\Waves.UI\Waves.UI.csproj", "{B8ECF9B4-ED14-467E-88B4-73D45A1C8964}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Waves.UI", "src\Waves.UI\Waves.UI.csproj", "{B8ECF9B4-ED14-467E-88B4-73D45A1C8964}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{98C2E114-F42D-4E50-ACF7-30B57413A430}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Props", "Props", "{56CAEF6A-0FF0-4383-9D23-76BBB152EA4F}"
 ProjectSection(SolutionItems) = preProject
-	..\build\props\common.props = ..\build\props\common.props
+	build\props\common.props = build\props\common.props
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1E084C47-C418-47B0-A45B-4469132D099F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Waves.Core", "..\submodules\core\sources\Waves.Core\Waves.Core.csproj", "{462307A9-E062-4619-8876-5F8F1B804521}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Waves.Core", "submodules\core\src\Waves.Core\Waves.Core.csproj", "{462307A9-E062-4619-8876-5F8F1B804521}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
